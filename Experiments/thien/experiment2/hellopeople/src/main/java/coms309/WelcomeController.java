@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 class WelcomeController {
 
     @GetMapping("/")
-    public String welcome() {
-        return "Hello and welcome to COMS 309";
-    }
+    public String welcome() {return "Hello and welcome to COMS 309";}
+    @GetMapping("/1")
+    public String welcome1() {return "This is hello world file";}
+
 }
