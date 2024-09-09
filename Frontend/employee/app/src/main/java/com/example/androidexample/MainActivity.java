@@ -12,25 +12,43 @@ import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView messageText;     // define message textview variable
+    private TextView checkText;     // define message textview variable
     private Button counterButton;     // define counter button variable
+
+    private Button checkButton;         // define button for check in/out
+    private boolean isCheckedIn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);             // link to Main activity XML
 
-
+        checkButton = findViewById(R.id.check_btn);
+        checkText = findViewById(R.id.check_txt);
 
         /* click listener on counter button pressed */
+
+        checkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isCheckedIn) {
+                    checkText.setText("Check out");
+                } else {
+                    checkText.setText("Check in");
+                }
+            }
+        });
+
+        /*
         counterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                /* when counter button is pressed, use intent to switch to Counter Activity */
+                /* when counter button is pressed, use intent to switch to Counter Activity
                 Intent intent = new Intent(MainActivity.this, CounterActivity.class);
                 startActivity(intent);
             }
         });
+        */
     }
 }

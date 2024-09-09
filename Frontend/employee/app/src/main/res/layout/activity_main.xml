@@ -17,7 +17,17 @@
         android:textSize="40dp"
         android:textAlignment="center"
         android:backgroundTint="@color/black"
-        android:text="Check In" />
+        android:text="" />
 
+    <TextView
+        android:id="@+id/check_txt"
+        android:layout_marginTop="-100dp"
+        android:layout_width="600dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:textSize="40dp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:text="Check in" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>
