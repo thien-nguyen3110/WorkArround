@@ -9,84 +9,89 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.PathVariable;
 
-
 import java.util.HashMap;
 
 /**
- * Controller used to showcase Create and Read from a LIST
- *
- * @author Vivek Bengre
+ * Controller to manage CRUDL operations for people.
+ * Uniquely modified with additional validation and features.
  */
 
 @RestController
 public class PeopleController {
 
-    // Note that there is only ONE instance of PeopleController in 
-    // Springboot system.
-    HashMap<String, Person> peopleList = new  HashMap<>();
+    // Store people using a HashMap where firstName is the key
+    private HashMap<String, Person> peopleDatabase = new HashMap<>();
 
-    //CRUDL (create/read/update/delete/list)
-    // use POST, GET, PUT, DELETE, GET methods for CRUDL
-
-    // THIS IS THE LIST OPERATION
-    // gets all the people in the list and returns it in JSON format
-    // This controller takes no input. 
-    // Springboot automatically converts the list to JSON format 
-    // in this case because of @ResponseBody
-    // Note: To LIST, we use the GET method
+    /**
+     * List all people in the database.
+     * @return HashMap of all persons in JSON format.
+     */
     @GetMapping("/people")
-    public  HashMap<String,Person> getAllPersons() {
-        return peopleList;
+    public HashMap<String, Person> getAllPeople() {
+        return peopleDatabase;
     }
 
-    // THIS IS THE CREATE OPERATION
-    // springboot automatically converts JSON input into a person object and 
-    // the method below enters it into the list.
-    // It returns a string message in THIS example.
-    // in this case because of @ResponseBody
-    // Note: To CREATE we use POST method
+    /**
+     * Create a new person and add them to the database.
+     * Prevents duplicate first names.
+     * @param person Person object in JSON format.
+     * @return Success or error message.
+     */
     @PostMapping("/people")
-    public  String createPerson(@RequestBody Person person) {
-        System.out.println(person);
-        peopleList.put(person.getFirstName(), person);
-        return "New person "+ person.getFirstName() + " Saved";
+    public String addPerson(@RequestBody Person person) {
+        if (peopleDatabase.containsKey(person.getFirstName())) {
+            return "Error: A person with the first name '" + person.getFirstName() + "' already exists.";
+        }
+        peopleDatabase.put(person.getFirstName(), person);
+        return "New person '" + person.getFirstName() + "' successfully added.";
     }
 
-    // THIS IS THE READ OPERATION
-    // Springboot gets the PATHVARIABLE from the URL
-    // We extract the person from the HashMap.
-    // springboot automatically converts Person to JSON format when we return it
-    // in this case because of @ResponseBody
-    // Note: To READ we use GET method
+    /**
+     * Get details of a specific person by their first name.
+     * @param firstName The first name of the person.
+     * @return Person object or error message.
+     */
     @GetMapping("/people/{firstName}")
     public Person getPerson(@PathVariable String firstName) {
-        Person p = peopleList.get(firstName);
-        return p;
+        return peopleDatabase.getOrDefault(firstName, null);
     }
 
-    // THIS IS THE UPDATE OPERATION
-    // We extract the person from the HashMap and modify it.
-    // Springboot automatically converts the Person to JSON format
-    // Springboot gets the PATHVARIABLE from the URL
-    // Here we are returning what we sent to the method
-    // in this case because of @ResponseBody
-    // Note: To UPDATE we use PUT method
+    /**
+     * Update the details of an existing person.
+     * @param firstName The first name of the person to be updated.
+     * @param updatedPerson Updated Person object.
+     * @return Updated Person object.
+     */
     @PutMapping("/people/{firstName}")
-    public Person updatePerson(@PathVariable String firstName, @RequestBody Person p) {
-        peopleList.replace(firstName, p);
-        return peopleList.get(firstName);
+    public Person updatePerson(@PathVariable String firstName, @RequestBody Person updatedPerson) {
+        peopleDatabase.replace(firstName, updatedPerson);
+        return peopleDatabase.get(firstName);
     }
 
-    // THIS IS THE DELETE OPERATION
-    // Springboot gets the PATHVARIABLE from the URL
-    // We return the entire list -- converted to JSON
-    // in this case because of @ResponseBody
-    // Note: To DELETE we use delete method
-    
+    /**
+     * Delete a person by their first name.
+     * @param firstName The first name of the person to be deleted.
+     * @return Updated list of people in the database.
+     */
     @DeleteMapping("/people/{firstName}")
     public HashMap<String, Person> deletePerson(@PathVariable String firstName) {
-        peopleList.remove(firstName);
-        return peopleList;
+        peopleDatabase.remove(firstName);
+        return peopleDatabase;
+    }
+
+    /**
+     * Search for people by last name.
+     * @param lastName The last name to search for.
+     * @return HashMap of people with matching last names.
+     */
+    @GetMapping("/people/search/{lastName}")
+    public HashMap<String, Person> searchByLastName(@PathVariable String lastName) {
+        HashMap<String, Person> result = new HashMap<>();
+        for (Person person : peopleDatabase.values()) {
+            if (person.getLastName().equalsIgnoreCase(lastName)) {
+                result.put(person.getFirstName(), person);
+            }
+        }
+        return result;
     }
 }
-
