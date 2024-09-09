@@ -7,15 +7,39 @@
     android:layout_width="match_parent"
     android:orientation="vertical">
 
+    <!-- Username input -->
+    <EditText
+        android:id="@+id/username_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Username"
+        android:inputType="text"
+        android:layout_marginTop="800px"/>
+
+    <!-- Password input -->
+    <EditText
+        android:id="@+id/password_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:inputType="textPassword" />
+
+    <!-- Submit button -->
+    <Button
+        android:id="@+id/submit_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="50px"
+        android:layout_gravity="center"
+        android:text="Submit" />
+    
+    <!-- Message display -->
     <TextView
         android:id="@+id/main_msg_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="50dp"
-        android:textSize="50dp"
-        android:textColor="#000000" >
-    </TextView>
+        android:text="Welcome to a random non working credential login page"
+        android:textSize="18sp"
+        android:layout_gravity="center" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>
