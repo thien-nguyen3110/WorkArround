@@ -16,6 +16,7 @@ public class SignupActivity extends AppCompatActivity {
     private EditText confirmEditText;   // define confirm edittext variable
     private Button loginButton;         // define login button variable
     private Button signupButton;        // define signup button variable
+    private Button showPasswordButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,7 @@ public class SignupActivity extends AppCompatActivity {
         confirmEditText = findViewById(R.id.signup_confirm_edt);    // link to confirm edtext in the Signup activity XML
         loginButton = findViewById(R.id.signup_login_btn);    // link to login button in the Signup activity XML
         signupButton = findViewById(R.id.signup_signup_btn);  // link to signup button in the Signup activity XML
+        showPasswordButton = findViewById(R.id.show_password_btn);
 
         /* click listener on login button pressed */
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +58,13 @@ public class SignupActivity extends AppCompatActivity {
                 else {
                     Toast.makeText(getApplicationContext(), "Password don't match", Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+
+        showPasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                passwordEditText.setInputType(1);
             }
         });
     }

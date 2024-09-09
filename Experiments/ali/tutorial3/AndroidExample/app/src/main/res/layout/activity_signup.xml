@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Signup Example"
+        android:text="Welcome to the app"
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
         android:layout_marginBottom="80dp"
@@ -118,6 +118,14 @@
         </Button>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/show_password_btn"
+        android:layout_width="20dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="-255dp"
+        android:layout_marginLeft="350dp"
+        android:text="Button" />
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>
