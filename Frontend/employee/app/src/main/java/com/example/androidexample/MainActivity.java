@@ -31,10 +31,12 @@ public class MainActivity extends AppCompatActivity {
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isCheckedIn) {
+                if (!isCheckedIn) {
                     checkText.setText("Check out");
+                    isCheckedIn = true;
                 } else {
                     checkText.setText("Check in");
+                    isCheckedIn = false;
                 }
             }
         });
