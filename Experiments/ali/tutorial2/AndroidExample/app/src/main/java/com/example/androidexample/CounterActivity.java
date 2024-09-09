@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ public class CounterActivity extends AppCompatActivity {
 
     private boolean backwards = false;
     private Switch counterBackwards;
+    private ProgressBar progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,7 @@ public class CounterActivity extends AppCompatActivity {
         numberTxt = findViewById(R.id.number);
         increaseBtn = findViewById(R.id.counter_increase_btn);
         backBtn = findViewById(R.id.counter_back_btn);
+        progress = findViewById(R.id.counter_progress);
 
         counterBackwards = findViewById(R.id.counter_back_switch);
 
@@ -40,17 +43,19 @@ public class CounterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!backwards) {
-                    numberTxt.setText(String.valueOf(++counter));
+                    counter++;
                 } else {
-                    numberTxt.setText(String.valueOf(--counter));
+                    counter--;
                 }
+                numberTxt.setText(String.valueOf(counter));
+                progress.setProgress(counter*10, true);
             }
         });
 
         counterBackwards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numberTxt.setText(String.valueOf(backwards = !backwards));
+                backwards = !backwards;
             }
         });
 
