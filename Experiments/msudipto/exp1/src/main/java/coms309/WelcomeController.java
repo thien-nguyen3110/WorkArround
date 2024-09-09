@@ -55,7 +55,7 @@ public class WelcomeController {
         if (isFormal) {
             return "Good day, " + formattedName + ". It is a pleasure to welcome you.";
         } else {
-            return "Hey " + formattedName + "! Welcome to the app, enjoy your stay!";
+            return "Hey" + formattedName + "! Welcome to the app, enjoy your stay!";
         }
     }
 
