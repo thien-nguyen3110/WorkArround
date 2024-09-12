@@ -9,6 +9,10 @@ class WelcomeController {
 
     @GetMapping("/")
     public String welcome() {
-        return "Welcome</br> Go to localhost:8080/owners/create to create dummy data </br>";
+        return "Welcome Spring boot 3 ";
+    }
+    @GetMapping("/id")
+    public String welcome1() {
+        return "Provide university id:  " + ;
     }
 }
