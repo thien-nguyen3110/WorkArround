@@ -6,9 +6,8 @@ package coms309;
  * @author Vivek Bengre
  */
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 class ExceptionController {
@@ -18,4 +17,19 @@ class ExceptionController {
         throw new RuntimeException("Check to see what happens when an exception is thrown");
     }
 
+    @GetMapping("/hayyo")
+    public ResponseEntity<String> handleRequest(@RequestParam("name") String name) {
+        if (!name.equals("Thien")) {
+//            throw new IllegalArgumentException("You are not me");
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok("Hello " + name);
+        }
+    }
+
 }
+
+
+
+
+
