@@ -66,6 +66,7 @@ public class Owners {
         
     }
 
+
     public Owners(int id, String firstName, String lastName, String address, String telephone){
         this.id = id;
         this.firstName = firstName;

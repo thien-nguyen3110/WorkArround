@@ -36,10 +36,8 @@ import java.util.Optional;
  */
 @RestController
 class OwnerController {
-
     @Autowired
     OwnerRepository ownersRepository;
-
     private final Logger logger = LoggerFactory.getLogger(OwnerController.class);
 
     @RequestMapping(method = RequestMethod.POST, path = "/owners/new")
@@ -75,5 +73,6 @@ class OwnerController {
         Optional<Owners> results = ownersRepository.findById(id);
         return results;
     }
+    record information()
 
 }
