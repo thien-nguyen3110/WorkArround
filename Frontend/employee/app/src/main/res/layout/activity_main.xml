@@ -21,13 +21,24 @@
 
     <TextView
         android:id="@+id/check_txt"
-        android:layout_marginTop="-100dp"
+        android:layout_marginTop="-140dp"
         android:layout_width="600dp"
         android:layout_height="150dp"
         android:layout_gravity="center"
-        android:textSize="40dp"
+        android:textSize="50dp"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:text="Check in" />
+
+    <TextView
+        android:id="@+id/check_clk_txt"
+        android:layout_marginTop="-80dp"
+        android:layout_width="600dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:textSize="35dp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:text="00:00:00"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>
