@@ -43,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
 
                 long total_time_ms = System.currentTimeMillis() - checked_time;
                 int seconds = (int) total_time_ms / 1000;
-                int minutes = (seconds / 60) % 60;
+                int minutes = (seconds / 60);
                 int hours = seconds / 60 / 60;
-                timerText.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
+                timerText.setText(String.format("%02d:%02d:%02d", hours, minutes%60, seconds%60));
                 timerHandler.postDelayed(this, 500);
             }
         };
