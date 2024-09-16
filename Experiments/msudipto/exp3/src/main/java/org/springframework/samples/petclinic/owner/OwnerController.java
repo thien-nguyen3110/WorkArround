@@ -43,6 +43,7 @@ class OwnerController {
             ownerRepository.save(owner);
             logger.info("New Owner {} saved", owner.getFirstName());
             return ResponseEntity.status(HttpStatus.CREATED)
+
                     .body("New Owner " + owner.getFirstName() + " Saved");
         } catch (Exception e) {
             logger.error("Error saving owner", e);
