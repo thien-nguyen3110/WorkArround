@@ -7,38 +7,23 @@
     android:layout_width="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/logo"
+        android:text="workAround"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:textSize="50dp"
+        android:textStyle="bold">
+    </TextView>
 
     <Button
-        android:id="@+id/check_btn"
-        android:layout_marginTop="100dp"
-        android:layout_width="600dp"
+        android:id="@+id/checkInButton"
+        android:layout_width="400dp"
         android:layout_height="150dp"
         android:layout_gravity="center"
-        android:textSize="40dp"
-        android:textAlignment="center"
-        android:backgroundTint="@color/black"
-        android:text="" />
-
-    <TextView
-        android:id="@+id/check_txt"
-        android:layout_marginTop="-140dp"
-        android:layout_width="600dp"
-        android:layout_height="150dp"
-        android:layout_gravity="center"
-        android:textSize="50dp"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:text="Check in" />
-
-    <TextView
-        android:id="@+id/check_clk_txt"
-        android:layout_marginTop="-80dp"
-        android:layout_width="600dp"
-        android:layout_height="150dp"
-        android:layout_gravity="center"
-        android:textSize="35dp"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:text="00:00:00"/>
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@android:color/red">
+    </Button>
 
 </androidx.appcompat.widget.LinearLayoutCompat>
