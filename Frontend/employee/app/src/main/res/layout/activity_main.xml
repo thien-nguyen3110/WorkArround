@@ -16,7 +16,6 @@
         android:layout_gravity="center"
         android:textSize="40dp"
         android:textAlignment="center"
-        android:backgroundTint="@color/black"
         android:text="" />
 
     <TextView
@@ -61,7 +60,7 @@
         android:textSize="16pt"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:text="Next Shift:" />
+        android:text="Next Shift" />
 
     <Button
         android:id="@+id/next_payday_btn"

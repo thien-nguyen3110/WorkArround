@@ -3,6 +3,7 @@ package com.example.androidexample;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -64,9 +65,11 @@ public class MainActivity extends AppCompatActivity {
                     isCheckedIn = true;
                     checked_time = System.currentTimeMillis();
                     timerHandler.postDelayed(timerRunnable, 0);
+                    checkButton.setBackgroundColor(Color.rgb(100, 10, 10));
                 } else {
                     checkText.setText("Check in");
                     isCheckedIn = false;
+                    checkButton.setBackgroundColor(Color.rgb(10, 100, 10));
                     timerText.setVisibility(View.INVISIBLE);
                 }
             }
