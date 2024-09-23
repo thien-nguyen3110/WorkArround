@@ -31,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
         checkText = findViewById(R.id.check_txt);
         timerText = findViewById(R.id.check_clk_txt);
 
+
+        checkText.setTextSize(32.0F);
+
         /* click listener on counter button pressed */
 
 
