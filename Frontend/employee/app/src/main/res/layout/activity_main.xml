@@ -25,7 +25,7 @@
         android:layout_width="600dp"
         android:layout_height="150dp"
         android:layout_gravity="center"
-        android:textSize="50dp"
+        android:textSize="16pt"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:text="Check in" />
@@ -36,9 +36,104 @@
         android:layout_width="600dp"
         android:layout_height="150dp"
         android:layout_gravity="center"
-        android:textSize="35dp"
+        android:textSize="16pt"
+        android:textAlignment="center"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:id="@+id/next_shift_btn"
+        android:layout_marginTop="-50dp"
+        android:layout_width="600dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:textSize="16pt"
+        android:textAlignment="center"
+        android:backgroundTint="@color/black"
+        android:text="" />
+
+
+    <TextView
+        android:id="@+id/next_shift_txt"
+        android:layout_marginTop="-140dp"
+        android:layout_width="600dp"
+        android:layout_height="150dp"
+        android:layout_gravity="right"
+        android:textSize="16pt"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:text="00:00:00"/>
+        android:text="Next Shift:" />
+
+    <Button
+        android:id="@+id/next_payday_btn"
+        android:layout_marginTop="10dp"
+        android:layout_width="600dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:textSize="40sp"
+        android:textAlignment="center"
+        android:backgroundTint="@color/black"
+        android:text="" />
+
+
+    <TextView
+        android:id="@+id/payday_txt"
+        android:layout_marginTop="-140dp"
+        android:layout_width="600dp"
+        android:layout_height="150dp"
+        android:layout_gravity="right"
+        android:textSize="16pt"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:text="   Next Payday" />
+
+
+    <Button
+        android:id="@+id/taskbar_0"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:layout_gravity="start"
+        android:textSize="40sp"
+        android:textAlignment="center"
+        android:backgroundTint="@color/black"
+        android:text="" />
+
+    <Button
+        android:id="@+id/taskbar_1"
+        android:layout_marginTop="-80dp"
+        android:layout_marginStart="110dp"
+        android:layout_width="95dp"
+        android:layout_height="80dp"
+        android:layout_gravity="start"
+        android:textSize="40sp"
+        android:textAlignment="center"
+        android:backgroundTint="@color/black"
+        android:text="" />
+
+    <Button
+        android:id="@+id/taskbar_2"
+        android:layout_marginTop="-80dp"
+        android:layout_marginStart="210dp"
+        android:layout_width="95dp"
+        android:layout_height="80dp"
+        android:layout_gravity="start"
+        android:textSize="40sp"
+        android:textAlignment="center"
+        android:backgroundTint="@color/black"
+        android:text="" />
+
+    <Button
+        android:id="@+id/taskbar_3"
+        android:layout_marginTop="-80dp"
+        android:layout_marginStart="310dp"
+        android:layout_width="95dp"
+        android:layout_height="80dp"
+        android:layout_gravity="start"
+        android:textSize="40sp"
+        android:textAlignment="center"
+        android:backgroundTint="@color/black"
+        android:text="" />
+
 
 </androidx.appcompat.widget.LinearLayoutCompat>
