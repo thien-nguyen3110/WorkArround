@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         checkText.setTextSize(32.0F);
+        checkButton.setBackgroundColor(Color.rgb(10, 100, 10));
+
 
         /* click listener on counter button pressed */
 
