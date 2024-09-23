@@ -71,19 +71,5 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
-        /*
-        counterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                /* when counter button is pressed, use intent to switch to Counter Activity
-                Intent intent = new Intent(MainActivity.this, CounterActivity.class);
-                startActivity(intent);
-            }
-        });
-        */
     }
 }
