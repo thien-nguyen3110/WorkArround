@@ -32,9 +32,12 @@ public class MainActivity extends AppCompatActivity {
         checkText = findViewById(R.id.check_txt);
         timerText = findViewById(R.id.check_clk_txt);
 
+        int check_green = Color.rgb(10, 100, 10);
+        int check_red = Color.rgb(100, 10, 10);
+
 
         checkText.setTextSize(32.0F);
-        checkButton.setBackgroundColor(Color.rgb(10, 100, 10));
+        checkButton.setBackgroundColor(check_green);
 
 
         /* click listener on counter button pressed */
@@ -67,11 +70,11 @@ public class MainActivity extends AppCompatActivity {
                     isCheckedIn = true;
                     checked_time = System.currentTimeMillis();
                     timerHandler.postDelayed(timerRunnable, 0);
-                    checkButton.setBackgroundColor(Color.rgb(100, 10, 10));
+                    checkButton.setBackgroundColor(check_red);
                 } else {
                     checkText.setText("Check in");
                     isCheckedIn = false;
-                    checkButton.setBackgroundColor(Color.rgb(10, 100, 10));
+                    checkButton.setBackgroundColor(check_green);
                     timerText.setVisibility(View.INVISIBLE);
                 }
             }
