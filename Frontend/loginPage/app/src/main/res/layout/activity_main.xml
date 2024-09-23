@@ -5,13 +5,47 @@
     tools:context=".MainActivity"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginTop="-50dp"
+    android:background="#FFF5E1">
 
     <ImageView
+        android:id="@+id/logo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/">
-
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/workLogo">
     </ImageView>
+
+    <EditText
+        android:id="@+id/usernameInput"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:hint="Username"
+        android:inputType="text"
+        android:layout_gravity="center"
+        android:layout_marginTop="-40dp">
+    </EditText>
+
+    <EditText
+        android:id="@+id/passwordInput"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp">
+    </EditText>
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="25dp"
+        android:layout_gravity="center"
+        android:text="Sign In"
+        android:backgroundTint="@color/black">
+    </Button>
 
 </androidx.appcompat.widget.LinearLayoutCompat>
