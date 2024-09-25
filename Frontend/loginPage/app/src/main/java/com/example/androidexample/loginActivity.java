@@ -1,15 +1,16 @@
 package com.example.androidexample;
 
 import androidx.appcompat.app.AppCompatActivity;
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import com.example.androidexample.EmployerActivity;
+
+//import com.example.androidexample.EmployerActivity;
 
 
 
-public class LoginActivity extends AppCompatActivity {
+public class loginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -24,8 +25,8 @@ public class LoginActivity extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, EmployerActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(LoginActivity.this, EmployerActivity.class);
+                //startActivity(intent);
             }
         });
     }
