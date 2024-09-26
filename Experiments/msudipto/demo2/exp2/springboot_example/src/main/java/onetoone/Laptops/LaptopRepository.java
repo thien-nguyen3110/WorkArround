@@ -3,15 +3,19 @@ package onetoone.Laptops;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 /**
- * 
+ *
  * @author Vivek Bengre
- * 
- */ 
+ *
+ */
 
 public interface LaptopRepository extends JpaRepository<Laptop, Long> {
-    Laptop findById(int id);
+
+    // Updated to return Optional for null safety and use Long for consistency with JpaRepository
+    Optional<Laptop> findById(Long id);
 
     @Transactional
-    void deleteById(int id);
+    void deleteById(Long id);
 }

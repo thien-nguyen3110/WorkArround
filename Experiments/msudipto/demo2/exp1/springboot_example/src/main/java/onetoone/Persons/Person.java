@@ -11,15 +11,15 @@ import jakarta.persistence.OneToOne;
 import onetoone.Laptops.Laptop;
 
 /**
- * 
+ *
  * @author Vivek Bengre
- * 
- */ 
+ *
+ */
 
 @Entity
 public class Person {
 
-     /* 
+    /*
      * The annotation @ID marks the field below as the primary key for the table created by springboot
      * The @GeneratedValue generates a value if not already present, The strategy in this case is to start from 1 and increment for each table
      */
@@ -28,7 +28,7 @@ public class Person {
     private int id;
     private String name;
     private String emailId;
-    private boolean ifActive;
+    private boolean isActive;
 
     /*
      * @OneToOne creates a relation between the current entity/table(Laptop) with the entity/table defined below it(Person)
@@ -40,10 +40,15 @@ public class Person {
     @JoinColumn(name = "laptop_id")
     private Laptop laptop;
 
+    // Constructor chaining for better reuse of code
     public Person(String name, String emailId) {
+        this(name, emailId, true);  // Use constructor chaining
+    }
+
+    public Person(String name, String emailId, boolean isActive) {
         this.name = name;
         this.emailId = emailId;
-        this.ifActive = true;
+        this.isActive = isActive;
     }
 
     public Person() {
@@ -51,44 +56,53 @@ public class Person {
 
     // =============================== Getters and Setters for each field ================================== //
 
-    public int getId(){
+    public int getId() {
         return id;
     }
 
-    public void setId(int id){
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public void setName(String name){
-        this.name = name;
+    public void setName(String name) {
+        if (name != null) {  // Null safety check
+            this.name = name;
+        }
     }
 
-    public String getEmailId(){
+    public String getEmailId() {
         return emailId;
     }
 
-    public void setEmailId(String emailId){
-        this.emailId = emailId;
+    public void setEmailId(String emailId) {
+        if (emailId != null) {  // Null safety check
+            this.emailId = emailId;
+        }
     }
 
-    public boolean getIsActive(){
-        return ifActive;
+    public boolean getIsActive() {
+        return isActive;
     }
 
-    public void setIfActive(boolean ifActive){
-        this.ifActive = ifActive;
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
     }
 
-    public Laptop getLaptop(){
+    public Laptop getLaptop() {
         return laptop;
     }
 
-    public void setLaptop(Laptop laptop){
+    public void setLaptop(Laptop laptop) {
         this.laptop = laptop;
     }
-    
+
+    // Override toString for better logging and debugging
+    @Override
+    public String toString() {
+        return "Person [id=" + id + ", name=" + name + ", emailId=" + emailId + ", isActive=" + isActive + "]";
+    }
 }
