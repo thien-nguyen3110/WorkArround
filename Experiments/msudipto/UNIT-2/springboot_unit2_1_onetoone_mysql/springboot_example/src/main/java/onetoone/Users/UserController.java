@@ -1,6 +1,7 @@
 package onetoone.Users;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,10 +16,10 @@ import onetoone.Laptops.Laptop;
 import onetoone.Laptops.LaptopRepository;
 
 /**
- * 
+ *
  * @author Vivek Bengre
- * 
- */ 
+ *
+ */
 
 @RestController
 public class UserController {
@@ -38,8 +39,9 @@ public class UserController {
     }
 
     @GetMapping(path = "/users/{id}")
-    User getUserById( @PathVariable int id){
-        return userRepository.findById(id);
+    User getUserById(@PathVariable int id) {
+        Optional<User> user = userRepository.findById(id);
+        return user.orElse(null);  // Return null if not found
     }
 
     @PostMapping(path = "/users")
@@ -51,28 +53,35 @@ public class UserController {
     }
 
     @PutMapping("/users/{id}")
-    User updateUser(@PathVariable int id, @RequestBody User request){
-        User user = userRepository.findById(id);
-        if(user == null)
-            return null;
+    String updateUser(@PathVariable int id, @RequestBody User request) {
+        Optional<User> existingUser = userRepository.findById(id);
+        if (!existingUser.isPresent()) {
+            return failure;  // Return failure if the user is not found
+        }
         userRepository.save(request);
-        return userRepository.findById(id);
-    }   
-    
+        return success;  // Return success after saving the updated user
+    }
+
     @PutMapping("/users/{userId}/laptops/{laptopId}")
-    String assignLaptopToUser(@PathVariable int userId,@PathVariable int laptopId){
-        User user = userRepository.findById(userId);
-        Laptop laptop = laptopRepository.findById(laptopId);
-        if(user == null || laptop == null)
-            return failure;
-        laptop.setUser(user);
-        user.setLaptop(laptop);
-        userRepository.save(user);
+    String assignLaptopToUser(@PathVariable int userId, @PathVariable int laptopId){
+        Optional<User> user = userRepository.findById(userId);
+        Optional<Laptop> laptop = laptopRepository.findById(laptopId);
+
+        if (!user.isPresent() || !laptop.isPresent())
+            return failure;  // Return failure if either user or laptop is not found
+
+        laptop.get().setUser(user.get());
+        user.get().setLaptop(laptop.get());
+
+        userRepository.save(user.get());
         return success;
     }
 
     @DeleteMapping(path = "/users/{id}")
-    String deleteUser(@PathVariable int id){
+    String deleteUser(@PathVariable int id) {
+        if (!userRepository.existsById(id)) {
+            return failure;  // Return failure if user doesn't exist
+        }
         userRepository.deleteById(id);
         return success;
     }
