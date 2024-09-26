@@ -1,6 +1,7 @@
 package onetoone.Laptops;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,10 +17,10 @@ import onetoone.Persons.Person;
 import onetoone.Persons.PersonRepository;
 
 /**
- * 
+ *
  * @author Vivek Bengre
- * 
- */ 
+ *
+ */
 
 @RestController
 public class LaptopController {
@@ -29,47 +30,58 @@ public class LaptopController {
 
     @Autowired
     PersonRepository personRepository;
-    
+
     private String success = "{\"message\":\"success\"}";
     private String failure = "{\"message\":\"failure\"}";
 
     @GetMapping(path = "/laptops")
-    List<Laptop> getAllLaptops(){
+    List<Laptop> getAllLaptops() {
         return laptopRepository.findAll();
     }
 
     @GetMapping(path = "/laptops/{id}")
-    Laptop getLaptopById(@PathVariable int id){
-        return laptopRepository.findById(id);
+    Laptop getLaptopById(@PathVariable int id) {
+        Optional<Laptop> laptop = Optional.ofNullable(laptopRepository.findById(id));
+        return laptop.orElse(null);  // Return null if not found
     }
 
     @PostMapping(path = "/laptops")
-    String createLaptop(@RequestBody Laptop Laptop){
-        if (Laptop == null)
+    String createLaptop(@RequestBody Laptop laptop) {
+        if (laptop == null)
             return failure;
-        laptopRepository.save(Laptop);
+        laptopRepository.save(laptop);
         return success;
     }
 
     @PutMapping(path = "/laptops/{id}")
-    Laptop updateLaptop(@PathVariable int id, @RequestBody Laptop request){
-        Laptop laptop = laptopRepository.findById(id);
-        if(laptop == null)
+    Laptop updateLaptop(@PathVariable int id, @RequestBody Laptop request) {
+        Optional<Laptop> existingLaptop = Optional.ofNullable(laptopRepository.findById(id));
+        if (!existingLaptop.isPresent())
             return null;
+
+        // Save the updated laptop
         laptopRepository.save(request);
-        return laptopRepository.findById(id);
+        return request;  // Return the updated laptop
     }
 
+    @Transactional
     @DeleteMapping(path = "/laptops/{id}")
-    String deleteLaptop(@PathVariable int id){
+    String deleteLaptop(@PathVariable int id) {
+        // Check if there is a Person associated with the laptop
+        Optional<Person> person = Optional.ofNullable(personRepository.findByLaptop_Id(id));
 
-        // Check if there is an object depending on Person and then remove the dependency
-        Person person = personRepository.findByLaptop_Id(id);
-        person.setLaptop(null);
-        personRepository.save(person);
+        if (person.isPresent()) {
+            // Remove the laptop reference in Person entity
+            person.get().setLaptop(null);
+            personRepository.save(person.get());
+        }
 
-        // delete the laptop if the changes have not been reflected by the above statement
-        laptopRepository.deleteById(id);
-        return success;
+        // Delete the laptop
+        Optional<Laptop> laptop = Optional.ofNullable(laptopRepository.findById(id));
+        if (laptop.isPresent()) {
+            laptopRepository.deleteById(id);
+            return success;
+        }
+        return failure;
     }
 }
