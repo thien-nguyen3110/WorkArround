@@ -39,9 +39,9 @@ public class LaptopController {
         return laptopRepository.findAll();
     }
 
-    @GetMapping(path = "/laptops/{id}")
+    @GetMapping(path = "/Laptops/{id}")
     Laptop getLaptopById(@PathVariable int id) {
-        Optional<Laptop> laptop = Optional.ofNullable(laptopRepository.findById(id));
+        Optional<Laptop> laptop = laptopRepository.findById(id);  // No need to wrap in Optional.ofNullable
         return laptop.orElse(null);  // Return null if not found
     }
 
@@ -53,11 +53,13 @@ public class LaptopController {
         return success;
     }
 
-    @PutMapping(path = "/laptops/{id}")
+    @PutMapping(path = "/Laptops/{id}")
     Laptop updateLaptop(@PathVariable int id, @RequestBody Laptop request) {
-        Optional<Laptop> existingLaptop = Optional.ofNullable(laptopRepository.findById(id));
-        if (!existingLaptop.isPresent())
-            return null;
+        Optional<Laptop> existingLaptop = laptopRepository.findById(id);  // No need for Optional.ofNullable
+
+        if (!existingLaptop.isPresent()) {
+            return null;  // Return null if the Laptop doesn't exist
+        }
 
         // Save the updated laptop
         laptopRepository.save(request);
@@ -77,7 +79,7 @@ public class LaptopController {
         }
 
         // Delete the laptop
-        Optional<Laptop> laptop = Optional.ofNullable(laptopRepository.findById(id));
+        Optional<Laptop> laptop = laptopRepository.findById(id);
         if (laptop.isPresent()) {
             laptopRepository.deleteById(id);
             return success;

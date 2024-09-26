@@ -56,7 +56,7 @@ public class Person {
 
     // =============================== Getters and Setters for each field ================================== //
 
-    public int getId() {
+    public long getId() {  // Fixing return type to int
         return id;
     }
 

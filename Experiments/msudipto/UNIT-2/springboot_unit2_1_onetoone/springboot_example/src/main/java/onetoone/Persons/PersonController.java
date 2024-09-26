@@ -39,8 +39,8 @@ public class PersonController {
     }
 
     @GetMapping(path = "/Persons/{id}")
-    Person getPersonById(@PathVariable int id) {
-        Optional<Person> person = Optional.ofNullable(personRepository.findById(id));
+    Person getPersonById(@PathVariable Long id) {  // Changed int to Long
+        Optional<Person> person = personRepository.findById(id);
         return person.orElse(null);  // Handle Optional safely
     }
 
@@ -53,12 +53,12 @@ public class PersonController {
     }
 
     @PutMapping("/Persons/{id}")
-    Person updatePerson(@PathVariable int id, @RequestBody Person request) {
-        Optional<Person> existingPerson = Optional.ofNullable(personRepository.findById(id));
+    Person updatePerson(@PathVariable Long id, @RequestBody Person request) {
+        Optional<Person> existingPerson = personRepository.findById(id);
 
         if (!existingPerson.isPresent()) {
             throw new RuntimeException("Person id does not exist");
-        } else if (request.getId() != id) {
+        } else if (request.getId() != id) {  // Use '==' for primitive comparison
             throw new RuntimeException("Path variable id does not match Person request id");
         }
 
@@ -68,8 +68,8 @@ public class PersonController {
     }
 
     @PutMapping("/Persons/{PersonId}/laptops/{laptopId}")
-    String assignLaptopToPerson(@PathVariable int PersonId, @PathVariable int laptopId) {
-        Optional<Person> person = Optional.ofNullable(personRepository.findById(PersonId));
+    String assignLaptopToPerson(@PathVariable Long PersonId, @PathVariable int laptopId) {  // Changed int to Long for PersonId
+        Optional<Person> person = personRepository.findById(PersonId);
         Optional<Laptop> laptop = laptopRepository.findById(laptopId);
 
         if (!person.isPresent() || !laptop.isPresent())
@@ -84,8 +84,8 @@ public class PersonController {
     }
 
     @DeleteMapping(path = "/Persons/{id}")
-    String deletePerson(@PathVariable int id) {
-        if (!personRepository.existsById((long) id)) {
+    String deletePerson(@PathVariable Long id) {  // Changed int to Long
+        if (!personRepository.existsById(id)) {
             return failure;
         }
         personRepository.deleteById(id);
