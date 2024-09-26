@@ -32,8 +32,8 @@ public class LaptopController {
         return laptopRepository.findAll();
     }
 
-    @GetMapping(path = "/laptops/{id}")
-    Laptop getLaptopById(@PathVariable int id) {
+    @GetMapping(path = "/Laptops/{id}")
+    Laptop getLaptopById(@PathVariable Long id) {
         Optional<Laptop> laptop = laptopRepository.findById(id);
         return laptop.orElse(null);  // Return null if not found
     }
@@ -48,7 +48,7 @@ public class LaptopController {
     }
 
     @PutMapping(path = "/laptops/{id}")
-    String updateLaptop(@PathVariable int id, @RequestBody Laptop request) {
+    String updateLaptop(@PathVariable Long id, @RequestBody Laptop request) {
         Optional<Laptop> existingLaptop = laptopRepository.findById(id);
         if (!existingLaptop.isPresent()) {
             return failure;  // Return failure if the laptop does not exist
@@ -58,7 +58,7 @@ public class LaptopController {
     }
 
     @DeleteMapping(path = "/laptops/{id}")
-    String deleteLaptop(@PathVariable int id) {
+    String deleteLaptop(@PathVariable Long id) {
         if (!laptopRepository.existsById(id)) {
             return failure;  // Return failure if the laptop doesn't exist
         }

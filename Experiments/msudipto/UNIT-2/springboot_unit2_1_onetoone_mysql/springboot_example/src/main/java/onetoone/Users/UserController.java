@@ -39,7 +39,7 @@ public class UserController {
     }
 
     @GetMapping(path = "/users/{id}")
-    User getUserById(@PathVariable int id) {
+    User getUserById(@PathVariable Long id) {
         Optional<User> user = userRepository.findById(id);
         return user.orElse(null);  // Return null if not found
     }
@@ -53,7 +53,7 @@ public class UserController {
     }
 
     @PutMapping("/users/{id}")
-    String updateUser(@PathVariable int id, @RequestBody User request) {
+    String updateUser(@PathVariable Long id, @RequestBody User request) {
         Optional<User> existingUser = userRepository.findById(id);
         if (!existingUser.isPresent()) {
             return failure;  // Return failure if the user is not found
@@ -63,7 +63,7 @@ public class UserController {
     }
 
     @PutMapping("/users/{userId}/laptops/{laptopId}")
-    String assignLaptopToUser(@PathVariable int userId, @PathVariable int laptopId){
+    String assignLaptopToUser(@PathVariable Long userId, @PathVariable Long laptopId){
         Optional<User> user = userRepository.findById(userId);
         Optional<Laptop> laptop = laptopRepository.findById(laptopId);
 
@@ -78,7 +78,7 @@ public class UserController {
     }
 
     @DeleteMapping(path = "/users/{id}")
-    String deleteUser(@PathVariable int id) {
+    String deleteUser(@PathVariable Long id) {
         if (!userRepository.existsById(id)) {
             return failure;  // Return failure if user doesn't exist
         }
