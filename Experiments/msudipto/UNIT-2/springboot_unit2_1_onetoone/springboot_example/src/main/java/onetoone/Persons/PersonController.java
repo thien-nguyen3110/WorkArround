@@ -39,7 +39,7 @@ public class PersonController {
     }
 
     @GetMapping(path = "/Persons/{id}")
-    Person getPersonById(@PathVariable Long id) {  // Changed int to Long
+    Person getPersonById(@PathVariable Long id) {
         Optional<Person> person = personRepository.findById(id);
         return person.orElse(null);  // Handle Optional safely
     }
@@ -58,7 +58,7 @@ public class PersonController {
 
         if (!existingPerson.isPresent()) {
             throw new RuntimeException("Person id does not exist");
-        } else if (request.getId() != id) {  // Use '==' for primitive comparison
+        } else if (request.getId() != id) {
             throw new RuntimeException("Path variable id does not match Person request id");
         }
 
@@ -68,7 +68,7 @@ public class PersonController {
     }
 
     @PutMapping("/Persons/{PersonId}/laptops/{laptopId}")
-    String assignLaptopToPerson(@PathVariable Long PersonId, @PathVariable int laptopId) {  // Changed int to Long for PersonId
+    String assignLaptopToPerson(@PathVariable Long PersonId, @PathVariable Long laptopId) {
         Optional<Person> person = personRepository.findById(PersonId);
         Optional<Laptop> laptop = laptopRepository.findById(laptopId);
 
@@ -84,7 +84,7 @@ public class PersonController {
     }
 
     @DeleteMapping(path = "/Persons/{id}")
-    String deletePerson(@PathVariable Long id) {  // Changed int to Long
+    String deletePerson(@PathVariable Long id) {
         if (!personRepository.existsById(id)) {
             return failure;
         }

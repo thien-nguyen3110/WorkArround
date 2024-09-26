@@ -39,10 +39,10 @@ public class LaptopController {
         return laptopRepository.findAll();
     }
 
-    @GetMapping(path = "/Laptops/{id}")
+    @GetMapping(path = "/laptops/{id}")
     Laptop getLaptopById(@PathVariable int id) {
-        Optional<Laptop> laptop = laptopRepository.findById(id);  // No need to wrap in Optional.ofNullable
-        return laptop.orElse(null);  // Return null if not found
+        Optional<Laptop> laptop = laptopRepository.findById(id);
+        return laptop.orElse(null);  // Return null if not found (consider adding a proper error handling strategy)
     }
 
     @PostMapping(path = "/laptops")
@@ -53,29 +53,27 @@ public class LaptopController {
         return success;
     }
 
-    @PutMapping(path = "/Laptops/{id}")
+    @PutMapping(path = "/laptops/{id}")
     Laptop updateLaptop(@PathVariable int id, @RequestBody Laptop request) {
-        Optional<Laptop> existingLaptop = laptopRepository.findById(id);  // No need for Optional.ofNullable
-
-        if (!existingLaptop.isPresent()) {
-            return null;  // Return null if the Laptop doesn't exist
-        }
+        Optional<Laptop> existingLaptop = laptopRepository.findById(id);
+        if (!existingLaptop.isPresent())
+            return null;
 
         // Save the updated laptop
         laptopRepository.save(request);
-        return request;  // Return the updated laptop
+        return request;
     }
 
     @Transactional
     @DeleteMapping(path = "/laptops/{id}")
     String deleteLaptop(@PathVariable int id) {
         // Check if there is a Person associated with the laptop
-        Optional<Person> person = Optional.ofNullable(personRepository.findByLaptop_Id(id));
+        Person person = personRepository.findByLaptop_Id(id);
 
-        if (person.isPresent()) {
+        if (person != null) {
             // Remove the laptop reference in Person entity
-            person.get().setLaptop(null);
-            personRepository.save(person.get());
+            person.setLaptop(null);
+            personRepository.save(person);
         }
 
         // Delete the laptop
