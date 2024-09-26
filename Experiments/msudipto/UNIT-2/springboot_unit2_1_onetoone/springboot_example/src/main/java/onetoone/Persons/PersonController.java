@@ -1,9 +1,9 @@
 package onetoone.Persons;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,16 +16,16 @@ import onetoone.Laptops.Laptop;
 import onetoone.Laptops.LaptopRepository;
 
 /**
- * 
+ *
  * @author Vivek Bengre
- * 
- */ 
+ *
+ */
 
 @RestController
 public class PersonController {
 
     @Autowired
-    PersonRepository PersonRepository;
+    PersonRepository personRepository;
 
     @Autowired
     LaptopRepository laptopRepository;
@@ -34,63 +34,61 @@ public class PersonController {
     private String failure = "{\"message\":\"failure\"}";
 
     @GetMapping(path = "/Persons")
-    List<Person> getAllPersons(){
-        return PersonRepository.findAll();
+    List<Person> getAllPersons() {
+        return personRepository.findAll();
     }
 
     @GetMapping(path = "/Persons/{id}")
-    Person getPersonById( @PathVariable int id){
-        return PersonRepository.findById(id);
+    Person getPersonById(@PathVariable int id) {
+        Optional<Person> person = Optional.ofNullable(personRepository.findById(id));
+        return person.orElse(null);  // Handle Optional safely
     }
 
     @PostMapping(path = "/Persons")
-    String createPerson(@RequestBody Person Person){
-        if (Person == null)
+    String createPerson(@RequestBody Person person) {
+        if (person == null)
             return failure;
-        PersonRepository.save(Person);
+        personRepository.save(person);
         return success;
     }
 
-    /* not safe to update */
-//    @PutMapping("/Persons/{id}")
-//    Person updatePerson(@PathVariable int id, @RequestBody Person request){
-//        Person Person = PersonRepository.findById(id);
-//        if(Person == null)
-//            return null;
-//        PersonRepository.save(request);
-//        return PersonRepository.findById(id);
-//    }
-
     @PutMapping("/Persons/{id}")
-    Person updatePerson(@PathVariable int id, @RequestBody Person request){
-        Person Person = PersonRepository.findById(id);
+    Person updatePerson(@PathVariable int id, @RequestBody Person request) {
+        Optional<Person> existingPerson = Optional.ofNullable(personRepository.findById(id));
 
-        if(Person == null) {
+        if (!existingPerson.isPresent()) {
             throw new RuntimeException("Person id does not exist");
-        }
-        else if (Person.getId() != id){
-            throw new RuntimeException("path variable id does not match Person request id");
+        } else if (request.getId() != id) {
+            throw new RuntimeException("Path variable id does not match Person request id");
         }
 
-        PersonRepository.save(request);
-        return PersonRepository.findById(id);
+        // Save the updated person
+        personRepository.save(request);
+        return request;
     }
 
     @PutMapping("/Persons/{PersonId}/laptops/{laptopId}")
-    String assignLaptopToPerson(@PathVariable int PersonId,@PathVariable int laptopId){
-        Person Person = PersonRepository.findById(PersonId);
-        Laptop laptop = laptopRepository.findById(laptopId);
-        if(Person == null || laptop == null)
+    String assignLaptopToPerson(@PathVariable int PersonId, @PathVariable int laptopId) {
+        Optional<Person> person = Optional.ofNullable(personRepository.findById(PersonId));
+        Optional<Laptop> laptop = laptopRepository.findById(laptopId);
+
+        if (!person.isPresent() || !laptop.isPresent())
             return failure;
-        laptop.setPerson(Person);
-        Person.setLaptop(laptop);
-        PersonRepository.save(Person);
+
+        // Set relationships both ways
+        laptop.get().setPerson(person.get());
+        person.get().setLaptop(laptop.get());
+
+        personRepository.save(person.get());
         return success;
     }
 
     @DeleteMapping(path = "/Persons/{id}")
-    String deletePerson(@PathVariable int id){
-        PersonRepository.deleteById(id);
+    String deletePerson(@PathVariable int id) {
+        if (!personRepository.existsById((long) id)) {
+            return failure;
+        }
+        personRepository.deleteById(id);
         return success;
     }
 }
