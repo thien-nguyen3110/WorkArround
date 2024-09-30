@@ -71,7 +71,6 @@ public class loginActivity extends AppCompatActivity {
                     passwordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                     showPassword.setImageResource(R.drawable.eyeshow);
                 }
-
                 isPasswordVisible = !isPasswordVisible;
             }
         });
