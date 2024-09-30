@@ -25,7 +25,11 @@
             </intent-filter>
         </activity>
         <activity android:name="com.example.androidexample.employerActivity" />
+<<<<<<< HEAD
         <activity android:name="com.example.androidexample.forgotpasswordActivity" />
+=======
+        <activity android:name=".forgotpasswordActivity" />
+>>>>>>> 70b1b6831fcc64edea62f96564cebe8c54ceb8b7
     </application>
 
 </manifest>
