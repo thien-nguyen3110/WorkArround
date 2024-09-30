@@ -121,5 +121,16 @@
         android:textAlignment="center">
     </TextView>
 
+    <Button
+        android:id="@+id/newUserJoin"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/transparent">
+
+    </Button>
+
+
 
 </androidx.appcompat.widget.LinearLayoutCompat>
