@@ -21,6 +21,7 @@ public class loginActivity extends AppCompatActivity {
     private Button submitButton;
     private ImageButton showPassword;
     private Button forgotPasswordButton;
+    private Button newUserButton;
 
 
     boolean isPasswordVisible = false;
@@ -37,6 +38,7 @@ public class loginActivity extends AppCompatActivity {
         messageText = findViewById(R.id.mainMessage);
         showPassword = findViewById(R.id.showPassword);
         forgotPasswordButton = findViewById(R.id.forgotButton);
+        newUserButton = findViewById(R.id.newUserJoin);
 
 
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -81,5 +83,15 @@ public class loginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        newUserButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(loginActivity.this, forgotpasswordActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 }
