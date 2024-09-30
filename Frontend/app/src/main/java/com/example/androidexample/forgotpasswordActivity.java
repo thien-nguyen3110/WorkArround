@@ -19,6 +19,23 @@ public class forgotpasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.forgotpassword);
 
+        back_button = findViewById(R.id.backButton);
+        email_input = findViewById(R.id.usernameInput);
+        submit_button = findViewById(R.id.submitButton);
+
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(forgotpasswordActivity.this, loginActivity.class);
+            }
+        });
+
+        submit_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String s = email_input.getText().toString();
+            }
+        });
 
 
     }
