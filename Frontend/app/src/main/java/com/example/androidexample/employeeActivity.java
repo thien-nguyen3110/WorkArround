@@ -2,6 +2,7 @@ package com.example.androidexample;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -77,6 +78,14 @@ public class employeeActivity extends AppCompatActivity {
                     checkButton.setBackgroundColor(check_green);
                     timerText.setVisibility(View.INVISIBLE);
                 }
+            }
+        });
+
+        signoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(employeeActivity.this, loginActivity.class);
+                startActivity(intent);
             }
         });
     }

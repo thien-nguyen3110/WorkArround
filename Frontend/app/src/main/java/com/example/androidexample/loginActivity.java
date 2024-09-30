@@ -79,6 +79,7 @@ public class loginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 System.out.println("a");
                 Intent intent = new Intent(loginActivity.this, forgotpasswordActivity.class);
+                startActivity(intent);
             }
         });
     }
