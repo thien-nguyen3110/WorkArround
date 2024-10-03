@@ -43,6 +43,10 @@ public class forgotpasswordActivity extends AppCompatActivity {
 
                 if(email.equals("admin123@gmail.com")){
                     //Send reset password to email
+
+                    //Send user to email sent page
+                    Intent intent = new Intent(forgotpasswordActivity.this, forgotPasswordVerifiedActivity.class);
+                    startActivity(intent);
                 }
 
                 //Email not in database send message letting them know

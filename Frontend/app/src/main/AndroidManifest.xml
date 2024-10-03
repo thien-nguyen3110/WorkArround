@@ -30,13 +30,12 @@
             />
 
         <activity
-            android:name="com.example.androidexample.forgotpasswordActivity"
+            android:name=".forgotpasswordActivity"
             android:exported="true"
             />
         <activity
-            android:name="com.example.androidexample.forgotPasswordVerifiedActivity"
-            android:exported="true"
-            tools:ignore="Instantiatable" />
+            android:name=".forgotPasswordVerifiedActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
