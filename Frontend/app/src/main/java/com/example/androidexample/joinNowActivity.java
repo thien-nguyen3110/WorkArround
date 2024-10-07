@@ -89,7 +89,16 @@ public class joinNowActivity extends AppCompatActivity {
 
                 //Check to see if passwords match
                 if(passwordFilled.equals(verifyPasswordFilled)){
-                    is
+                    isPasswordsMatch = true;
+                }
+                else{
+                    isPasswordsMatch = false;
+                    verifyPasswordErrorMessage.setText("Passwords do not match");
+                }
+
+                if(isNameFilled && isEmailFilled && isPasswordFilled && isPasswordsMatch){
+                    Intent intent = new Intent(joinNowActivity.this, loginActivity.class);
+                    startActivity(intent);
                 }
 
             }
