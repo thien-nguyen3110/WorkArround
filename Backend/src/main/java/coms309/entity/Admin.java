@@ -1,19 +1,17 @@
 package coms309.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Data;
 
+@Data
+@Entity
 public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "admin_id")
-    private Long AdminId;
+    private Long adminId;
 
-    @Column(name = "name", nullable = false)
-    private String AdminName;
-
-    @Column(name="UserProfile", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "u_id", referencedColumnName = "user_id")
     private UserProfile userProfile;
 }

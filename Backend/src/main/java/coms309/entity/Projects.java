@@ -23,9 +23,10 @@ public class Projects {
     @Column(name = "end_date", nullable = false)
     private Date endDate;
 
-    @Column(name = "project_manager", nullable = false)
-    private String projectManager;
 
     @Column(name = "status", nullable = false)
     private String status;
+
+
+
 }

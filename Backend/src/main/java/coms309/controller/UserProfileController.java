@@ -10,13 +10,17 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/userprofiles")
+@RequestMapping("/api/userprofile")
 public class UserProfileController {
 
     @Autowired
-    private UserProfileRepository userProfileRepository;
+    private final UserProfileRepository userProfileRepository;
 
-    @GetMapping
+    public UserProfileController(UserProfileRepository userProfileRepository) {
+        this.userProfileRepository = userProfileRepository;
+    }
+
+    @GetMapping("/all")
     public List<UserProfile> getAllUserProfiles() {
         return userProfileRepository.findAll();
     }
@@ -27,7 +31,7 @@ public class UserProfileController {
         return userProfile.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public UserProfile createUserProfile(@RequestBody UserProfile userProfile) {
         return userProfileRepository.save(userProfile);
     }
@@ -52,7 +56,7 @@ public class UserProfileController {
             return ResponseEntity.notFound().build();
         }
     }
-    
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUserProfile(@PathVariable Long id) {

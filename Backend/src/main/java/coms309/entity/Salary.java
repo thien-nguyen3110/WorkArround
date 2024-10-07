@@ -2,6 +2,8 @@ package coms309.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 
 @Entity
 @Table(name= "salaries")
@@ -12,9 +14,13 @@ public class Salary {
     @Column(name = "salary_id")
     private Long salaryId;
 
-    @ManyToOne
-    @JoinColumn(name = "employee_id", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "eID_salary", referencedColumnName = "employee_id")
     private Employee employee;
+
+    @ManyToOne
+    @JoinColumn(name = "erID_salary", referencedColumnName = "employer_id")
+    private Employer employers;
 
     @Column(name = "base_salary", nullable = false)
     private Double baseSalary;

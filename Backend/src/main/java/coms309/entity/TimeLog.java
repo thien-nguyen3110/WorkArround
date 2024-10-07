@@ -13,7 +13,7 @@ public class TimeLog {
     private Long logId;
 
     @ManyToOne
-    @JoinColumn(name = "employee_id", nullable = false)
+    @JoinColumn(name = "employee_id", referencedColumnName = "employee_id")
     private Employee employee;
 
     @Column(name = "date", nullable = false)

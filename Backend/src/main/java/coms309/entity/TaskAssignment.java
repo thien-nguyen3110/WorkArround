@@ -35,6 +35,6 @@ public class TaskAssignment {
     @Column(name = "completion_status", nullable = false)
     private String completionStatus; // E.g., 'Not Started', 'In Progress', 'Completed'
 
-    // Getters and Setters
+
 }
 

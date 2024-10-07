@@ -3,9 +3,6 @@ package coms309.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.Date;
 
 @Entity
 @Getter
@@ -18,14 +15,14 @@ public class Employee {
         @Column(name = "employee_id")
         private Long employeeId;
 
-        @Column(name = "name", nullable = false)
-        private String employeeName;
-
-        @Column(name="UserProfile", nullable = false)
+        @OneToOne
+        @JoinColumn (name = "u_id", referencedColumnName = "user_id")
         private UserProfile userProfile;
 
+        @ManyToOne
+        @JoinColumn(name = "e_projects" , referencedColumnName = "project_id")
+        private Projects projects;
 
-        @GetMapping("\users")
-        public String
+
 
 }

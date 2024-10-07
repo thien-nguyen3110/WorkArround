@@ -3,6 +3,7 @@ import jakarta.persistence.*;
 
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "leave_requests")
@@ -14,11 +15,11 @@ public class LeaveRequests {
     private Long leaveId;
 
     @ManyToOne
-    @JoinColumn(name = "employee_id", nullable = false)
+    @JoinColumn(name = "employee_id", referencedColumnName = "employee_id")
     private Employee employee;
 
     @Column(name = "type_of_leave", nullable = false)
-    private String typeOfLeave; // E.g., 'Vacation', 'Sick', 'Personal'
+    private String typeOfLeave;
 
     @Column(name = "start_date", nullable = false)
     private Date startDate;
@@ -32,6 +33,5 @@ public class LeaveRequests {
     @Column(name = "remarks_notes")
     private String remarksNotes;
 
-    // Getters and Setters
 }
 
