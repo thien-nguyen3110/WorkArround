@@ -1,6 +1,7 @@
 package coms309.entity;
 
-public enum userType {
+public enum UserType {
     EMPLOYEE,
     EMPLOYER,
+    ADMIN,
 }

@@ -1,11 +1,14 @@
 package coms309.entity;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 
 @Entity
+@Getter
+@Setter
 @Table(name ="employer")
-
 public class Employer {
 
     @Id
@@ -16,18 +19,8 @@ public class Employer {
     @Column(name = "name", nullable = false)
     private String employer_name;
 
-    @Column(name = "contact_information", nullable = false)
-    private String contactInformation;
+    @Column(name="UserProfile", nullable = false)
+    private UserProfile userProfile;
 
-    @Column(name = "job_title", nullable = false)
-    private String jobTitle;
 
-    @Column(name = "department", nullable = false)
-    private String department;
-
-    @Column(name = "date_of_hire", nullable = false)
-    private Date dateOfHire;
-
-    @Column(name = "supervisor")
-    private String supervisor;
 }

@@ -1,10 +1,15 @@
 package coms309.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Date;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "employee")
 public class Employee {
 
@@ -14,21 +19,13 @@ public class Employee {
         private Long employeeId;
 
         @Column(name = "name", nullable = false)
-        private String employee_name;
+        private String employeeName;
 
-        @Column(name = "contact_information", nullable = false)
-        private String contactInformation;
+        @Column(name="UserProfile", nullable = false)
+        private UserProfile userProfile;
 
-        @Column(name = "job_title", nullable = false)
-        private String jobTitle;
 
-        @Column(name = "department", nullable = false)
-        private String department;
-
-        @Column(name = "date_of_hire", nullable = false)
-        private Date dateOfHire;
-
-        @Column(name = "supervisor", nullable = false)
-        private String supervisor;
+        @GetMapping("\users")
+        public String
 
 }
