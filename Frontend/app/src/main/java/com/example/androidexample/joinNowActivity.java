@@ -23,6 +23,7 @@ public class joinNowActivity extends AppCompatActivity {
     private Button signUp;
     private EditText name;
     private EditText email;
+    private EditText username;
     private EditText password;
     private EditText verifyPassword;
     private TextView nameErrorMessage;
