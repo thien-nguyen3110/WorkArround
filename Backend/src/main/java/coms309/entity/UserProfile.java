@@ -47,7 +47,10 @@ public class UserProfile implements Serializable {
         this.password = password;
         this.userName = userName;
         this.email = email;
+        this.dateOfHire = new Date();
     }
+
+    public UserProfile() {}
 
 
 }

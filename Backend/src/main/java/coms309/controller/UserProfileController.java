@@ -1,6 +1,6 @@
 package coms309.controller;
 
-import coms309.dto.UserSignUp;
+import coms309.dto.UserDTO;
 import coms309.entity.UserProfile;
 import coms309.repository.UserProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +21,17 @@ public class UserProfileController {
         this.userProfileRepository = userProfileRepository;
     }
 
+    @PutMapping("/password")
+    public ResponseEntity<String> forgotPassword(@RequestBody UserDTO forgotUser) {
+        Optional<UserProfile> user = userProfileRepository.findByEmail(forgotUser.getEmail());
+        if (user.isEmpty()) {
+            return ResponseEntity.badRequest().body("No user exist");
+        }
+        user.get().setPassword(forgotUser.getPassword());
+        userProfileRepository.save(user.get());
+        return ResponseEntity.ok("Successfully change the password");
+    }
+
     @GetMapping("/all")
     public List<UserProfile> getAllUserProfiles() {
         return userProfileRepository.findAll();
@@ -33,16 +44,16 @@ public class UserProfileController {
     }
 
     @GetMapping("/login")
-    public ResponseEntity<String> login (@RequestBody UserSignUp loginUser) {
+    public ResponseEntity<String> login (@RequestBody UserDTO loginUser) {
         Optional<UserProfile> existUser = userProfileRepository.findByUserNameAndPassword(loginUser.getUsername(), loginUser.getPassword());
         if (existUser.isEmpty()) {
             return ResponseEntity.badRequest().body("Login failed");
         }
         return ResponseEntity.ok("Login successfully");
     }
-    
+
     @PostMapping("/signup")
-    public ResponseEntity<String> signup (@RequestBody UserSignUp signUpUserProfile){
+    public ResponseEntity<String> signup (@RequestBody UserDTO signUpUserProfile){
         Optional<UserProfile> existingAccount = userProfileRepository.findByUserNameAndEmailAndPassword(signUpUserProfile.getUsername(), signUpUserProfile.getEmail(),signUpUserProfile.getPassword());
 
         if(existingAccount.isPresent()){
@@ -51,6 +62,7 @@ public class UserProfileController {
         UserProfile userProfile = userProfileRepository.save(new UserProfile(signUpUserProfile.getUsername(), signUpUserProfile.getEmail(), signUpUserProfile.getPassword()));
         return ResponseEntity.ok("Sign up successfully");
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<UserProfile> updateUserProfile(@PathVariable Long id, @RequestBody UserProfile userProfileDetails) {
@@ -72,7 +84,6 @@ public class UserProfileController {
             return ResponseEntity.notFound().build();
         }
     }
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUserProfile(@PathVariable Long id) {

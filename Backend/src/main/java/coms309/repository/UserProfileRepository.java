@@ -11,4 +11,6 @@ public interface UserProfileRepository extends JpaRepository<UserProfile, Long> 
     Optional<UserProfile> findByUserNameAndEmailAndPassword (@Param("user_name") String userName,@Param("email") String email, @Param("password") String password);
 
     Optional<UserProfile> findByUserNameAndPassword(@Param("user_name") String userName, @Param("password") String password);
+
+    Optional<UserProfile> findByEmail(String email);
 }
