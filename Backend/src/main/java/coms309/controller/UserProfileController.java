@@ -54,6 +54,7 @@ public class UserProfileController {
 
     @PostMapping("/signup")
     public ResponseEntity<String> signup (@RequestBody UserDTO signUpUserProfile){
+        //change it to check seperately the email pass and username
         Optional<UserProfile> existingAccount = userProfileRepository.findByUserNameAndEmailAndPassword(signUpUserProfile.getUsername(), signUpUserProfile.getEmail(),signUpUserProfile.getPassword());
 
         if(existingAccount.isPresent()){
