@@ -30,8 +30,8 @@ public class UserProfile implements Serializable {
     @Column(name = "user_type", nullable = false)
     private UserType userType;
 
-    @Column(name = "contact_information", nullable = false)
-    private String contactInformation;
+    @Column(name = "email", nullable = false)
+    private String email;
 
     @Column(name = "job_title", nullable = false)
     private String jobTitle;

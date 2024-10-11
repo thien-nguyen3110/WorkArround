@@ -27,7 +27,7 @@ public class UserProfileController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserProfile> getUserProfileById(@PathVariable Long id) {
-        Optional<UserProfile> userProfile = userProfileRepository.findById(Math.toIntExact(id));
+        Optional<UserProfile> userProfile = userProfileRepository.findById(id);
         return userProfile.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
@@ -36,15 +36,26 @@ public class UserProfileController {
         return userProfileRepository.save(userProfile);
     }
 
+    @PostMapping("/signup")
+    public ResponseEntity<String> signup (@RequestBody  UserProfile signUpUserProfile){
+        Optional<UserProfile> existingAccount = userProfileRepository.findByUserNameAndEmailAndPassword(signUpUserProfile.getUserName(), signUpUserProfile.getEmail(),signUpUserProfile.getPassword());
+
+        if(existingAccount.isPresent()){
+            return ResponseEntity.badRequest().body("Sign up fail");
+        }
+        UserProfile userProfile = userProfileRepository.save(signUpUserProfile);
+        return ResponseEntity.ok("Sign up successfully");
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<UserProfile> updateUserProfile(@PathVariable Long id, @RequestBody UserProfile userProfileDetails) {
-        Optional<UserProfile> userProfileOptional = userProfileRepository.findById(Math.toIntExact(id));
+        Optional<UserProfile> userProfileOptional = userProfileRepository.findById(id);
         if (userProfileOptional.isPresent()) {
             UserProfile userProfile = userProfileOptional.get();
             userProfile.setUserName(userProfileDetails.getUserName());
             userProfile.setPassword(userProfileDetails.getPassword());
             userProfile.setUserType(userProfileDetails.getUserType());
-            userProfile.setContactInformation(userProfileDetails.getContactInformation());
+            userProfile.setEmail(userProfileDetails.getEmail());
             userProfile.setJobTitle(userProfileDetails.getJobTitle());
             userProfile.setDepartment(userProfileDetails.getDepartment());
             userProfile.setDateOfHire(userProfileDetails.getDateOfHire());
@@ -60,8 +71,8 @@ public class UserProfileController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUserProfile(@PathVariable Long id) {
-        if (userProfileRepository.existsById(Math.toIntExact(id))) {
-            userProfileRepository.deleteById(Math.toIntExact(id));
+        if (userProfileRepository.existsById(id)) {
+            userProfileRepository.deleteById(id);
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
