@@ -33,7 +33,14 @@ public class UserProfileController {
     }
 
     @GetMapping("/login")
-    public ResponseEntity<Boolean> login (@RequestBody )
+    public ResponseEntity<String> login (@RequestBody UserSignUp loginUser) {
+        Optional<UserProfile> existUser = userProfileRepository.findByUserNameAndPassword(loginUser.getUsername(), loginUser.getPassword());
+        if (existUser.isEmpty()) {
+            return ResponseEntity.badRequest().body("Login failed");
+        }
+        return ResponseEntity.ok("Login successfully");
+    }
+    
     @PostMapping("/signup")
     public ResponseEntity<String> signup (@RequestBody UserSignUp signUpUserProfile){
         Optional<UserProfile> existingAccount = userProfileRepository.findByUserNameAndEmailAndPassword(signUpUserProfile.getUsername(), signUpUserProfile.getEmail(),signUpUserProfile.getPassword());
