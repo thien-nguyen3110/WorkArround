@@ -1,5 +1,6 @@
 package coms309.controller;
 
+import coms309.dto.UserSignUp;
 import coms309.entity.UserProfile;
 import coms309.repository.UserProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,19 +32,16 @@ public class UserProfileController {
         return userProfile.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/create")
-    public UserProfile createUserProfile(@RequestBody UserProfile userProfile) {
-        return userProfileRepository.save(userProfile);
-    }
-
+    @GetMapping("/login")
+    public ResponseEntity<Boolean> login (@RequestBody )
     @PostMapping("/signup")
-    public ResponseEntity<String> signup (@RequestBody  UserProfile signUpUserProfile){
-        Optional<UserProfile> existingAccount = userProfileRepository.findByUserNameAndEmailAndPassword(signUpUserProfile.getUserName(), signUpUserProfile.getEmail(),signUpUserProfile.getPassword());
+    public ResponseEntity<String> signup (@RequestBody UserSignUp signUpUserProfile){
+        Optional<UserProfile> existingAccount = userProfileRepository.findByUserNameAndEmailAndPassword(signUpUserProfile.getUsername(), signUpUserProfile.getEmail(),signUpUserProfile.getPassword());
 
         if(existingAccount.isPresent()){
             return ResponseEntity.badRequest().body("Sign up fail");
         }
-        UserProfile userProfile = userProfileRepository.save(signUpUserProfile);
+        UserProfile userProfile = userProfileRepository.save(new UserProfile(signUpUserProfile.getUsername(), signUpUserProfile.getEmail(), signUpUserProfile.getPassword()));
         return ResponseEntity.ok("Sign up successfully");
     }
 

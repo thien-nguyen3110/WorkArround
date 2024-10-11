@@ -27,23 +27,27 @@ public class UserProfile implements Serializable {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "user_type", nullable = false)
+    @Column(name = "user_type", nullable = true)
     private UserType userType;
 
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "job_title", nullable = false)
+    @Column(name = "job_title", nullable = true)
     private String jobTitle;
 
-    @Column(name = "department", nullable = false)
+    @Column(name = "department", nullable = true)
     private String department;
 
-    @Column(name = "date_of_hire", nullable = false)
+    @Column(name = "date_of_hire", nullable = true)
     private Date dateOfHire;
 
 
-
+    public UserProfile(String userName, String email, String password) {
+        this.password = password;
+        this.userName = userName;
+        this.email = email;
+    }
 
 
 }
