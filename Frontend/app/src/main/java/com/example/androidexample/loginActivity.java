@@ -4,11 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class loginActivity extends AppCompatActivity {
@@ -22,6 +32,8 @@ public class loginActivity extends AppCompatActivity {
     private Button newUserButton;
 
     boolean isPasswordVisible = false;
+
+    String url = "https://304b2c41-4ef3-4e62-a2f8-e40348b54d5e.mock.pstmn.io";
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -92,5 +104,45 @@ public class loginActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    //For login
+    public void loginRequest() {
+        String url = "http://coms-3090-046.class.las.iastate.edu:8080/api/userprofile/login";
+        JSONObject loginData = new JSONObject();
+
+        try {
+            loginData.put("username", usernameInput.getText().toString());
+            loginData.put("password", passwordInput.getText().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest loginRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                loginData,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("Login Response", response.toString());
+                        if (response.optString("message").equals("login successfully")) {
+                            Intent intent = new Intent(loginActivity.this, employeeActivity.class);
+                            startActivity(intent);
+                        } else {
+                            messageText.setText("Unexpected response: " + response);
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Login Error", error.toString());
+                        messageText.setText("Invalid credentials, try again.");
+                    }
+                }
+        );
+
+        Volley.newRequestQueue(this).add(loginRequest);
     }
 }

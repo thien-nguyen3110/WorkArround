@@ -45,7 +45,7 @@ public class Employer {
     private LeaveRequests leaveRequests;
 
     @ManyToOne
-    @JoinColumn(name = "er_timeLog", referencedColumnName = "log_id")
+    @JoinColumn(name = "er_timeLog", referencedColumnName = "timeLog_id")
     private TimeLog timeLog;
 
 }
