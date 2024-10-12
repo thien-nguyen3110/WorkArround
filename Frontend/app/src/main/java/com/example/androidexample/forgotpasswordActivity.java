@@ -86,16 +86,6 @@ public class forgotpasswordActivity extends AppCompatActivity {
                     }
                 }
         );
-
-        // Optional: Set retry policy if needed (optional for network handling)
-        getRequest.setRetryPolicy(new DefaultRetryPolicy(
-                5000, // Timeout in milliseconds
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES, // Retry count
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-        // Add the request to the RequestQueue
-        RequestQueue queue = Volley.newRequestQueue(this);
-        queue.add(getRequest);
     }
 
 }
