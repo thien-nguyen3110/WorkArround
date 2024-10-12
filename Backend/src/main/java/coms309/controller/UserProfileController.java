@@ -7,8 +7,10 @@ import coms309.entity.Employee;
 import coms309.entity.Employer;
 import coms309.entity.UserProfile;
 import coms309.repository.UserProfileRepository;
-import org.apache.catalina.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +20,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/userprofile")
 public class UserProfileController {
+
+    private static final Logger logger = LoggerFactory.getLogger(UserProfileController.class);
 
     @Autowired
     private final UserProfileRepository userProfileRepository;
@@ -37,15 +41,38 @@ public class UserProfileController {
         return ResponseEntity.ok("Successfully change the password");
     }
 
+    /**
+     * Get all user profiles.
+     * @return List of UserProfile
+     */
     @GetMapping("/all")
     public List<UserProfile> getAllUserProfiles() {
+        logger.info("Fetching all user profiles");
         return userProfileRepository.findAll();
     }
 
+    /**
+     * Get a user profile by its ID.
+     * @param id ID of the user profile
+     * @return ResponseEntity with UserProfile or 404 if not found
+     */
     @GetMapping("/{id}")
     public ResponseEntity<UserProfile> getUserProfileById(@PathVariable Long id) {
+        logger.info("Fetching user profile with ID: {}", id);
+
+        // Validate ID input
+        if (id <= 0) {
+            logger.warn("Invalid ID supplied: {}", id);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
         Optional<UserProfile> userProfile = userProfileRepository.findById(id);
-        return userProfile.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+
+        return userProfile.map(ResponseEntity::ok)
+                .orElseGet(() -> {
+                    logger.warn("User profile not found for ID: {}", id);
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+                });
     }
 
 
