@@ -12,6 +12,8 @@ import onetoone.Laptops.LaptopRepository;
 import onetoone.Users.User;
 import onetoone.Users.UserRepository;
 
+import java.util.Arrays;
+
 /**
  * Main class for running the application and initializing data.
  * 
@@ -39,19 +41,25 @@ class Main {
     @Bean
     CommandLineRunner initUser(UserRepository userRepository, LaptopRepository laptopRepository) {
         return args -> {
-            User user1 = new User("John", "john@somemail.com");
-            User user2 = new User("Jane", "jane@somemail.com");
-            User user3 = new User("Justin", "justin@somemail.com");
+            // Create Laptop entities
             Laptop laptop1 = new Laptop(2.5, 4, 8, "Lenovo", 300);
             Laptop laptop2 = new Laptop(4.1, 8, 16, "HP", 800);
             Laptop laptop3 = new Laptop(3.5, 32, 32, "Dell", 2300);
-            
+
+            // Save laptops first
+            laptopRepository.saveAll(Arrays.asList(laptop1, laptop2, laptop3));
+
+            // Create User entities
+            User user1 = new User("John", "john@somemail.com");
+            User user2 = new User("Jane", "jane@somemail.com");
+            User user3 = new User("Justin", "justin@somemail.com");
+
             // Associate laptops with users
             user1.setLaptop(laptop1);
             user2.setLaptop(laptop2);
             user3.setLaptop(laptop3);
-            
-            // Batch save for performance improvement
+
+            // Save users
             userRepository.saveAll(Arrays.asList(user1, user2, user3));
         };
     }

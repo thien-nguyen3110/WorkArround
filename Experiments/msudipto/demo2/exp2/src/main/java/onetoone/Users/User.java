@@ -71,4 +71,6 @@ public class User {
     public void setLaptop(Laptop laptop) {
         this.laptop = laptop;
     }
+
+    public User orElseThrow(Object o) { return null; }
 }

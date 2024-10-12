@@ -1,4 +1,3 @@
-
 package onetoone.Laptops;
 
 import jakarta.persistence.Entity;
@@ -11,11 +10,11 @@ import onetoone.Users.User;
 
 /**
  * Laptop entity class representing a laptop with various specifications.
- * 
+ *
  * Enhancements:
  * - Improved variable naming and readability.
  * - Added validation for fields like CPU clock speed and RAM.
- * 
+ *
  * Author: Vivek Bengre
  */
 @Entity
