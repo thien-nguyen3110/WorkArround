@@ -111,8 +111,7 @@ public class loginActivity extends AppCompatActivity {
         String password = passwordInput.getText().toString();
 
         // Add username and password to URL as query parameters
-        String url = "http://coms-3090-046.class.las.iastate.edu:8080/api/userprofile/login?username="
-                + username + "&password=" + password;
+        String url = "http://coms-3090-046.class.las.iastate.edu:8080/api/userprofile/login";
 
         JsonObjectRequest loginRequest = new JsonObjectRequest(
                 Request.Method.GET,
@@ -134,7 +133,7 @@ public class loginActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Login Error", error.toString());
-                        messageText.setText("Invalid credentials, try again.");
+                        messageText.setText(error.toString());
                     }
                 }
         );

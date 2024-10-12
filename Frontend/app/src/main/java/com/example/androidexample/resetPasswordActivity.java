@@ -33,14 +33,17 @@ public class resetPasswordActivity extends AppCompatActivity {
     private EditText passwordInput;
     private Button changePasswordButton;
     private TextView messageText;
+    private String userEmail;
 
-    String url = "https://304b2c41-4ef3-4e62-a2f8-e40348b54d5e.mock.pstmn.io";
+
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.resetpassword);
+
+        userEmail = getIntent().getStringExtra("userEmail");
 
         backButton = findViewById(R.id.backButton);
         passwordInput = findViewById(R.id.newPasswordInput);
@@ -58,16 +61,16 @@ public class resetPasswordActivity extends AppCompatActivity {
         changePasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String passwordFilled = passwordInput.getText().toString().trim();
-                messageText.setText(passwordFilled);
+                String newPassword = passwordInput.getText().toString().trim();
 
-               // resetPassword(userEmail, passwordFilled);
 
                 // Check to make sure password has minimum requirements
-                if (!isValidPassword(passwordFilled)) {
+                if (!isValidPassword(newPassword)) {
                     showAlertDialog("Error", "Password must be at least 8 characters long, contain 1 uppercase letter, 1 number, and 1 special character");
                     return; // Exit the method if password is invalid
                 }
+
+                resetPassword(userEmail, newPassword);
 
                 Intent intent = new Intent(resetPasswordActivity.this, loginActivity.class);
                 startActivity(intent);
@@ -94,7 +97,7 @@ public class resetPasswordActivity extends AppCompatActivity {
 
     // Function to reset the password
     private void resetPassword(String email, String newPassword) {
-        String url = "http://your-server-url/api/userprofile/password";
+        String url = "http://coms-3090-046.class.las.iastate.edu:8080/api/userprofile/password";
 
         // Create a HashMap for the PUT request body
         HashMap<String, String> params = new HashMap<>();

@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -31,7 +32,6 @@ public class forgotpasswordActivity extends AppCompatActivity {
     private Button submit_button;
     private TextView messageText;
 
-    String url = "https://304b2c41-4ef3-4e62-a2f8-e40348b54d5e.mock.pstmn.io";
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -60,43 +60,42 @@ public class forgotpasswordActivity extends AppCompatActivity {
                 //Calling in submit button to check email in other function
                 checkEmail(email);
 
-                if(email.equals("admin123@gmail.com")){
-                    //SEND RESET PASSWORD TO EMAIL
-
-                    //Send user to email sent page
-                    Intent intent = new Intent(forgotpasswordActivity.this, resetPasswordActivity.class);
-                    intent.putExtra("userEmail", email);
-                    startActivity(intent);
-                }
-
-                //Email not in database send message letting them know
-                else{
-                    messageText.setText("");
-                }
             }
         });
     }
 
-    //check if the email exists in the database
+    // Check if the email exists in the database
     private void checkEmail(String email) {
-        String url = "http://your-server-url/api/userprofile/checkemail?email=" + email;
+        // Construct the URL for checking the email
+        String url = "http://coms-3090-046.class.las.iastate.edu:8080/api/userprofile/checkemail?email=" + email;
 
         // Create a request
         StringRequest getRequest = new StringRequest(Request.Method.GET, url,
                 response -> {
-                    // If email exists, send the user to the reset password page
+                    // If the email exists, send the user to the reset password page
                     Intent intent = new Intent(forgotpasswordActivity.this, resetPasswordActivity.class);
-                    intent.putExtra("userEmail", email);
+                    intent.putExtra("userEmail", email); // Pass email to the next activity
                     startActivity(intent);
                 },
                 error -> {
-                    // Handle error - email does not exist
-                    messageText.setText("An account could not be found for the given email ID.");
+                    // Check for specific status code (optional, refine error handling)
+                    if (error.networkResponse != null && error.networkResponse.statusCode == 400) {
+                        messageText.setText("An account could not be found for the given email ID.");
+                    } else {
+                        messageText.setText("An error occurred. Please try again.");
+                    }
                 }
         );
+
+        // Optional: Set retry policy if needed (optional for network handling)
+        getRequest.setRetryPolicy(new DefaultRetryPolicy(
+                5000, // Timeout in milliseconds
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES, // Retry count
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         // Add the request to the RequestQueue
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(getRequest);
     }
+
 }
