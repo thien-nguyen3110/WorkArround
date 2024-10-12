@@ -20,9 +20,6 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.Map;
-
 
 public class loginActivity extends AppCompatActivity {
 
@@ -36,7 +33,7 @@ public class loginActivity extends AppCompatActivity {
 
     boolean isPasswordVisible = false;
 
-    String url = "http://coms-3090-046.class.las.iastate.edu:8080/api/userprofile/login";
+    String url = "https://304b2c41-4ef3-4e62-a2f8-e40348b54d5e.mock.pstmn.io";
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -59,7 +56,6 @@ public class loginActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 // Get the user input from the text fields
                 String username = usernameInput.getText().toString();
                 String password = passwordInput.getText().toString();
@@ -72,10 +68,6 @@ public class loginActivity extends AppCompatActivity {
                     // Display a message if fields are empty
                     messageText.setText("Please enter both username and password.");
                 }
-
-                Intent intent = new Intent(loginActivity.this, employeeActivity.class);
-                startActivity(intent);
-                loginRequest();
             }
         });
 
@@ -113,22 +105,24 @@ public class loginActivity extends AppCompatActivity {
 
     }
 
+    //For login
     public void loginRequest() {
-        // Construct the URL with query parameters for username and password
-        String url = "http://coms-3090-046.class.las.iastate.edu:8080/api/userprofile/login?username="
-                + usernameInput.getText().toString()
-                + "&password=" + passwordInput.getText().toString();
+        String username = usernameInput.getText().toString();
+        String password = passwordInput.getText().toString();
 
-        // Use GET request without body
+        // Add username and password to URL as query parameters
+        String url = "http://coms-3090-046.class.las.iastate.edu:8080/api/userprofile/login?username="
+                + username + "&password=" + password;
+
         JsonObjectRequest loginRequest = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
-                null,  // No body is sent with a GET request
+                null, // No body for GET request
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("Login Response", response.toString());
-                        if (response.optString("message").equals("Login successfully")) {
+                        if (response.optString("message").equals("login successfully")) {
                             Intent intent = new Intent(loginActivity.this, employeeActivity.class);
                             startActivity(intent);
                         } else {
@@ -147,5 +141,4 @@ public class loginActivity extends AppCompatActivity {
 
         Volley.newRequestQueue(this).add(loginRequest);
     }
-
 }
