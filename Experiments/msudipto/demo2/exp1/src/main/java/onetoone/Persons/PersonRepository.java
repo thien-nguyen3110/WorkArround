@@ -1,19 +1,27 @@
+
 package onetoone.Persons;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Repository;
 
 /**
+ * Repository interface for Person entity that extends JpaRepository.
  * 
- * @author Vivek Bengre
+ * Enhancements:
+ * - Added @Repository annotation for clarity.
+ * - Improved method names to follow standard naming conventions.
  * 
- */ 
-
+ * Author: Vivek Bengre
+ */
+@Repository
 public interface PersonRepository extends JpaRepository<Person, Long> {
-    
+
+    // Find person by their ID
     Person findById(int id);
 
+    // Delete person by their ID
     void deleteById(int id);
 
+    // Find person by their associated laptop ID
     Person findByLaptop_Id(int id);
 }
