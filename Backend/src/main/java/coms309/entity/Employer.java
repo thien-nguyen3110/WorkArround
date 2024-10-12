@@ -32,6 +32,10 @@ public class Employer {
             ))
     private List<Projects> projects;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name="user_type")
+    private UserType userType;
+
     @ManyToOne
     @JoinColumn(name = "er_leaveRequests", referencedColumnName = "leave_id")
     private LeaveRequests leaveRequests;

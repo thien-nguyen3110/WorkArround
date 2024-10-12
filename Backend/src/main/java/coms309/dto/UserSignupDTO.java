@@ -4,11 +4,10 @@ import lombok.Data;
 import org.springframework.lang.Nullable;
 
 @Data
-public class UserDTO {
+public class UserSignupDTO {
     private String password;
 
     private String username;
 
-    @Nullable
     private String email;
 }

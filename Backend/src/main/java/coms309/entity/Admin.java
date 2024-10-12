@@ -14,4 +14,8 @@ public class Admin {
     @OneToOne
     @JoinColumn(name = "u_id", referencedColumnName = "user_id")
     private UserProfile userProfile;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "user_type")
+    private UserType userType;
 }

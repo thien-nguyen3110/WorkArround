@@ -1,6 +1,10 @@
 package coms309.controller;
 
 import coms309.dto.UserDTO;
+import coms309.dto.UserSignupDTO;
+import coms309.entity.Admin;
+import coms309.entity.Employee;
+import coms309.entity.Employer;
 import coms309.entity.UserProfile;
 import coms309.repository.UserProfileRepository;
 import org.apache.catalina.User;
@@ -44,9 +48,11 @@ public class UserProfileController {
         return userProfile.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+
+
     @GetMapping("/login")
     public ResponseEntity<String> login (@RequestBody UserDTO loginUser) {
-        Optional<UserProfile> existUser = userProfileRepository.findByUserNameAndPassword(loginUser.getUsername(), loginUser.getPassword());
+        Optional<UserProfile> existUser = userProfileRepository.findByUsernameAndPassword(loginUser.getUsername(), loginUser.getPassword());
         if (existUser.isEmpty()) {
             return ResponseEntity.badRequest().body("Login failed");
         }
@@ -55,18 +61,15 @@ public class UserProfileController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<String> signup (@RequestBody UserDTO signUpUserProfile){
+    public ResponseEntity<String> signup (@RequestBody UserSignupDTO signUpUserProfile){
         //change it to check seperately the email pass and username
-        Optional<UserProfile> existingUserName = userProfileRepository.findByUserName(signUpUserProfile.getUsername());
+
+        Optional<UserProfile> existingUsername = userProfileRepository.findByUsername(signUpUserProfile.getUsername());
         Optional<UserProfile> existingEmail = userProfileRepository.findByEmail( signUpUserProfile.getEmail());
-        Optional<UserProfile> existingPassword = userProfileRepository.findByPassword(signUpUserProfile.getPassword());
-        if(existingUserName.isPresent()){
+        if(existingUsername.isPresent()){
             return ResponseEntity.badRequest().body("Sign up fail");
         }
         if(existingEmail.isPresent()){
-            return ResponseEntity.badRequest().body("Sign up fail");
-        }
-        if(existingPassword.isPresent()){
             return ResponseEntity.badRequest().body("Sign up fail");
         }
         UserProfile userProfile = userProfileRepository.save(new UserProfile(signUpUserProfile.getUsername(), signUpUserProfile.getEmail(), signUpUserProfile.getPassword()));
@@ -74,35 +77,41 @@ public class UserProfileController {
     }
 
 
+
     @PutMapping("/{id}")
     public ResponseEntity<UserProfile> updateUserProfile(@PathVariable Long id, @RequestBody UserProfile userProfileDetails) {
         Optional<UserProfile> userProfileOptional = userProfileRepository.findById(id);
         if (userProfileOptional.isPresent()) {
             UserProfile userProfile = userProfileOptional.get();
-            userProfile.setUserName(userProfileDetails.getUserName());
+            userProfile.setUsername(userProfileDetails.getUsername());
             userProfile.setPassword(userProfileDetails.getPassword());
             userProfile.setUserType(userProfileDetails.getUserType());
             userProfile.setEmail(userProfileDetails.getEmail());
             userProfile.setJobTitle(userProfileDetails.getJobTitle());
             userProfile.setDepartment(userProfileDetails.getDepartment());
             userProfile.setDateOfHire(userProfileDetails.getDateOfHire());
-             switch (userProfileDetails.getUserType()) {
-                    case EMPLOYEE:
-                        // cho record vao bang employee
-                        break;
-                    case EMPLOYER:
-
-                        break;
-                    case ADMIN:
-
-                        break;
-            }
 
             UserProfile updatedUserProfile = userProfileRepository.save(userProfile);
             return ResponseEntity.ok(updatedUserProfile);
         } else {
             return ResponseEntity.notFound().build();
         }
+
+    }
+    public void createEmployeeRecord(UserProfile userProfile, UserProfile userProfileDetails) {
+        // Insert record into employee table
+        Employee employee = new Employee();
+        employee.setUserProfile(userProfile);
+
+        // Save employee entity (assuming you have an EmployeeRepository)
+    }
+    public void createEmployerRecord(UserProfile userProfile, UserProfile userProfileDetails){
+        Employer er = new Employer();
+        er.setUserProfile(userProfile);
+    }
+    public void createAdminRecord(UserProfile userProfile, UserProfile userProfileDetails){
+        Admin admin = new Admin();
+        admin.setUserProfile(userProfile);
     }
 
     @DeleteMapping("/{id}")

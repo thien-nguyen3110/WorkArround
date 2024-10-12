@@ -2,9 +2,6 @@ package coms309.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -21,7 +18,7 @@ public class UserProfile implements Serializable {
     private Long userId;
 
     @Column(name = "user_name", nullable = false)
-    private String userName;
+    private String username;
 
     @Column(name = "password", nullable = false)
     private String password;
@@ -43,9 +40,9 @@ public class UserProfile implements Serializable {
     private Date dateOfHire;
 
 
-    public UserProfile(String userName, String email, String password) {
+    public UserProfile(String username, String email, String password) {
         this.password = password;
-        this.userName = userName;
+        this.username = this.username;
         this.email = email;
         this.dateOfHire = new Date();
     }

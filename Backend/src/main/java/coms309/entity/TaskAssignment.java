@@ -16,9 +16,7 @@ public class TaskAssignment {
     @JoinColumn(name = "project_id", nullable = false)
     private Projects project;
 
-    @ManyToOne
-    @JoinColumn(name = "employee_id", nullable = false)
-    private Employee employee;
+
 
     @Column(name = "task_description", nullable = false)
     private String taskDescription;

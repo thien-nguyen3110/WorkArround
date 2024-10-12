@@ -23,5 +23,7 @@ public class Employee {
         @JoinColumn(name = "e_projects" , referencedColumnName = "project_id")
         private Projects projects;
 
-
+        @Enumerated(EnumType.STRING)
+        @Column(name = "user_type")
+        private UserType userType;
 }
