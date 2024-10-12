@@ -39,7 +39,7 @@ public class UserProfileController {
         return ResponseEntity.badRequest().body("Email does not exist");
     }
 
-    @PutMapping("/password")
+    @PutMapping("/forgot_password")
     public ResponseEntity<String> forgotPassword(@RequestBody UserDTO forgotUser) {
         Optional<UserProfile> user = userProfileRepository.findByEmail(forgotUser.getEmail());
         if (user.isEmpty()) {
