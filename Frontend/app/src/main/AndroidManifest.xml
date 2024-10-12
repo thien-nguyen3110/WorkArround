@@ -41,11 +41,7 @@
             android:name=".joinNowActivity"
             android:exported="true" />
         <activity
-<<<<<<< HEAD
             android:name=".resetPasswordActivity"
-=======
-            android:name=".deleteActivity"
->>>>>>> e5441b70751d6a8d23521143890aad1fa74d10f0
             android:exported="true" />
     </application>
 
