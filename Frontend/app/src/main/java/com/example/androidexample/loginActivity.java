@@ -20,6 +20,9 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class loginActivity extends AppCompatActivity {
 
@@ -33,7 +36,7 @@ public class loginActivity extends AppCompatActivity {
 
     boolean isPasswordVisible = false;
 
-    String url = "https://304b2c41-4ef3-4e62-a2f8-e40348b54d5e.mock.pstmn.io";
+    String url = "http://coms-3090-046.class.las.iastate.edu:8080/api/userprofile/login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -56,19 +59,7 @@ public class loginActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = usernameInput.getText().toString();
-                String password = passwordInput.getText().toString();
-
-                if(username.equals("Employer") && password.equals("Boss123")){
-                    Intent intent = new Intent(loginActivity.this, employerActivity.class);
-                    startActivity(intent);
-                } else if (username.equals("Employee") && password.equals("Associate123")) {
-                    Intent intent = new Intent(loginActivity.this, employeeActivity.class);
-                    startActivity(intent);
-                }
-                else{
-                    messageText.setText("Invalid credentials, try again.");
-                }
+                loginRequest();
             }
         });
 
@@ -138,10 +129,23 @@ public class loginActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Login Error", error.toString());
-                        messageText.setText("Invalid credentials, try again.");
+                        messageText.setText(error.toString());
                     }
                 }
-        );
+                )
+                {
+                    @Override
+                    public Map<String, String> getHeaders() {
+                        Map<String, String> headers = new HashMap<>();
+                        return headers;
+                    }
+
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<>();
+                        return params;
+                    }
+                };
 
         Volley.newRequestQueue(this).add(loginRequest);
     }
