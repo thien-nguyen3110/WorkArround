@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.INTERNET" />
     <application
+
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -44,6 +45,10 @@
             android:exported="true" />
         <activity
             android:name=".resetPasswordActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".deleteActivity"
             android:exported="true" />
     </application>
 
