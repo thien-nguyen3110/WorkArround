@@ -10,6 +10,8 @@ import onetoone.Laptops.LaptopRepository;
 import onetoone.Persons.Person;
 import onetoone.Persons.PersonRepository;
 
+import java.util.Arrays;
+
 /**
  * Main class to initialize the application and seed dummy data.
  * 
@@ -42,11 +44,15 @@ class Main {
             Person person2 = new Person("Jane", "jane@somemail.com");
             Person person3 = new Person("Justin", "justin@somemail.com");
 
+            // Create Laptop entities
             Laptop laptop1 = new Laptop(2.5, 4, 8, "Lenovo", 300);
             Laptop laptop2 = new Laptop(4.1, 8, 16, "HP", 800);
             Laptop laptop3 = new Laptop(3.5, 32, 32, "Dell", 2300);
 
-            // Associate laptops with persons
+            // Save laptops first
+            laptopRepository.saveAll(Arrays.asList(laptop1, laptop2, laptop3));
+
+            // Now associate the saved laptops with persons
             person1.setLaptop(laptop1);
             person2.setLaptop(laptop2);
             person3.setLaptop(laptop3);

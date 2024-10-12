@@ -70,4 +70,6 @@ public class Person {
     public void setLaptop(Laptop laptop) {
         this.laptop = laptop;
     }
+
+    public Person orElseThrow(Object o) { return null; }
 }

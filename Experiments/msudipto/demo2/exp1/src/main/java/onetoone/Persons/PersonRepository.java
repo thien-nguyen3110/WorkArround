@@ -4,6 +4,8 @@ package onetoone.Persons;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 /**
  * Repository interface for Person entity that extends JpaRepository.
  * 
@@ -17,7 +19,7 @@ import org.springframework.stereotype.Repository;
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
     // Find person by their ID
-    Person findById(int id);
+    Optional<Person> findById(int id);
 
     // Delete person by their ID
     void deleteById(int id);
