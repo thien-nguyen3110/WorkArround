@@ -1,6 +1,7 @@
 
 package onetomany;
 
+import java.util.Arrays;
 import java.util.Date;
 
 import org.springframework.boot.CommandLineRunner;
@@ -42,25 +43,26 @@ class Main {
             Laptop laptop2 = new Laptop(4.1, 8, 16, "HP", 800);
             Laptop laptop3 = new Laptop(3.5, 32, 32, "Dell", 2300);
 
-            // Adding phones for users
-            for (int i = 6; i < 13; i++) {
-                phoneRepository.save(new Phone("Apple", (int)Math.pow(1.3, i), Math.pow(1.1, i) * 1000, "iPhone " + i, (int)Math.pow(1.3, i) * 100));
-            }
-
-            // Associate devices with users
+            // Associate laptops with users
             user1.setLaptop(laptop1);
             user2.setLaptop(laptop2);
             user3.setLaptop(laptop3);
 
-            user1.addPhones(phoneRepository.findById(1));
-            user1.addPhones(phoneRepository.findById(2));
-            user1.addPhones(phoneRepository.findById(6));
-
-            user2.addPhones(phoneRepository.findById(3));
-            user2.addPhones(phoneRepository.findById(4));
-
-            // Batch save users
+            // Save users first to make sure they are persisted
             userRepository.saveAll(Arrays.asList(user1, user2, user3));
+
+            // Now create and assign phones to users
+            Phone phone1 = new Phone("Apple", 12.0, 3000, "iPhone 12", 999);
+            phone1.setUser(user1);  // Set the user reference for the phone
+
+            Phone phone2 = new Phone("Apple", 13.0, 4000, "iPhone 13", 1099);
+            phone2.setUser(user2);
+
+            Phone phone3 = new Phone("Apple", 14.0, 5000, "iPhone 14", 1199);
+            phone3.setUser(user3);
+
+            // Save phones after associating them with users
+            phoneRepository.saveAll(Arrays.asList(phone1, phone2, phone3));
         };
     }
 }

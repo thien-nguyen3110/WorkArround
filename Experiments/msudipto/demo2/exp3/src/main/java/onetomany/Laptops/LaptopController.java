@@ -27,7 +27,7 @@ public class LaptopController {
 
     @GetMapping("/laptops/{id}")
     public Laptop getLaptopById(@PathVariable int id) {
-        return laptopRepository.findById(id).orElseThrow(() -> new RuntimeException("Laptop not found for id: " + id));
+        return laptopRepository.findById(id).orElseThrow(() -> new RuntimeException("Laptop not found with id: " + id));
     }
 
     @PostMapping("/laptops")
