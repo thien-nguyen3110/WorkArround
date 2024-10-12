@@ -20,6 +20,10 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
+
 
 public class loginActivity extends AppCompatActivity {
 
@@ -56,18 +60,17 @@ public class loginActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Get the user input from the text fields
                 String username = usernameInput.getText().toString();
                 String password = passwordInput.getText().toString();
 
-                if(username.equals("Employer") && password.equals("Boss123")){
-                    Intent intent = new Intent(loginActivity.this, employerActivity.class);
-                    startActivity(intent);
-                } else if (username.equals("Employee") && password.equals("Associate123")) {
-                    Intent intent = new Intent(loginActivity.this, employeeActivity.class);
-                    startActivity(intent);
-                }
-                else{
-                    messageText.setText("Invalid credentials, try again.");
+                // Check if both fields are filled
+                if (!username.isEmpty() && !password.isEmpty()) {
+                    // Call loginRequest() to send the request
+                    loginRequest();
+                } else {
+                    // Display a message if fields are empty
+                    messageText.setText("Please enter both username and password.");
                 }
             }
         });
@@ -106,7 +109,6 @@ public class loginActivity extends AppCompatActivity {
 
     }
 
-    //For login
     public void loginRequest() {
         String url = "http://coms-3090-046.class.las.iastate.edu:8080/api/userprofile/login";
         JSONObject loginData = new JSONObject();
@@ -118,15 +120,16 @@ public class loginActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        // Creating a custom request to allow for GET requests with a body
         JsonObjectRequest loginRequest = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
-                loginData,
+                null, // Pass null for body since we can't send a body in GET
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("Login Response", response.toString());
-                        if (response.optString("message").equals("login successfully")) {
+                        if (response.optString("message").equals("Login successfully")) {
                             Intent intent = new Intent(loginActivity.this, employeeActivity.class);
                             startActivity(intent);
                         } else {
@@ -140,9 +143,17 @@ public class loginActivity extends AppCompatActivity {
                         Log.e("Login Error", error.toString());
                         messageText.setText("Invalid credentials, try again.");
                     }
-                }
-        );
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("username", usernameInput.getText().toString());
+                params.put("password", passwordInput.getText().toString());
+                return params; // This is where parameters get sent
+            }
+        };
 
         Volley.newRequestQueue(this).add(loginRequest);
     }
+
 }
