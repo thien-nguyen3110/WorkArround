@@ -67,7 +67,7 @@ public class forgotpasswordActivity extends AppCompatActivity {
     // Check if the email exists in the database
     private void checkEmail(String email) {
         // Construct the URL for checking the email
-        String url = "http://coms-3090-046.class.las.iastate.edu:8080/api/userprofile/checkemail?email=" + email;
+        String url = "http://coms-3090-046.class.las.iastate.edu:8080/api/userprofile/checkEmail?email=" + email;
 
         // Create a request
         StringRequest getRequest = new StringRequest(Request.Method.GET, url,

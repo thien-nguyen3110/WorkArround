@@ -97,7 +97,7 @@ public class resetPasswordActivity extends AppCompatActivity {
 
     // Function to reset the password
     private void resetPassword(String email, String newPassword) {
-        String url = "http://coms-3090-046.class.las.iastate.edu:8080/api/userprofile/password";
+        String url = "http://coms-3090-046.class.las.iastate.edu:8080/api/userprofile/forgotPassword";
 
         // Create a HashMap for the PUT request body
         HashMap<String, String> params = new HashMap<>();
