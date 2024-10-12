@@ -35,7 +35,7 @@ public class UserController {
 
     @GetMapping(path = "/users/{id}")
     public User getUserById(@PathVariable int id) {
-        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found for id: " + id));
+        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found with ID: " + id));
     }
 
     @PostMapping(path = "/users")
