@@ -3,6 +3,7 @@ package coms309.controller;
 import coms309.dto.UserDTO;
 import coms309.entity.UserProfile;
 import coms309.repository.UserProfileRepository;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,15 +50,23 @@ public class UserProfileController {
         if (existUser.isEmpty()) {
             return ResponseEntity.badRequest().body("Login failed");
         }
+        UserProfile userProfile = userProfileRepository.save(existUser.get());
         return ResponseEntity.ok("Login successfully");
     }
 
     @PostMapping("/signup")
     public ResponseEntity<String> signup (@RequestBody UserDTO signUpUserProfile){
         //change it to check seperately the email pass and username
-        Optional<UserProfile> existingAccount = userProfileRepository.findByUserNameAndEmailAndPassword(signUpUserProfile.getUsername(), signUpUserProfile.getEmail(),signUpUserProfile.getPassword());
-
-        if(existingAccount.isPresent()){
+        Optional<UserProfile> existingUserName = userProfileRepository.findByUserName(signUpUserProfile.getUsername());
+        Optional<UserProfile> existingEmail = userProfileRepository.findByEmail( signUpUserProfile.getEmail());
+        Optional<UserProfile> existingPassword = userProfileRepository.findByPassword(signUpUserProfile.getPassword());
+        if(existingUserName.isPresent()){
+            return ResponseEntity.badRequest().body("Sign up fail");
+        }
+        if(existingEmail.isPresent()){
+            return ResponseEntity.badRequest().body("Sign up fail");
+        }
+        if(existingPassword.isPresent()){
             return ResponseEntity.badRequest().body("Sign up fail");
         }
         UserProfile userProfile = userProfileRepository.save(new UserProfile(signUpUserProfile.getUsername(), signUpUserProfile.getEmail(), signUpUserProfile.getPassword()));
@@ -77,7 +86,17 @@ public class UserProfileController {
             userProfile.setJobTitle(userProfileDetails.getJobTitle());
             userProfile.setDepartment(userProfileDetails.getDepartment());
             userProfile.setDateOfHire(userProfileDetails.getDateOfHire());
+             switch (userProfileDetails.getUserType()) {
+                    case EMPLOYEE:
+                        // cho record vao bang employee
+                        break;
+                    case EMPLOYER:
 
+                        break;
+                    case ADMIN:
+
+                        break;
+            }
 
             UserProfile updatedUserProfile = userProfileRepository.save(userProfile);
             return ResponseEntity.ok(updatedUserProfile);
