@@ -31,7 +31,7 @@ public class UserProfileController {
     }
 
     @GetMapping("/checkEmail")
-    public ResponseEntity<String> checkEmail(@RequestParam String email) {
+    public ResponseEntity<String> checkEmail(@RequestBody String email) {
         Optional<UserProfile> user = userProfileRepository.findByEmail(email);
         if (user.isPresent()) {
             return ResponseEntity.ok("Email exists");
