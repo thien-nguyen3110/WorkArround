@@ -40,6 +40,9 @@
         <activity
             android:name=".joinNowActivity"
             android:exported="true" />
+        <activity
+            android:name=".deleteActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

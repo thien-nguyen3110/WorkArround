@@ -59,6 +59,8 @@ public class loginActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(loginActivity.this, employeeActivity.class);
+                startActivity(intent);
                 loginRequest();
             }
         });
@@ -105,6 +107,7 @@ public class loginActivity extends AppCompatActivity {
         try {
             loginData.put("username", usernameInput.getText().toString());
             loginData.put("password", passwordInput.getText().toString());
+            Log.i("hidden", loginData.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
