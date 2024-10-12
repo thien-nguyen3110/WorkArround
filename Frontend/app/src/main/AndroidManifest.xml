@@ -45,6 +45,10 @@
         <activity
             android:name=".resetPasswordActivity"
             android:exported="true" />
+
+        <activity
+            android:name=".deleteActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
