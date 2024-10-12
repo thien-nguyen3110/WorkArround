@@ -340,6 +340,7 @@ public class joinNowActivity extends AppCompatActivity {
 
         )
         {
+            // dont know if necessary
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
@@ -352,6 +353,7 @@ public class joinNowActivity extends AppCompatActivity {
                 return params;
             }
         };
+
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(post_join);
     }
 
