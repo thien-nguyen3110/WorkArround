@@ -23,10 +23,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> e5441b70751d6a8d23521143890aad1fa74d10f0
 
 public class loginActivity extends AppCompatActivity {
 
@@ -63,7 +59,7 @@ public class loginActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-<<<<<<< HEAD
+
                 // Get the user input from the text fields
                 String username = usernameInput.getText().toString();
                 String password = passwordInput.getText().toString();
@@ -76,11 +72,10 @@ public class loginActivity extends AppCompatActivity {
                     // Display a message if fields are empty
                     messageText.setText("Please enter both username and password.");
                 }
-=======
+
                 Intent intent = new Intent(loginActivity.this, employeeActivity.class);
                 startActivity(intent);
                 loginRequest();
->>>>>>> e5441b70751d6a8d23521143890aad1fa74d10f0
             }
         });
 
