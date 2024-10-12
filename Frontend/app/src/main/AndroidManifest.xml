@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -10,6 +10,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.AndroidExample"
         tools:targetApi="31">
         <activity
@@ -40,7 +41,11 @@
             android:name=".joinNowActivity"
             android:exported="true" />
         <activity
+<<<<<<< HEAD
             android:name=".resetPasswordActivity"
+=======
+            android:name=".deleteActivity"
+>>>>>>> e5441b70751d6a8d23521143890aad1fa74d10f0
             android:exported="true" />
     </application>
 

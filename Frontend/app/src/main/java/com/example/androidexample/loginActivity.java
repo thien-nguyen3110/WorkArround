@@ -23,7 +23,10 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> e5441b70751d6a8d23521143890aad1fa74d10f0
 
 public class loginActivity extends AppCompatActivity {
 
@@ -37,7 +40,7 @@ public class loginActivity extends AppCompatActivity {
 
     boolean isPasswordVisible = false;
 
-    String url = "https://304b2c41-4ef3-4e62-a2f8-e40348b54d5e.mock.pstmn.io";
+    String url = "http://coms-3090-046.class.las.iastate.edu:8080/api/userprofile/login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -60,6 +63,7 @@ public class loginActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+<<<<<<< HEAD
                 // Get the user input from the text fields
                 String username = usernameInput.getText().toString();
                 String password = passwordInput.getText().toString();
@@ -72,6 +76,11 @@ public class loginActivity extends AppCompatActivity {
                     // Display a message if fields are empty
                     messageText.setText("Please enter both username and password.");
                 }
+=======
+                Intent intent = new Intent(loginActivity.this, employeeActivity.class);
+                startActivity(intent);
+                loginRequest();
+>>>>>>> e5441b70751d6a8d23521143890aad1fa74d10f0
             }
         });
 
@@ -116,6 +125,7 @@ public class loginActivity extends AppCompatActivity {
         try {
             loginData.put("username", usernameInput.getText().toString());
             loginData.put("password", passwordInput.getText().toString());
+            Log.i("hidden", loginData.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -141,8 +151,9 @@ public class loginActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Login Error", error.toString());
-                        messageText.setText("Invalid credentials, try again.");
+                        messageText.setText(error.toString());
                     }
+<<<<<<< HEAD
                 }) {
             @Override
             protected Map<String, String> getParams() {
@@ -152,6 +163,23 @@ public class loginActivity extends AppCompatActivity {
                 return params; // This is where parameters get sent
             }
         };
+=======
+                }
+                )
+                {
+                    @Override
+                    public Map<String, String> getHeaders() {
+                        Map<String, String> headers = new HashMap<>();
+                        return headers;
+                    }
+
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<>();
+                        return params;
+                    }
+                };
+>>>>>>> e5441b70751d6a8d23521143890aad1fa74d10f0
 
         Volley.newRequestQueue(this).add(loginRequest);
     }
