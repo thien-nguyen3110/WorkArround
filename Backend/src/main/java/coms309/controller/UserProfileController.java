@@ -32,7 +32,7 @@ public class UserProfileController {
 
     @GetMapping("/checkEmail")
     public ResponseEntity<String> checkEmail(@RequestBody UserDTO email) {
-        Optional<UserProfile> user = userProfileRepository.findByEmail(email);
+        Optional<UserProfile> user = userProfileRepository.findByEmail(String.valueOf(email));
         if (user.isPresent()) {
             return ResponseEntity.ok("Email exists");
         }
@@ -47,7 +47,7 @@ public class UserProfileController {
         }
         user.get().setPassword(forgotUser.getPassword());
         userProfileRepository.save(user.get());
-        return ResponseEntity.ok("Successfully change the password");
+        return ResponseEntity.ok("Successfully changed the password");
     }
 
     /**
