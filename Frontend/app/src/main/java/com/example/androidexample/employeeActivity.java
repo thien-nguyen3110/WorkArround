@@ -24,6 +24,8 @@ public class employeeActivity extends AppCompatActivity {
     private Button signoutButton;
     private Button deleteButton;
 
+    private int time_worked_hours;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +56,7 @@ public class employeeActivity extends AppCompatActivity {
                 int seconds = (int) total_time_ms / 1000;
                 int minutes = (seconds / 60);
                 int hours = seconds / 60 / 60;
+                time_worked_hours = hours;
                 timerText.setText(String.format("%02d:%02d:%02d", hours, minutes % 60, seconds % 60));
                 timerHandler.postDelayed(this, 500);
             }
@@ -96,4 +99,5 @@ public class employeeActivity extends AppCompatActivity {
             }
         });
     }
+    
 }
