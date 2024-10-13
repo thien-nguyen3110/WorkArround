@@ -124,7 +124,7 @@ public class employeeActivity extends AppCompatActivity {
     // POST
     public void postRequest(JSONObject j) {
         String post_url = "http://coms-3090-046.class.las.iastate.edu:8080/api/timeWorked/";
-        JsonObjectRequest post_join = new JsonObjectRequest(
+        JsonObjectRequest post_time = new JsonObjectRequest(
                 Request.Method.POST,
                 post_url,
                 j,
@@ -158,6 +158,6 @@ public class employeeActivity extends AppCompatActivity {
             }
         };
 
-        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(post_join);
+        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(post_time);
     }
 }
