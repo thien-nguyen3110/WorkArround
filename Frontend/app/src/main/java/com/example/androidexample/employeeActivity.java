@@ -11,11 +11,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -110,8 +114,16 @@ public class employeeActivity extends AppCompatActivity {
             }
         });
     }
+
+    /*
+
+    -------------------- API REQUESTS ------------------------
+
+     */
+
+    // POST
     public void postRequest(JSONObject j) {
-        String post_url = "http://coms-3090-046.class.las.iastate.edu:8080/api/timeWorked/" +
+        String post_url = "http://coms-3090-046.class.las.iastate.edu:8080/api/timeWorked/";
         JsonObjectRequest post_join = new JsonObjectRequest(
                 Request.Method.POST,
                 post_url,

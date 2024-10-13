@@ -108,7 +108,6 @@ public class loginActivity extends AppCompatActivity {
 
 
     }
-
     //For login
     public void loginRequest() {
         String username = usernameInput.getText().toString();
