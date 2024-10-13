@@ -6,14 +6,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.coms309.model.User;
-import com.coms309.service.UserService;
+import coms309.entity.User;
+import coms309.service.UserService;
 import com.coms309.exception.ResourceNotFoundException;
 
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/timeworked")
+@RequestMapping("/timeWorked")
 public class TimeWorkedController {
 
     private static final Logger logger = LoggerFactory.getLogger(TimeWorkedController.class);
@@ -23,15 +23,14 @@ public class TimeWorkedController {
 
     // Get user by ID and return timeWorked along with other details
     @GetMapping("/{id}")
-    public ResponseEntity<User> getTimeWorkedById(@PathVariable int id) {
+    public ResponseEntity<User> getTimeWorkedById(@PathVariable Long id) {
         logger.info("Fetching user with id: {}", id);
-        User user = userService.getUserById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
+        User user = userService.getUserById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
         return ResponseEntity.ok(user);
     }
 
-    // Update user by ID, including modifying timeWorked
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateTimeWorked(@PathVariable int id, @Valid @RequestBody User userDetails) {
+    public ResponseEntity<User> updateTimeWorked(@PathVariable Long id, @Valid @RequestBody User userDetails) {
         logger.info("Updating timeWorked for user with id: {}", id);
         User updatedUser = userService.updateUser(id, userDetails);
         return ResponseEntity.ok(updatedUser);
