@@ -160,4 +160,44 @@ public class employeeActivity extends AppCompatActivity {
 
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(post_time);
     }
+
+    // GET
+    public void getRequest() {
+        String get_url = "http://coms-3090-046.class.las.iastate.edu:8080/api/timeWorked/";
+        JsonObjectRequest get_time = new JsonObjectRequest(
+                Request.Method.GET,
+                get_url,
+                null,
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("Volley Response", response.toString());
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley Error", error.toString());
+                    }
+                }
+
+        )
+        {
+            // dont know if necessary
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                return headers;
+            }
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                return params;
+            }
+        };
+
+        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(get_time);
+    }
 }
