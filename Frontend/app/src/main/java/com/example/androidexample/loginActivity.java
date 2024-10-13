@@ -64,6 +64,7 @@ public class loginActivity extends AppCompatActivity {
                 if (!username.isEmpty() && !password.isEmpty()) {
                     loginRequest();
                     Intent intent = new Intent(loginActivity.this, employeeActivity.class);
+                    intent.putExtra("user_id", )
                     startActivity(intent);
                     loginRequest();
 

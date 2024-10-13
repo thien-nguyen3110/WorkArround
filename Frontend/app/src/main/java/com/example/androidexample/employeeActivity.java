@@ -6,9 +6,20 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class employeeActivity extends AppCompatActivity {
 
@@ -99,5 +110,42 @@ public class employeeActivity extends AppCompatActivity {
             }
         });
     }
-    
+    public void postRequest(JSONObject j) {
+        String post_url = "http://coms-3090-046.class.las.iastate.edu:8080/api/timeWorked/" +
+        JsonObjectRequest post_join = new JsonObjectRequest(
+                Request.Method.POST,
+                post_url,
+                j,
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("Volley Response", response.toString());
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley Error", error.toString());
+                    }
+                }
+
+        )
+        {
+            // dont know if necessary
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                return headers;
+            }
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                return params;
+            }
+        };
+
+        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(post_join);
+    }
 }
