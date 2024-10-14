@@ -131,6 +131,7 @@ public class employeeActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
+                checkText.setText(time.toString());
                 putRequest(time);
             }
         });
@@ -241,7 +242,7 @@ public class employeeActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Volley Error", error.toString());
-                        checkText.setText(error.toString());
+                        //checkText.setText(error.toString());
                     }
                 }
 
