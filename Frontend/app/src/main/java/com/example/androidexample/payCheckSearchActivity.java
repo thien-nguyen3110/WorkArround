@@ -54,10 +54,11 @@ public class payCheckSearchActivity extends AppCompatActivity {
         modifyUsers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (username == null || username.isEmpty()) {
-                    Toast.makeText(payCheckSearchActivity.this, "Please search for a user first", Toast.LENGTH_SHORT).show();
+                username = usernameInput.getText().toString().trim();
+                if (username.isEmpty()) {
+                    Toast.makeText(payCheckSearchActivity.this, "Please enter a username to modify", Toast.LENGTH_SHORT).show();
                 } else {
-                    // Go to payCheckModifyActivity if a user was found and modify button is pressed
+                    // Go to payCheckModifyActivity if modify button is pressed
                     Intent intent = new Intent(payCheckSearchActivity.this, payCheckModifyActivity.class);
                     intent.putExtra("username", username);
                     startActivity(intent);
@@ -69,7 +70,7 @@ public class payCheckSearchActivity extends AppCompatActivity {
     private void searchForUser() {
         username = usernameInput.getText().toString().trim();
         if (username.isEmpty()) {
-            Toast.makeText(this, "Please enter a username", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter a username to search", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -117,3 +118,4 @@ public class payCheckSearchActivity extends AppCompatActivity {
         }
     }
 }
+
