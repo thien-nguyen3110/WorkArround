@@ -65,7 +65,8 @@ public class UserProfileController {
      * @param id ID of the user profile
      * @return ResponseEntity with UserProfile or 404 if not found
      */
-    @GetMapping("/{id}")
+
+    @GetMapping("/id/{id}")
     public ResponseEntity<UserProfile> getUserProfileById(@PathVariable Long id) {
         logger.info("Fetching user profile with ID: {}", id);
 
@@ -84,7 +85,7 @@ public class UserProfileController {
                 });
     }
 
-    @GetMapping("/{username}")
+    @GetMapping("/username/{username}")
     public ResponseEntity<?> getUserProfileByUsername(@PathVariable String username) {
         logger.info("Fetching user profile for username: " + username);
 
@@ -94,10 +95,7 @@ public class UserProfileController {
             // Convert the entity to a DTO to send back to the frontend
             UserDTO userDTO = new UserDTO(
                     userProfile.get().getUsername(),
-                    /* userProfile.get().getFirstName(),
-                    userProfile.get().getLastName(), */
                     userProfile.get().getEmail()
-                    // Add other necessary fields but exclude sensitive ones like password
             );
 
             logger.info("User profile found for username: " + username);
