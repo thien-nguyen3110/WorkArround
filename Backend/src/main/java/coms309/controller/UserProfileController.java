@@ -31,8 +31,8 @@ public class UserProfileController {
     }
 
     @GetMapping("/checkEmail")
-    public ResponseEntity<String> checkEmail(@RequestBody UserDTO email) {
-        Optional<UserProfile> user = userProfileRepository.findByEmail(email);
+    public ResponseEntity<String> checkEmail(@RequestBody UserSignupDTO email) {
+        Optional<UserProfile> user = userProfileRepository.findByEmail(email.getEmail());
         if (user.isPresent()) {
             return ResponseEntity.ok("Email exists");
         }
