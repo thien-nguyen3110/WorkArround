@@ -95,7 +95,8 @@ public class UserProfileController {
             // Convert the entity to a DTO to send back to the frontend
             UserDTO userDTO = new UserDTO(
                     userProfile.get().getUsername(),
-                    userProfile.get().getEmail()
+                    userProfile.get().getEmail(),
+                    userProfile.get().getUserId()
             );
 
             logger.info("User profile found for username: " + username);
