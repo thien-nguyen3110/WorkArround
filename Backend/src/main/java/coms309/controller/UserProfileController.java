@@ -84,6 +84,30 @@ public class UserProfileController {
                 });
     }
 
+    @GetMapping("/{username}")
+    public ResponseEntity<?> getUserProfileByUsername(@PathVariable String username) {
+        logger.info("Fetching user profile for username: " + username);
+
+        Optional<UserProfile> userProfile = userProfileRepository.findByUsername(username);
+
+        if (userProfile.isPresent()) {
+            // Convert the entity to a DTO to send back to the frontend
+            UserDTO userDTO = new UserDTO(
+                    userProfile.get().getUsername(),
+                    /* userProfile.get().getFirstName(),
+                    userProfile.get().getLastName(), */
+                    userProfile.get().getEmail()
+                    // Add other necessary fields but exclude sensitive ones like password
+            );
+
+            logger.info("User profile found for username: " + username);
+            return new ResponseEntity<>(userDTO, HttpStatus.OK);
+        } else {
+            logger.error("User profile not found for username: " + username);
+            return new ResponseEntity<>("User profile not found", HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody UserDTO loginUser) {
         Optional<UserProfile> existUser = userProfileRepository.findByUsernameAndPassword(loginUser.getUsername(), loginUser.getPassword());
