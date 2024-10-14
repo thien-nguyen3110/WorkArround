@@ -167,7 +167,7 @@ public class employeeActivity extends AppCompatActivity {
         JsonObjectRequest get_time = new JsonObjectRequest(
                 Request.Method.GET,
                 get_url,
-                null,
+                null, // get request
                 new Response.Listener<JSONObject>() {
 
                     @Override
