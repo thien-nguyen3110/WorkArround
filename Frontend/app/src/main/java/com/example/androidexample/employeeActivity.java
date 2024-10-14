@@ -35,9 +35,12 @@ public class employeeActivity extends AppCompatActivity {
 
     private TextView timerText;
     private long checked_time;
+    private long current_checked_time;
 
     private Button signoutButton;
     private Button deleteButton;
+
+    private Button timeButton;
 
     private int time_worked_hours;
 
@@ -51,6 +54,8 @@ public class employeeActivity extends AppCompatActivity {
         deleteButton = findViewById(R.id.delete_btn);
         checkText = findViewById(R.id.check_txt);
         timerText = findViewById(R.id.check_clk_txt);
+
+        timeButton = findViewById(R.id.next_shift_btn);
 
         int check_green = Color.rgb(10, 100, 10);
         int check_red = Color.rgb(100, 10, 10);
@@ -67,7 +72,10 @@ public class employeeActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                long total_time_ms = System.currentTimeMillis() - checked_time;
+                if (isCheckedIn) {
+                    current_checked_time = System.currentTimeMillis();
+                }
+                long total_time_ms = current_checked_time - checked_time;
                 int seconds = (int) total_time_ms / 1000;
                 int minutes = (seconds / 60);
                 int hours = seconds / 60 / 60;
@@ -111,6 +119,19 @@ public class employeeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(employeeActivity.this, deleteActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        timeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                JSONObject time = new JSONObject();
+                try {
+                    time.put("timeWorked", (current_checked_time - checked_time) / 1000 / 60 / 60);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+                putRequest(time);
             }
         });
     }
@@ -203,7 +224,7 @@ public class employeeActivity extends AppCompatActivity {
 
     // PUT
     public void putRequest(JSONObject j) {
-        String put_url = "http://coms-3090-046.class.las.iastate.edu:8080/api/timeWorked/";
+        String put_url = "http://coms-3090-046.class.las.iastate.edu:8080/timeWorked/2";
         JsonObjectRequest put_time = new JsonObjectRequest(
                 Request.Method.POST,
                 put_url,
@@ -213,12 +234,14 @@ public class employeeActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("Volley Response", response.toString());
+                        checkText.setText(response.toString());
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Volley Error", error.toString());
+                        checkText.setText(error.toString());
                     }
                 }
 
