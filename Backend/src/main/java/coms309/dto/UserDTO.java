@@ -5,12 +5,12 @@ import org.springframework.lang.Nullable;
 
 @Data
 public class UserDTO {
-    private String password;
-
     private String username;
 
     @Nullable
     private String email;
+
+    private String password;
 
     public UserDTO(String username, String email) {
         // Log constructor usage
