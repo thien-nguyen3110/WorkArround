@@ -93,7 +93,7 @@ public class employeeActivity extends AppCompatActivity {
                     checkText.setText("Check in");
                     isCheckedIn = false;
                     checkButton.setBackgroundColor(check_green);
-                    timerText.setVisibility(View.INVISIBLE);
+                    //timerText.setVisibility(View.INVISIBLE);
                 }
             }
         });
