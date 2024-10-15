@@ -167,6 +167,7 @@ public class UserProfileController {
         }
     }
 
+    /*
     @Autowired
     private PayDetailsRepository payDetailsRepository;
 
@@ -204,7 +205,7 @@ public class UserProfileController {
             return ResponseEntity.notFound().build();
         }
     }
-
+    */
 
     // Helper methods to create records for employee, employer, admin
     public void createEmployeeRecord(UserProfile userProfile, UserProfile userProfileDetails) {
