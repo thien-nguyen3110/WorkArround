@@ -48,13 +48,4 @@ public class SignUpDTO {
         this.password = password;
     }
 
-    public String getVerifyPassword() {
-
-        return verifyPassword;
-    }
-
-    public void setVerifyPassword(String verifyPassword) {
-
-        this.verifyPassword = verifyPassword;
-    }
 }
