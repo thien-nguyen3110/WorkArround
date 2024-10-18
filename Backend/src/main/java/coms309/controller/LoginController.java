@@ -32,9 +32,6 @@ public class LoginController {
     // Sign up: POST name, email, username, password, verify password
     @PostMapping("/signup")
     public ResponseEntity<String> signUp(@RequestBody SignUpDTO signUpUser) {
-        if (!signUpUser.getPassword().equals(signUpUser.getVerifyPassword())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Passwords do not match.");
-        }
         Optional<UserProfile> existingUser = userProfileRepository.findByUsername(signUpUser.getUsername());
         if (existingUser.isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Username already exists.");
