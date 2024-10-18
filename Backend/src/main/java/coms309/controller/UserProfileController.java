@@ -1,7 +1,6 @@
 package coms309.controller;
 
 import coms309.dto.UserDTO;
-import coms309.dto.UserSignupDTO;
 import coms309.entity.Admin;
 import coms309.entity.Employee;
 import coms309.entity.Employer;
@@ -28,15 +27,6 @@ public class UserProfileController {
 
     public UserProfileController(UserProfileRepository userProfileRepository) {
         this.userProfileRepository = userProfileRepository;
-    }
-
-    @GetMapping("/checkEmail")
-    public ResponseEntity<String> checkEmail(@RequestBody UserDTO emailDTO) {
-        Optional<UserProfile> user = userProfileRepository.findByEmail(emailDTO.getEmail());
-        if (user.isPresent()) {
-            return ResponseEntity.ok("Email exists");
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Email does not exist");
     }
 
     @PutMapping("/forgotPassword")
@@ -106,35 +96,6 @@ public class UserProfileController {
             logger.error("User profile not found for username: " + username);
             return new ResponseEntity<>("User profile not found", HttpStatus.NOT_FOUND);
         }
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody UserDTO loginUser) {
-        Optional<UserProfile> existUser = userProfileRepository.findByUsernameAndPassword(loginUser.getUsername(), loginUser.getPassword());
-        if (existUser.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login failed. Invalid credentials.");
-        }
-        return ResponseEntity.ok("Login successful");
-    }
-
-    @PostMapping("/signup")
-    public ResponseEntity<String> signup(@RequestBody UserSignupDTO signUpUserProfile) {
-        // Check if email or username already exists
-        Optional<UserProfile> existingUsername = userProfileRepository.findByUsername(signUpUserProfile.getUsername());
-        Optional<UserProfile> existingEmail = userProfileRepository.findByEmail(signUpUserProfile.getEmail());
-
-        if (existingUsername.isPresent()) {
-            return ResponseEntity.badRequest().body("Username is already taken");
-        }
-        if (existingEmail.isPresent()) {
-            return ResponseEntity.badRequest().body("Email is already registered");
-        }
-
-        // Create and save the new user profile
-        UserProfile newUserProfile = new UserProfile(signUpUserProfile.getUserId(),  signUpUserProfile.getUsername(), signUpUserProfile.getEmail(), signUpUserProfile.getPassword());
-        userProfileRepository.save(newUserProfile);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body("Sign up successful");
     }
 
     @PutMapping("/{id}")
