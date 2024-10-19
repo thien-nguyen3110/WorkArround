@@ -63,9 +63,8 @@ public class loginActivity extends AppCompatActivity {
                 // Check if both fields are filled
                 if (!username.isEmpty() && !password.isEmpty()) {
                     loginRequest();
-                    Intent intent = new Intent(loginActivity.this, employeeActivity.class);
-                    //intent.putExtra("user_id", )
-                    startActivity(intent);
+                    //Intent intent = new Intent(loginActivity.this, employeeActivity.class);
+                    //startActivity(intent);
                     loginRequest();
 
                 } else {
@@ -108,18 +107,33 @@ public class loginActivity extends AppCompatActivity {
 
 
     }
+<<<<<<< HEAD
     //For login
+=======
+
+    // For login
+>>>>>>> 07ebc41b9ae55b9d70567ade419356c432bfa20e
     public void loginRequest() {
         String username = usernameInput.getText().toString();
         String password = passwordInput.getText().toString();
 
-        // Add username and password to URL as query parameters
+        // Create JSON object with the username and password
+        JSONObject loginData = new JSONObject();
+        try {
+            loginData.put("username", username);
+            loginData.put("password", password);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Define the URL for the login POST request
         String url = "http://coms-3090-046.class.las.iastate.edu:8080/api/userprofile/login";
 
+        // Create a new JsonObjectRequest with POST method
         JsonObjectRequest loginRequest = new JsonObjectRequest(
-                Request.Method.GET,
+                Request.Method.POST,
                 url,
-                null, // No body for GET request
+                loginData, // Send loginData as the body of the POST request
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -141,6 +155,8 @@ public class loginActivity extends AppCompatActivity {
                 }
         );
 
+        // Add the request to the Volley request queue
         Volley.newRequestQueue(this).add(loginRequest);
     }
+
 }

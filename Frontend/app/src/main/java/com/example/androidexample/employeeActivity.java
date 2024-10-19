@@ -133,6 +133,7 @@ public class employeeActivity extends AppCompatActivity {
                 }
                 checkText.setText(time.toString());
                 putRequest(time);
+                postRequest(time);
             }
         });
     }
