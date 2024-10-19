@@ -107,12 +107,7 @@ public class loginActivity extends AppCompatActivity {
 
 
     }
-<<<<<<< HEAD
     //For login
-=======
-
-    // For login
->>>>>>> 07ebc41b9ae55b9d70567ade419356c432bfa20e
     public void loginRequest() {
         String username = usernameInput.getText().toString();
         String password = passwordInput.getText().toString();
