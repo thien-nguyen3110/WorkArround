@@ -227,9 +227,7 @@ public class joinNowActivity extends AppCompatActivity {
                     signup_details.put("username", usernameFilled);
                     signup_details.put("email", emailFilled);
                     signup_details.put("password", passwordFilled);
-
                     signup_details.put("name", nameFilled);
-                    signup_details.put("verifyPassword", passwordFilled);
 
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
