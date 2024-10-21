@@ -33,6 +33,8 @@ public class loginActivity extends AppCompatActivity {
 
     boolean isPasswordVisible = false;
 
+    public JSONObject user_details;
+
     String url = "https://304b2c41-4ef3-4e62-a2f8-e40348b54d5e.mock.pstmn.io";
 
     @Override
@@ -134,6 +136,7 @@ public class loginActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         Log.d("Login Response", response.toString());
                         if (response.optString("message").equals("login successfully")) {
+
                             Intent intent = new Intent(loginActivity.this, employeeActivity.class);
                             startActivity(intent);
                         } else {
