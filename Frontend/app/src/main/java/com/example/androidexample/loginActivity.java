@@ -2,6 +2,7 @@ package com.example.androidexample;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -15,6 +16,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
@@ -33,7 +35,6 @@ public class loginActivity extends AppCompatActivity {
 
     boolean isPasswordVisible = false;
 
-    String url = "https://304b2c41-4ef3-4e62-a2f8-e40348b54d5e.mock.pstmn.io";
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -56,19 +57,39 @@ public class loginActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Get the user input from the text fields
-                String username = usernameInput.getText().toString();
-                String password = passwordInput.getText().toString();
+                // Get the users usernam/password inputs, trim to remove whitespace
+                String username = usernameInput.getText().toString().trim();
+                String password = passwordInput.getText().toString().trim();
 
-                // Check if both fields are filled
+                // Check if fields filled, then either successful login or failed login
                 if (!username.isEmpty() && !password.isEmpty()) {
-                    loginRequest();
-                    //Intent intent = new Intent(loginActivity.this, employeeActivity.class);
-                    //startActivity(intent);
-                    loginRequest();
+                    String url = "http://coms-3090-046.class.las.iastate.edu:8080/login?username=" + username + "&password=" + password;
+
+                    StringRequest loginRequest = new StringRequest(Request.Method.GET, url,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    // Login successful
+                                    if (response.equals("Login successful")) {
+                                        Intent intent = new Intent(loginActivity.this, employerActivity.class);
+                                        startActivity(intent);
+                                    } else {
+                                        messageText.setText(response);
+                                    }
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    messageText.setText("Login failed. Please try again.");
+                                    Log.e("Volley", error.toString());
+                                }
+                            });
+
+                    Volley.newRequestQueue(loginActivity.this).add(loginRequest);
 
                 } else {
-                    // Display a message if fields are empty
+                    // If fields not filled, message
                     messageText.setText("Please enter both username and password.");
                 }
             }
@@ -104,55 +125,5 @@ public class loginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
     }
-
-    // For login
-    public void loginRequest() {
-        String username = usernameInput.getText().toString();
-        String password = passwordInput.getText().toString();
-
-        // Create JSON object with the username and password
-        JSONObject loginData = new JSONObject();
-        try {
-            loginData.put("username", username);
-            loginData.put("password", password);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        // Define the URL for the login POST request
-        String url = "http://coms-3090-046.class.las.iastate.edu:8080/api/userprofile/login";
-
-        // Create a new JsonObjectRequest with POST method
-        JsonObjectRequest loginRequest = new JsonObjectRequest(
-                Request.Method.POST,
-                url,
-                loginData, // Send loginData as the body of the POST request
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.d("Login Response", response.toString());
-                        if (response.optString("message").equals("login successfully")) {
-                            Intent intent = new Intent(loginActivity.this, employeeActivity.class);
-                            startActivity(intent);
-                        } else {
-                            messageText.setText("Unexpected response: " + response);
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("Login Error", error.toString());
-                        messageText.setText(error.toString());
-                    }
-                }
-        );
-
-        // Add the request to the Volley request queue
-        Volley.newRequestQueue(this).add(loginRequest);
-    }
-
 }
