@@ -70,7 +70,7 @@ public class loginActivity extends AppCompatActivity {
                                 public void onResponse(String response) {
                                     // Login successful
                                     if (response.equals("Login successful")) {
-                                        Intent intent = new Intent(loginActivity.this, employerActivity.class);
+                                        Intent intent = new Intent(loginActivity.this, employeeActivity.class);
                                         startActivity(intent);
                                     } else {
                                         messageText.setText(response);
