@@ -3,10 +3,7 @@ plugins {
     id 'com.android.application' version '8.0.0' apply false
 }
 
-<<<<<<< HEAD
-=======
 android {
-
 }
 
 task javadoc(type: Javadoc) {
@@ -43,7 +40,4 @@ task javadoc(type: Javadoc) {
 }
 
 dependencies {
-
 }
->>>>>>> sb_3_2_complex_relations
-
