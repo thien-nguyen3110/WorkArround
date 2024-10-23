@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    ...
+
 }
 
 task javadoc(type: Javadoc) {
@@ -41,6 +41,6 @@ task javadoc(type: Javadoc) {
 }
 
 dependencies {
-    ...
+
 }
 
