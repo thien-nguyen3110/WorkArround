@@ -30,12 +30,5 @@ public class employerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.employer);
-
-        checkInOut = findViewById(R.id.checkButton);
-
-        //Set colors
-        int checkGrey = Color.rgb(211, 211, 211);
-        //Change colors to grey for buttons
-        checkInOut.setBackgroundColor(checkGrey);
     }
 }
