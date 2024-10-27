@@ -30,7 +30,7 @@ public class ChatActivity extends AppCompatActivity implements WebSocketListener
         WebSocketManager.getInstance().setWebSocketListener(ChatActivity.this);
 
         /* send button listener */
-        sendBtn.setOnClickListener(v -> {
+            sendBtn.setOnClickListener(v -> {
             try {
                 // send message
                 WebSocketManager.getInstance().sendMessage(msgEtx.getText().toString());
