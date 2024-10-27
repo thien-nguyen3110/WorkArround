@@ -15,14 +15,22 @@ android:orientation="vertical">
     <EditText
         android:layout_height="50dp"
         android:layout_width="320dp"
-        android:hint="message"
+        android:hint="Type a message"
         android:textSize="20dp"
         android:id="@+id/msgEdt" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Send"
+        android:text=">"
         android:id="@+id/sendBtn" />
+
+    <Button
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="-200dp"
+        android:layout_width="200dp"
+        android:text="Clear"
+        android:id="@+id/clearBtn"
+        android:layout_height="50dp" />
 </LinearLayout>
 
 

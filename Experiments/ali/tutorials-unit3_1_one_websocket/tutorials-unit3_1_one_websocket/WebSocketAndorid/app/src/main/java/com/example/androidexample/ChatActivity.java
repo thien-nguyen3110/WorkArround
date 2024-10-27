@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -15,6 +16,9 @@ public class ChatActivity extends AppCompatActivity implements WebSocketListener
     private Button sendBtn;
     private EditText msgEtx;
     private TextView msgTv;
+    private Button clearBtn;
+
+    private String currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,18 +30,28 @@ public class ChatActivity extends AppCompatActivity implements WebSocketListener
         msgEtx = (EditText) findViewById(R.id.msgEdt);
         msgTv = (TextView) findViewById(R.id.tx1);
 
+        clearBtn = (Button) findViewById(R.id.clearBtn);
+
         /* connect this activity to the websocket instance */
         WebSocketManager.getInstance().setWebSocketListener(ChatActivity.this);
 
         /* send button listener */
-        sendBtn.setOnClickListener(v -> {
+            sendBtn.setOnClickListener(v -> {
             try {
                 // send message
                 WebSocketManager.getInstance().sendMessage(msgEtx.getText().toString());
+                msgEtx.setText("");
             } catch (Exception e) {
                 Log.d("ExceptionSendMessage:", e.getMessage().toString());
             }
         });
+
+            clearBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    msgTv.setText("");
+                }
+            });
     }
 
 
