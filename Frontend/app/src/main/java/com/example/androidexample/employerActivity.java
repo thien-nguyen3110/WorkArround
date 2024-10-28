@@ -119,7 +119,7 @@ public class employerActivity extends AppCompatActivity {
                         timeClockMsg.setBase(SystemClock.elapsedRealtime());
 
                         String clockOutTime = dateFormat.format(new Date());
-                        showClockOutPopup(clockInTime, SystemClock.elapsedRealtime() - timeClockMsg.getBase(), clockOutTime);
+                        showClockOutPopup(clockInTime, System.currentTimeMillis() - clockInTime, clockOutTime);
                     } else {
                         gradientDrawable.setStroke(15, Color.GREEN);
                         checkInMsg.setText("Clock Out");
