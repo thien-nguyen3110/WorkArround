@@ -12,8 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -25,8 +23,6 @@ import java.util.Locale;
 
 public class employerActivity extends AppCompatActivity {
     private boolean isClockedIn = false;
-    private boolean isShiftDetailsVisible = false;
-    private boolean isPayDetailsVisible = false;
 
     private long clockInTime;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
