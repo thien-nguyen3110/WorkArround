@@ -1,5 +1,6 @@
 package coms309.controller;
 
+import coms309.dto.SignUpDTO;
 import coms309.dto.UserDTO;
 import coms309.entity.Admin;
 import coms309.entity.Employee;
@@ -96,7 +97,7 @@ public class UserProfileController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<String> signup (@RequestBody UserSignupDTO signUpUserProfile){
+    public ResponseEntity<String> signup (@RequestBody SignUpDTO signUpUserProfile){
         //change it to check seperately the email pass and username
 
         Optional<UserProfile> existingUsername = userProfileRepository.findByUsername(signUpUserProfile.getUsername());
