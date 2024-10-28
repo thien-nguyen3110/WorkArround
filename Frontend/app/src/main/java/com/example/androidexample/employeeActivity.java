@@ -90,6 +90,7 @@ public class employeeActivity extends AppCompatActivity {
 
                         String clockOutTime = dateFormat.format(new Date());
                         showClockOutPopup(clockInTime, System.currentTimeMillis() - clockInTime, clockOutTime);
+
                     } else {
                         gradientDrawable.setStroke(15, Color.GREEN);
                         checkInMsg.setText("Clock Out");
@@ -171,7 +172,6 @@ public class employeeActivity extends AppCompatActivity {
     /*
 
     -------------------- API REQUESTS ------------------------
-
 
 
     // POST
