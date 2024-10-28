@@ -44,30 +44,8 @@ public class employerActivity extends AppCompatActivity {
     private Button projButton;
     private Button selfServiceButton;
     private Button payButton;
-    /*
-    private TextView welcomeMsg;
-    */
     private TextView checkInMsg;
     private Chronometer timeClockMsg;
-    /*
-    private TextView shiftDateMsg;
-    private TextView shiftHoursMsg;
-    private TextView assignedProjMsg;
-    private TextView extraShiftMsg;
-    private TextView extraHoursMsg;
-    private TextView extraProjMsg;
-    private TextView payMsg;
-    private TextView hoursWorkedMsg;
-    private TextView payDateMsg;
-    private TextView extraPayMsg;
-    private TextView extraHoursWorkedMsg;
-    private TextView extraPayDateMsg;
-    */
-
-    private ImageView shiftArrow;
-    private ImageView payArrow;
-    private LinearLayout shiftDetails;
-    private LinearLayout payDetails;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -77,12 +55,8 @@ public class employerActivity extends AppCompatActivity {
 
         borderChange = findViewById(R.id.frameChange);
         checkButton = findViewById(R.id.checkButton);
-        shiftArrow = findViewById(R.id.downArrowShift);
-        payArrow = findViewById(R.id.downArrowPay);
         checkInMsg = findViewById(R.id.checkText);
         timeClockMsg = findViewById(R.id.timeText);
-        shiftDetails = findViewById(R.id.shiftDetails);
-        payDetails = findViewById(R.id.payDetails);
         projectStatButton = findViewById(R.id.projStatusButton);
         assignProjButton = findViewById(R.id.assignProjButton);
         employeeAttendanceButton = findViewById(R.id.employeeAttendanceButton);
@@ -93,12 +67,6 @@ public class employerActivity extends AppCompatActivity {
         projButton = findViewById(R.id.projButton);
         selfServiceButton = findViewById(R.id.selfServiceButton);
         payButton = findViewById(R.id.payButton);
-
-
-        /*
-        welcomeMsg = findViewById(R.id.welcomeMessage);
-        */
-
 
 
         //Clock In/Out functionality
@@ -132,22 +100,6 @@ public class employerActivity extends AppCompatActivity {
 
                     isClockedIn = !isClockedIn;
                 }
-            }
-        });
-
-        //Shift arrow functionality
-        shiftArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toggleShiftDetails();
-            }
-        });
-
-        //Pay arrow functionality
-        payArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                togglePayDetails();
             }
         });
 
@@ -239,30 +191,6 @@ public class employerActivity extends AppCompatActivity {
                 "\nHours Worked: " + workedHours);
         builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
         builder.show();
-    }
-
-    //Toggle shift details when arrow pressed
-    private void toggleShiftDetails() {
-        if (isShiftDetailsVisible) {
-            shiftDetails.setVisibility(View.GONE);
-            shiftArrow.setImageResource(R.drawable.arrowdown);
-        } else {
-            shiftDetails.setVisibility(View.VISIBLE);
-            shiftArrow.setImageResource(R.drawable.uparrow);
-        }
-        isShiftDetailsVisible = !isShiftDetailsVisible;
-    }
-
-    //Toggle pay details when arrow pressed
-    private void togglePayDetails() {
-        if (isPayDetailsVisible) {
-            payDetails.setVisibility(View.GONE);
-            payArrow.setImageResource(R.drawable.arrowdown);
-        } else {
-            payDetails.setVisibility(View.VISIBLE);
-            payArrow.setImageResource(R.drawable.uparrow);
-        }
-        isPayDetailsVisible = !isPayDetailsVisible;
     }
 }
 

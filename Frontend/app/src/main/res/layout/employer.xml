@@ -343,76 +343,6 @@
             android:gravity="left"
             android:layout_marginLeft="30dp">
         </TextView>
-
-        <!-- up arrow -->
-        <ImageView
-            android:id="@+id/upArrowShift"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="320dp"
-            android:layout_marginTop="-70dp"
-            android:onClick="onArrowClick"
-            android:src="@drawable/arrowdown"
-            android:tint="@color/black"
-            tools:ignore="UseAppTint">
-        </ImageView>
-
-        <!-- down arrow -->
-        <ImageView
-            android:id="@+id/downArrowShift"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="320dp"
-            android:layout_marginTop="-5dp"
-            android:onClick="onArrowClick"
-            android:src="@drawable/arrowdown"
-            android:tint="@color/black"
-            tools:ignore="UseAppTint">
-        </ImageView>
-
-        <!-- Placeholder for expanded shifts -->
-        <LinearLayout
-            android:id="@+id/shiftDetails"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <!-- More shift details here after drop down -->
-            <TextView
-                android:id="@+id/moreShiftText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Next Shift: 11/24/2024"
-                android:textSize="18dp"
-                android:textColor="@color/black"
-                android:gravity="left"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="20dp">
-            </TextView>
-
-            <TextView
-                android:id="@+id/moreHoursText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Shift Hours: 7:30AM - 3:00PM"
-                android:textSize="18dp"
-                android:textColor="@color/black"
-                android:gravity="left"
-                android:layout_marginLeft="30dp">
-            </TextView>
-
-            <TextView
-                android:id="@+id/moreProjText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Assigned Projects: Update Presentation"
-                android:textSize="18dp"
-                android:textColor="@color/black"
-                android:gravity="left"
-                android:layout_marginLeft="30dp">
-            </TextView>
-        </LinearLayout>
     </LinearLayout>
 
     <!-- Pay section -->
@@ -457,60 +387,6 @@
             android:textColor="@color/black"
             android:layout_marginLeft="30dp">
         </TextView>
-
-        <!-- Drop-down arrow for past pay history -->
-        <ImageView
-            android:id="@+id/downArrowPay"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="320dp"
-            android:layout_marginTop="-55dp"
-            android:onClick="onPayArrowClick"
-            android:src="@drawable/arrowdown"
-            android:tint="@color/black"
-            tools:ignore="UseAppTint">
-        </ImageView>
-
-        <!-- Placeholder for expanded pay history -->
-        <LinearLayout
-            android:id="@+id/payDetails"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <!-- Pay history details here after drop down -->
-            <TextView
-                android:id="@+id/morePaytext"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Pay: $750.00"
-                android:textSize="18dp"
-                android:textColor="@color/black"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="30dp">
-            </TextView>
-
-            <TextView
-                android:id="@+id/moreHoursWorkedText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Hours Worked: 28.75 hours"
-                android:textSize="18dp"
-                android:textColor="@color/black"
-                android:layout_marginLeft="30dp">
-            </TextView>
-
-            <TextView
-                android:id="@+id/morePayDateText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Payday: 12/30/2022"
-                android:textSize="18dp"
-                android:textColor="@color/black"
-                android:layout_marginLeft="30dp">
-            </TextView>
-        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
