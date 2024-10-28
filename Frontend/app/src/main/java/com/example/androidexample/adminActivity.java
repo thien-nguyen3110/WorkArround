@@ -119,7 +119,7 @@ public class adminActivity extends AppCompatActivity {
                         timeClockMsg.setBase(SystemClock.elapsedRealtime());
 
                         String clockOutTime = dateFormat.format(new Date());
-                        showClockOutPopup(clockInTime, SystemClock.elapsedRealtime() - timeClockMsg.getBase(), clockOutTime);
+                        showClockOutPopup(clockInTime, System.currentTimeMillis() - clockInTime, clockOutTime);
                     } else {
                         gradientDrawable.setStroke(15, Color.GREEN);
                         checkInMsg.setText("Clock Out");
@@ -155,70 +155,70 @@ public class adminActivity extends AppCompatActivity {
         projectStatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(employerActivity.this, loginActivity.class);
+                Intent intent = new Intent(adminActivity.this, loginActivity.class);
                 startActivity(intent);
             }
         });
         assignProjButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(employerActivity.this, loginActivity.class);
+                Intent intent = new Intent(adminActivity.this, loginActivity.class);
                 startActivity(intent);
             }
         });
         employeeAttendanceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(employerActivity.this, loginActivity.class);
+                Intent intent = new Intent(adminActivity.this, loginActivity.class);
                 startActivity(intent);
             }
         });
         employeeStatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(employerActivity.this, loginActivity.class);
+                Intent intent = new Intent(adminActivity.this, loginActivity.class);
                 startActivity(intent);
             }
         });
         messageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(employerActivity.this, loginActivity.class);
+                Intent intent = new Intent(adminActivity.this, loginActivity.class);
                 startActivity(intent);
             }
         });
         performanceReviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(employerActivity.this, loginActivity.class);
+                Intent intent = new Intent(adminActivity.this, loginActivity.class);
                 startActivity(intent);
             }
         });
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(employerActivity.this, loginActivity.class);
+                Intent intent = new Intent(adminActivity.this, loginActivity.class);
                 startActivity(intent);
             }
         });
         projButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(employerActivity.this, loginActivity.class);
+                Intent intent = new Intent(adminActivity.this, loginActivity.class);
                 startActivity(intent);
             }
         });
         selfServiceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(employerActivity.this, loginActivity.class);
+                Intent intent = new Intent(adminActivity.this, loginActivity.class);
                 startActivity(intent);
             }
         });
         payButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(employerActivity.this, loginActivity.class);
+                Intent intent = new Intent(adminActivity.this, loginActivity.class);
                 startActivity(intent);
             }
         });
@@ -265,3 +265,4 @@ public class adminActivity extends AppCompatActivity {
         isPayDetailsVisible = !isPayDetailsVisible;
     }
 }
+
