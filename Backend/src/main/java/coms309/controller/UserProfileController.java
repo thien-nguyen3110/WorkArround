@@ -1,7 +1,6 @@
 package coms309.controller;
 
 import coms309.dto.UserDTO;
-import coms309.dto.UserSignupDTO;
 import coms309.entity.Admin;
 import coms309.entity.Employee;
 import coms309.entity.Employer;

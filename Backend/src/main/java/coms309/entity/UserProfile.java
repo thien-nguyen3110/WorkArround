@@ -2,7 +2,6 @@
 package coms309.entity;
 
 import jakarta.persistence.*;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,6 +24,9 @@ public class UserProfile implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long userId;
+
+    @Column(name = "name", nullable = false)
+    private String name;
 
     @Column(name = "user_name", nullable = false)
     private String username;
