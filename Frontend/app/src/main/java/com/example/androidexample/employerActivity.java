@@ -34,7 +34,6 @@ public class employerActivity extends AppCompatActivity {
     private FrameLayout borderChange;
 
     private Button checkButton;
-    /*
     private Button projectStatButton;
     private Button assignProjButton;
     private Button employeeAttendanceButton;
@@ -45,7 +44,7 @@ public class employerActivity extends AppCompatActivity {
     private Button projButton;
     private Button selfServiceButton;
     private Button payButton;
-
+    /*
     private TextView welcomeMsg;
     */
     private TextView checkInMsg;
@@ -84,7 +83,6 @@ public class employerActivity extends AppCompatActivity {
         timeClockMsg = findViewById(R.id.timeText);
         shiftDetails = findViewById(R.id.shiftDetails);
         payDetails = findViewById(R.id.payDetails);
-        /*
         projectStatButton = findViewById(R.id.projStatusButton);
         assignProjButton = findViewById(R.id.assignProjButton);
         employeeAttendanceButton = findViewById(R.id.employeeAttendanceButton);
@@ -94,7 +92,10 @@ public class employerActivity extends AppCompatActivity {
         profileButton = findViewById(R.id.profileButton);
         projButton = findViewById(R.id.projButton);
         selfServiceButton = findViewById(R.id.selfServiceButton);
-        payButton = findViewById(R.id.payButton)
+        payButton = findViewById(R.id.payButton);
+
+
+        /*
         welcomeMsg = findViewById(R.id.welcomeMessage);
         */
 
@@ -150,20 +151,77 @@ public class employerActivity extends AppCompatActivity {
             }
         });
 
-        /*
-        // Intents for all pages
-        projectStatButton.setOnClickListener(v -> startActivity(new Intent(employerActivity.this, projectStatusActivity.class)));
-        assignProjButton.setOnClickListener(v -> startActivity(new Intent(employerActivity.this, assignProjectActivity.class)));
-        employeeAttendanceButton.setOnClickListener(v -> startActivity(new Intent(employerActivity.this, employeeAttendanceActivity.class)));
-        employeeStatButton.setOnClickListener(v -> startActivity(new Intent(employerActivity.this, employeeStatusActivity.class)));
-        messageButton.setOnClickListener(v -> startActivity(new Intent(employerActivity.this, messageActivity.class)));
-        performanceReviewButton.setOnClickListener(v -> startActivity(new Intent(employerActivity.this, performanceReviewActivity.class)));
-        profileButton.setOnClickListener(v -> startActivity(new Intent(employerActivity.this, profileActivity.class)));
-        projButton.setOnClickListener(v -> startActivity(new Intent(employerActivity.this, projectActivity.class)));
-        selfServiceButton.setOnClickListener(v -> startActivity(new Intent(employerActivity.this, selfServiceActivity.class)));
-        payButton.setOnClickListener(v -> startActivity(new Intent(employerActivity.this, payActivity.class)));
-        */
-
+        //All Intents for buttons to new pages down below
+        projectStatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(employerActivity.this, loginActivity.class);
+                startActivity(intent);
+            }
+        });
+        assignProjButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(employerActivity.this, loginActivity.class);
+                startActivity(intent);
+            }
+        });
+        employeeAttendanceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(employerActivity.this, loginActivity.class);
+                startActivity(intent);
+            }
+        });
+        employeeStatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(employerActivity.this, loginActivity.class);
+                startActivity(intent);
+            }
+        });
+        messageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(employerActivity.this, loginActivity.class);
+                startActivity(intent);
+            }
+        });
+        performanceReviewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(employerActivity.this, loginActivity.class);
+                startActivity(intent);
+            }
+        });
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(employerActivity.this, loginActivity.class);
+                startActivity(intent);
+            }
+        });
+        projButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(employerActivity.this, loginActivity.class);
+                startActivity(intent);
+            }
+        });
+        selfServiceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(employerActivity.this, loginActivity.class);
+                startActivity(intent);
+            }
+        });
+        payButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(employerActivity.this, loginActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     //Pop up page to show hours worked after clocking out
