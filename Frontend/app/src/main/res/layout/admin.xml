@@ -67,7 +67,7 @@
         android:textStyle="bold"
         android:layout_marginLeft="15dp">
     </TextView>
-    
+
     <Button
         android:id="@+id/checkButton"
         android:layout_width="400dp"
@@ -344,26 +344,13 @@
             android:layout_marginLeft="30dp">
         </TextView>
 
-        <!-- up arrow -->
-        <ImageView
-            android:id="@+id/upArrowShift"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="320dp"
-            android:layout_marginTop="-70dp"
-            android:onClick="onArrowClick"
-            android:src="@drawable/arrowdown"
-            android:tint="@color/black"
-            tools:ignore="UseAppTint">
-        </ImageView>
-
-        <!-- down arrow -->
+        <!-- Drop-down arrow to show more shifts -->
         <ImageView
             android:id="@+id/downArrowShift"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="320dp"
-            android:layout_marginTop="-5dp"
+            android:layout_marginTop="-55dp"
             android:onClick="onArrowClick"
             android:src="@drawable/arrowdown"
             android:tint="@color/black"
