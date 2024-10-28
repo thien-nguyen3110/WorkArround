@@ -26,15 +26,49 @@ import java.util.Locale;
 public class employerActivity extends AppCompatActivity {
     private boolean isClockedIn = false;
     private boolean isShiftDetailsVisible = false;
+    private boolean isPayDetailsVisible = false;
+
     private long clockInTime;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
 
     private FrameLayout borderChange;
+
     private Button checkButton;
-    private ImageView shiftArrow;
+    /*
+    private Button projectStatButton;
+    private Button assignProjButton;
+    private Button employeeAttendanceButton;
+    private Button employeeStatButton;
+    private Button messageButton;
+    private Button performanceReviewButton;
+    private Button profileButton;
+    private Button projButton;
+    private Button selfServiceButton;
+    private Button payButton;
+
+    private TextView welcomeMsg;
+    */
     private TextView checkInMsg;
     private Chronometer timeClockMsg;
+    /*
+    private TextView shiftDateMsg;
+    private TextView shiftHoursMsg;
+    private TextView assignedProjMsg;
+    private TextView extraShiftMsg;
+    private TextView extraHoursMsg;
+    private TextView extraProjMsg;
+    private TextView payMsg;
+    private TextView hoursWorkedMsg;
+    private TextView payDateMsg;
+    private TextView extraPayMsg;
+    private TextView extraHoursWorkedMsg;
+    private TextView extraPayDateMsg;
+    */
+
+    private ImageView shiftArrow;
+    private ImageView payArrow;
     private LinearLayout shiftDetails;
+    private LinearLayout payDetails;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -45,9 +79,26 @@ public class employerActivity extends AppCompatActivity {
         borderChange = findViewById(R.id.frameChange);
         checkButton = findViewById(R.id.checkButton);
         shiftArrow = findViewById(R.id.downArrowShift);
+        payArrow = findViewById(R.id.downArrowPay);
         checkInMsg = findViewById(R.id.checkText);
         timeClockMsg = findViewById(R.id.timeText);
         shiftDetails = findViewById(R.id.shiftDetails);
+        payDetails = findViewById(R.id.payDetails);
+        /*
+        projectStatButton = findViewById(R.id.projStatusButton);
+        assignProjButton = findViewById(R.id.assignProjButton);
+        employeeAttendanceButton = findViewById(R.id.employeeAttendanceButton);
+        employeeStatButton = findViewById(R.id.employeeStatusbutton);
+        messageButton = findViewById(R.id.messageButton);
+        performanceReviewButton = findViewById(R.id.performanceButton);
+        profileButton = findViewById(R.id.profileButton);
+        projButton = findViewById(R.id.projButton);
+        selfServiceButton = findViewById(R.id.selfServiceButton);
+        payButton = findViewById(R.id.payButton)
+        welcomeMsg = findViewById(R.id.welcomeMessage);
+        */
+
+
 
         //Clock In/Out functionality
         checkButton.setOnClickListener(new View.OnClickListener() {
@@ -90,8 +141,32 @@ public class employerActivity extends AppCompatActivity {
                 toggleShiftDetails();
             }
         });
+
+        //Pay arrow functionality
+        payArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                togglePayDetails();
+            }
+        });
+
+        /*
+        // Intents for all pages
+        projectStatButton.setOnClickListener(v -> startActivity(new Intent(employerActivity.this, projectStatusActivity.class)));
+        assignProjButton.setOnClickListener(v -> startActivity(new Intent(employerActivity.this, assignProjectActivity.class)));
+        employeeAttendanceButton.setOnClickListener(v -> startActivity(new Intent(employerActivity.this, employeeAttendanceActivity.class)));
+        employeeStatButton.setOnClickListener(v -> startActivity(new Intent(employerActivity.this, employeeStatusActivity.class)));
+        messageButton.setOnClickListener(v -> startActivity(new Intent(employerActivity.this, messageActivity.class)));
+        performanceReviewButton.setOnClickListener(v -> startActivity(new Intent(employerActivity.this, performanceReviewActivity.class)));
+        profileButton.setOnClickListener(v -> startActivity(new Intent(employerActivity.this, profileActivity.class)));
+        projButton.setOnClickListener(v -> startActivity(new Intent(employerActivity.this, projectActivity.class)));
+        selfServiceButton.setOnClickListener(v -> startActivity(new Intent(employerActivity.this, selfServiceActivity.class)));
+        payButton.setOnClickListener(v -> startActivity(new Intent(employerActivity.this, payActivity.class)));
+        */
+
     }
 
+    //Pop up page to show hours worked after clocking out
     private void showClockOutPopup(long clockInTime, long elapsedMillis, String clockOutTime) {
         long elapsedHours = elapsedMillis / 3600000;
         long elapsedMinutes = (elapsedMillis % 3600000) / 60000;
@@ -108,6 +183,7 @@ public class employerActivity extends AppCompatActivity {
         builder.show();
     }
 
+    //Toggle shift details when arrow pressed
     private void toggleShiftDetails() {
         if (isShiftDetailsVisible) {
             shiftDetails.setVisibility(View.GONE);
@@ -117,6 +193,18 @@ public class employerActivity extends AppCompatActivity {
             shiftArrow.setImageResource(R.drawable.uparrow);
         }
         isShiftDetailsVisible = !isShiftDetailsVisible;
+    }
+
+    //Toggle pay details when arrow pressed
+    private void togglePayDetails() {
+        if (isPayDetailsVisible) {
+            payDetails.setVisibility(View.GONE);
+            payArrow.setImageResource(R.drawable.arrowdown);
+        } else {
+            payDetails.setVisibility(View.VISIBLE);
+            payArrow.setImageResource(R.drawable.uparrow);
+        }
+        isPayDetailsVisible = !isPayDetailsVisible;
     }
 }
 

@@ -476,8 +476,8 @@
                 android:text="Pay: $750.00"
                 android:textSize="18dp"
                 android:textColor="@color/black"
-                android:gravity="center"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="30dp">
             </TextView>
 
             <TextView
@@ -487,7 +487,7 @@
                 android:text="Hours Worked: 28.75 hours"
                 android:textSize="18dp"
                 android:textColor="@color/black"
-                android:gravity="center">
+                android:layout_marginLeft="30dp">
             </TextView>
 
             <TextView
@@ -497,8 +497,7 @@
                 android:text="Payday: 12/30/2022"
                 android:textSize="18dp"
                 android:textColor="@color/black"
-                android:gravity="center"
-                android:layout_marginTop="5dp">
+                android:layout_marginLeft="30dp">
             </TextView>
         </LinearLayout>
     </LinearLayout>
