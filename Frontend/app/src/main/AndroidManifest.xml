@@ -92,6 +92,12 @@
         <activity
             android:name=".selfServiceActivity"
             android:exported="true" />
+        <activity
+            android:name=".messageAdapter"
+            android:exported="true" />
+        <activity
+            android:name=".chatActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
