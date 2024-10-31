@@ -157,7 +157,7 @@ public class employerActivity extends AppCompatActivity {
         messageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(employerActivity.this, loginActivity.class);
+                Intent intent = new Intent(employerActivity.this, messageActivity.class);
                 startActivity(intent);
             }
         });

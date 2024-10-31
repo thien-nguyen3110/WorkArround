@@ -12,6 +12,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.VolleyError;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +32,6 @@ public class chatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chatactivity);
 
-        // Toolbar setup
         Toolbar toolbar = findViewById(R.id.chat_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -46,6 +47,7 @@ public class chatActivity extends AppCompatActivity {
         // Retrieve intent extras
         String name = getIntent().getStringExtra("name");
         boolean isGroup = getIntent().getBooleanExtra("isGroup", false);
+        String chatId = getIntent().getStringExtra("chatId"); // Assuming you pass chatId as well
         chatTitle.setText(isGroup ? "Group: " + name : name);
 
         // Setup RecyclerView
@@ -54,17 +56,44 @@ public class chatActivity extends AppCompatActivity {
         recyclerViewMessages.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewMessages.setAdapter(messageAdapter);
 
+        // Fetch messages from backend
+        Apiservice apiService = new Apiservice(this);
+        apiService.getMessages(chatId, new Apiservice.MessageCallback() {
+            @Override
+            public void onSuccess(List<String> messages) {
+                messageList.addAll(messages);
+                messageAdapter.notifyDataSetChanged();
+                recyclerViewMessages.scrollToPosition(messageList.size() - 1);
+            }
+
+            @Override
+            public void onError(VolleyError error) {
+                // Handle error
+            }
+        });
+
         // Send button click listener
         sendButton.setOnClickListener(v -> {
             String message = messageInput.getText().toString().trim();
             if (!message.isEmpty()) {
-                messageList.add(message);
-                messageAdapter.notifyItemInserted(messageList.size() - 1);
-                recyclerViewMessages.scrollToPosition(messageList.size() - 1);
-                messageInput.setText("");
+                apiService.sendMessage(chatId, message, new Apiservice.ResponseCallback() {
+                    @Override
+                    public void onSuccess() {
+                        messageList.add(message);
+                        messageAdapter.notifyItemInserted(messageList.size() - 1);
+                        recyclerViewMessages.scrollToPosition(messageList.size() - 1);
+                        messageInput.setText("");
+                    }
+
+                    @Override
+                    public void onError(VolleyError error) {
+                        // Handle error
+                    }
+                });
             }
         });
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

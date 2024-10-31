@@ -8,6 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.android.volley.VolleyError;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,17 +32,23 @@ public class messageActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Sample data until backEnd finishes
-        List<String> individualMessages = Arrays.asList("Alice", "Bob", "Charlie");
-        List<String> groupMessages = Arrays.asList("Project Team", "Family Group");
+        // Fetch messages from backend
+        Apiservice apiService = new Apiservice(this);
+        apiService.getMessages("user_chat_id", new Apiservice.MessageCallback() {
+            @Override
+            public void onSuccess(List<String> messages) {
+                // Update UI with messages
+                recyclerViewIndividual.setLayoutManager(new LinearLayoutManager(messageActivity.this));
+                recyclerViewIndividual.setAdapter(new messageAdapter(messageActivity.this, messages, false));
+            }
 
-        // Setting up adapters
-        recyclerViewIndividual.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewIndividual.setAdapter(new messageAdapter(this, individualMessages, false));
-
-        recyclerViewGroup.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewGroup.setAdapter(new messageAdapter(this, groupMessages, true));
+            @Override
+            public void onError(VolleyError error) {
+                // Handle error
+            }
+        });
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -178,7 +178,7 @@ public class adminActivity extends AppCompatActivity {
         projButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(adminActivity.this, loginActivity.class);
+                Intent intent = new Intent(adminActivity.this, projectActivity.class);
                 startActivity(intent);
             }
         });

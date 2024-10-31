@@ -1,13 +1,23 @@
 package com.example.androidexample;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,46 +27,78 @@ import java.util.Map;
 public class projectActivity extends AppCompatActivity {
     private LinearLayout projectListLayout;
     private List<Map<String, String>> projectList;
+    private Button createProjButton;
+
+    // Replace when backend finishes
+    private static final String API_URL = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.projectassgin);
 
-        // Set up the Toolbar
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Enable the back button
-        getSupportActionBar().setTitle("Projects"); // Set the title
-
-
-        //Button createProjectButton = findViewById(R.id.create_project_button);
+        createProjButton = findViewById(R.id.createProject);
         projectListLayout = findViewById(R.id.project_list_layout);
         projectList = new ArrayList<>();
 
-        checkProjects();
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Projects");
 
-        /*
-        createProjectButton.setOnClickListener(new View.OnClickListener() {
+        createProjButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createNewProject("Project Name", "Project Description", "Employer Name", "Due Date", "High");
+                Intent intent = new Intent(projectActivity.this, createProject.class);
+                startActivity(intent);
             }
         });
-
-         */
+        fetchProjects();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish(); // Handle back button action
-            return true;
+    private void fetchProjects() {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.GET,
+                API_URL,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        parseProjectData(response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Handle error response
+                        TextView errorText = new TextView(projectActivity.this);
+                        errorText.setText("Error fetching projects: " + error.getMessage());
+                        projectListLayout.addView(errorText);
+                    }
+                }
+        );
+        Volley.newRequestQueue(this).add(jsonArrayRequest);
+    }
+
+    private void parseProjectData(JSONArray projectsArray) {
+        projectList.clear();
+        for (int i = 0; i < projectsArray.length(); i++) {
+            try {
+                JSONObject project = projectsArray.getJSONObject(i);
+                String name = project.getString("name");
+                String description = project.getString("description");
+                String assignedTo = project.getString("assignedTo");
+                String dueDate = project.getString("dueDate");
+                String importance = project.getString("importance");
+
+                addProjectToList(name, description, assignedTo, dueDate, importance);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
-        return super.onOptionsItemSelected(item);
     }
 
-    private void createNewProject(String name, String description, String assignedTo, String dueDate, String importance) {
+    private void addProjectToList(String name, String description, String assignedTo, String dueDate, String importance) {
         Map<String, String> newProject = new HashMap<>();
         newProject.put("name", name);
         newProject.put("description", description);
@@ -65,10 +107,10 @@ public class projectActivity extends AppCompatActivity {
         newProject.put("importance", importance);
 
         projectList.add(newProject);
-        checkProjects();
+        displayProjects();
     }
 
-    private void checkProjects() {
+    private void displayProjects() {
         projectListLayout.removeAllViews();
         if (projectList.isEmpty()) {
             TextView noProjectsText = new TextView(this);
@@ -106,6 +148,8 @@ public class projectActivity extends AppCompatActivity {
         return projectView;
     }
 }
+
+
 
 
 

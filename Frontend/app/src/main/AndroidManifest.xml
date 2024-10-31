@@ -98,6 +98,9 @@
         <activity
             android:name=".chatActivity"
             android:exported="true" />
+        <activity
+            android:name=".createProject"
+            android:exported="true" />
     </application>
 
 </manifest>
