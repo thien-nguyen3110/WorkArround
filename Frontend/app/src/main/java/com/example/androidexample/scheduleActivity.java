@@ -43,7 +43,7 @@ public class scheduleActivity extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 // Handle the date selected
-                String selectedDate = dayOfMonth + "/" + (month + 1) + "/" + year; // Month is 0-based
+                String selectedDate = month+1 + "/" + (dayOfMonth) + "/" + year; // Month is 0-based
                 Toast.makeText(scheduleActivity.this, "Selected date: " + selectedDate, Toast.LENGTH_SHORT).show();
             }
         });
