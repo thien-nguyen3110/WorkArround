@@ -32,4 +32,5 @@ public class Employee {
         @Enumerated(EnumType.STRING)
         @Column(name = "user_type")
         private UserType userType;
+
 }
