@@ -28,7 +28,7 @@ public class scheduleActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.assignproject);
+        setContentView(R.layout.schedule);
     }
 
 }
