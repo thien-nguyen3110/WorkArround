@@ -49,18 +49,22 @@ public class createScheduleActivity extends AppCompatActivity {
     private void showTimePickerDialog(TextView timeText) {
         // Get Current Time
         final Calendar calendar = Calendar.getInstance();
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int hour = calendar.get(Calendar.HOUR);
         int minute = calendar.get(Calendar.MINUTE);
+        boolean isAM = calendar.get(Calendar.AM_PM) == Calendar.AM;
 
-        // Open TimePickerDialog
+        // Open TimePickerDialog with 12-hour format
         TimePickerDialog timePickerDialog = new TimePickerDialog(createScheduleActivity.this,
                 (view, selectedHour, selectedMinute) -> {
                     // Format the time and set it to the TextView
-                    String formattedTime = String.format("%02d:%02d", selectedHour, selectedMinute);
+                    String formattedTime = String.format("%02d:%02d %s",
+                            selectedHour == 0 ? 12 : selectedHour, selectedMinute,
+                            selectedHour < 12 ? "AM" : "PM");
                     timeText.setText(formattedTime);
-                }, hour, minute, false); // true for 24-hour format
+                }, hour, minute, false); // false for 12-hour format
 
         timePickerDialog.show();
     }
 }
+
 
