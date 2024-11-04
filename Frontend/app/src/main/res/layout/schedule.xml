@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="Time worked this month:"
         android:padding="8dp"
-        android:background="@android:color/holo_blue_light"
+        android:background="@android:color/holo_orange_dark"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:text="Time worked this week:"
         android:padding="8dp"
-        android:background="@android:color/holo_green_light"
+        android:background="@android:color/holo_orange_light"
         app:layout_constraintTop_toBottomOf="@id/timeWorkedMonth"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:text="Scheduled time left this week:"
         android:padding="8dp"
-        android:background="@android:color/holo_orange_light"
+        android:background="@android:color/holo_orange_dark"
         app:layout_constraintTop_toBottomOf="@id/timeWorkedWeek"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -48,8 +48,44 @@
         android:layout_height="wrap_content"
         android:text="Excused days left:"
         android:padding="8dp"
-        android:background="@android:color/holo_red_light"
+        android:background="@android:color/holo_orange_light"
         app:layout_constraintTop_toBottomOf="@id/scheduledTimeLeft"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Check-In Time -->
+    <TextView
+        android:id="@+id/checkInTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Check in time on selected date:"
+        android:padding="8dp"
+        android:background="@android:color/holo_orange_dark"
+        app:layout_constraintTop_toBottomOf="@id/excusedDaysLeft"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Check-Out Time -->
+    <TextView
+        android:id="@+id/checkOutTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Check out time on selected date:"
+        android:padding="8dp"
+        android:background="@android:color/holo_orange_light"
+        app:layout_constraintTop_toBottomOf="@id/checkInTime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Time Worked on Selected Date -->
+    <TextView
+        android:id="@+id/timeWorkedOnSelectedDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Time worked on selected date:"
+        android:padding="8dp"
+        android:background="@android:color/holo_orange_dark"
+        app:layout_constraintTop_toBottomOf="@id/checkOutTime"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -57,7 +93,7 @@
         android:id="@+id/scheduleCalendar"
         android:layout_width="410dp"
         android:layout_height="366dp"
-        app:layout_constraintTop_toBottomOf="@id/excusedDaysLeft"
+        app:layout_constraintTop_toBottomOf="@id/timeWorkedOnSelectedDate"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
