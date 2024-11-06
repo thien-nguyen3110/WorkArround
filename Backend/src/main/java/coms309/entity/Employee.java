@@ -32,18 +32,15 @@ public class Employee {
     @JoinColumn(name = "user_profile_id", unique = true)
     private UserProfile userProfile;
 
-<<<<<<< HEAD
     @NotNull(message = "Projects assignment cannot be null")
     @ManyToOne
     @JoinColumn(name = "e_projects", referencedColumnName = "project_id")
     private Projects projects;
-=======
+
     @NotNull(message = "Project assignment cannot be null")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id", referencedColumnName = "project_id", nullable = false)
     private Projects project;
->>>>>>> d3b6d73a755e3e772a180f5599e173223ccb389c
-
 
     public Employee(){}
 }
