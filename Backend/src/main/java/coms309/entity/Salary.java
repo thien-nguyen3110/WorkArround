@@ -31,8 +31,13 @@ public class Salary {
     private Long salaryId;
 
     @NotNull(message = "User profile cannot be null")
+<<<<<<< HEAD
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_profile_id", referencedColumnName = "user_id", nullable = false)
+=======
     @OneToOne(mappedBy="salary" , cascade = CascadeType.ALL)
     @JsonIgnore
+>>>>>>> d3b6d73a755e3e772a180f5599e173223ccb389c
     private UserProfile userProfile;
 
 
