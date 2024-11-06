@@ -29,7 +29,7 @@ public class ProjectService {
     }
 
     public ResponseEntity<String> createProject(ProjectDTO newProject) {
-        Optional<Projects> existingProject = projectRepository.findByName(newProject.getProjectName());
+        Optional<Projects> existingProject = projectRepository.findByProjectName(newProject.getProjectName());
         if (existingProject.isPresent()) {
             return ResponseEntity.badRequest().body("Projects with the same name already exists");
         }
@@ -44,7 +44,7 @@ public class ProjectService {
             Projects projects = existingProject.get();
             projects.setDescription(updatedProjects.getDescription());
             projects.setDueDate(updatedProjects.getDueDate());
-            projects.setName(updatedProjects.getName());
+            projects.setProjectName(updatedProjects.getProjectName());
             projects.setStatus(updatedProjects.getStatus());
             projectRepository.save(projects);
             return ResponseEntity.ok("Projects updated successfully");
