@@ -25,7 +25,7 @@ public class Salary {
     private Long salaryId;
 
     @NotNull(message = "User profile cannot be null")
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_profile_id", referencedColumnName = "user_id", nullable = false)
     private UserProfile userProfile;
 

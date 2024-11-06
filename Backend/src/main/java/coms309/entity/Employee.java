@@ -24,7 +24,7 @@ public class Employee {
     @JoinColumn(name = "u_id", referencedColumnName = "user_id")
     private UserProfile userProfile;
 
-    @NotNull(message = "Project assignment cannot be null")
+    @NotNull(message = "Projects assignment cannot be null")
     @ManyToOne
     @JoinColumn(name = "e_projects", referencedColumnName = "project_id")
     private Projects projects;
