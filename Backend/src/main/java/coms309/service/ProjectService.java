@@ -51,12 +51,9 @@ public class ProjectService {
         }
         return ResponseEntity.notFound().build();
     }
-//    @Autowired
-//    private ProjectRepository projectRepository;
-//
-//    @Autowired
-//    private UserProfileRepository userProfileRepository;
-//
+
+
+
 //    public Projects getProjects(Long projectId, Long userProfileId) {
 //        Optional<Projects> projectOpt = projectRepository.findById(projectId);
 //        Optional<Projects> userIdOpt = projectRepository.findById(userProfileId);

@@ -1,18 +1,29 @@
 package coms309.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+<<<<<<< HEAD
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+=======
+import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.catalina.User;
+
+import java.util.*;
+>>>>>>> d3b6d73a755e3e772a180f5599e173223ccb389c
 
 @Entity
 public class Projects {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+<<<<<<< HEAD
     @Column(name = "project_id", nullable = false, updatable = false)
     private Long projectId;
 
@@ -22,6 +33,24 @@ public class Projects {
 
     @Size(max = 500, message = "Description must not exceed 500 characters")
     private String description;
+=======
+    @Column(name = "project_id")
+
+    private Long projectId;
+
+
+    @NotNull(message = "Project name cannot be null")
+    @Column(name = "project_name", nullable = false)
+    private String projectName;
+
+    @NotNull(message = "Project description cannot be null")
+    @Column(name = "project_description", nullable= false)
+    private String Description;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "Due_date")
+    private Date dueDate ;
+>>>>>>> d3b6d73a755e3e772a180f5599e173223ccb389c
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tasks> tasks = new ArrayList<>();
@@ -33,6 +62,7 @@ public class Projects {
     private Date dueDate;
     private String status;
 
+<<<<<<< HEAD
     // Constructors
     public Projects(String description, Date dueDate, String name, String status) {
         this.name = name;
@@ -41,6 +71,25 @@ public class Projects {
         this.status = status;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
+=======
+    @ManyToMany(mappedBy = "projects")
+    private Set<Employer> employers = new HashSet<>();
+
+    @ManyToMany(mappedBy = "projects")
+    private Set<Admin> admins = new HashSet<>();
+
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Employee> employees = new HashSet<>();
+
+    public Projects(){}
+
+    public Projects(String Description, Date dueDate, String projectName, String status ){
+        this.Description= Description;
+        this.projectName=projectName;
+        this.status= status;
+        this.dueDate= new Date();
+
+>>>>>>> d3b6d73a755e3e772a180f5599e173223ccb389c
     }
 
     public Projects() {
