@@ -18,7 +18,6 @@ public class ProjectDTO {
 
     private String status;
 
-
     private Date dueDate;
 
 

@@ -86,6 +86,5 @@ public class UserProfile implements Serializable {
         this.nextShift= new Date();
     }
 
-
     public UserProfile(){}
 }

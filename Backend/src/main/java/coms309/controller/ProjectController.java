@@ -1,5 +1,6 @@
 package coms309.controller;
 
+import coms309.dto.NotificationRequestDTO;
 import coms309.dto.ProjectDTO;
 
 import coms309.entity.Notification;
@@ -8,6 +9,7 @@ import coms309.entity.Projects;
 import coms309.repository.ProjectRepository;
 import coms309.service.NotificationService;
 import coms309.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -61,9 +63,9 @@ public class ProjectController {
         return notificationService.notifyEmployees(id);
     }
 
-    @PostMapping("/meeting/create")
-    public ResponseEntity<String> createMeeting(@RequestBody String meetingDescription) {
-        return notificationService.createMeetingNotification(meetingDescription);
+    @PostMapping("/notifications/create")
+    public ResponseEntity<String> createNotification(@Valid @RequestBody NotificationRequestDTO notificationRequestDTO) {
+        return notificationService.createNotification(notificationRequestDTO);
     }
 
     @GetMapping("/user/{id}/next-shift")
@@ -81,9 +83,9 @@ public class ProjectController {
         return notificationService.getAllNotifications();
     }
 
-    @GetMapping("/notifications/{id}")
-    public ResponseEntity<Notification> getNotificationById(@PathVariable Long id) {
-        return notificationService.getNotificationById(id);
+    @DeleteMapping("/notifications/delete/{id}")
+    public ResponseEntity<String> deleteNotification(@PathVariable Long id) {
+        return notificationService.deleteNotification(id);
     }
 
 
