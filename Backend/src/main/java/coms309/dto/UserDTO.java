@@ -1,11 +1,14 @@
 package coms309.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.springframework.lang.Nullable;
 
 @Data
 public class UserDTO {
-    private String userId;
+
+
     private String username;
 
     @Nullable
@@ -13,7 +16,7 @@ public class UserDTO {
 
     private String password;
 
-    public UserDTO(String username, String email, Long id) {
+    public UserDTO(String username, String email) {
         // Log constructor usage
         System.out.println("Creating UserDTO for username: " + username);
 

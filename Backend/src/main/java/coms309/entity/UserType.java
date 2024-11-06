@@ -11,5 +11,5 @@ import lombok.Setter;
 public enum UserType {
     EMPLOYEE,
     EMPLOYER,
-    ADMIN,
+    ADMIN
 }
