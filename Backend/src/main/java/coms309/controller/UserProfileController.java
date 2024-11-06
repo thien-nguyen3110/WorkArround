@@ -1,5 +1,6 @@
 package coms309.controller;
 
+import coms309.dto.SignUpDTO;
 import coms309.dto.UserDTO;
 import coms309.dto.SignUpDTO;
 import coms309.entity.UserProfile;
