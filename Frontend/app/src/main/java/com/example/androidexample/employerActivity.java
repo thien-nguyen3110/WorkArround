@@ -1,176 +1,195 @@
 package com.example.androidexample;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
-import android.os.Handler;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.Chronometer;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.androidexample.R;
 import com.example.androidexample.loginActivity;
 
-import java.util.concurrent.TimeUnit;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class employerActivity extends AppCompatActivity {
+    private boolean isClockedIn = false;
 
-    // Check-In/Check-Out variables
-    private LinearLayout checkInOutBox;
-    private TextView checkInOutText;
-    private boolean isCheckedIn = false;
-    private long startTime;
-    private Handler handler = new Handler();
-    private Runnable timerRunnable;
-    private TextView timerTextView; // Optional: To display timer
+    private long clockInTime;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
 
-    // Next Shift and Payday sections
-    private LinearLayout nextShiftBox, paydayBox;
-    private ImageButton nextShiftArrow, paydayArrow;
-    private boolean isNextShiftExpanded = false;
-    private boolean isPaydayExpanded = false;
+    private FrameLayout borderChange;
 
+    private Button checkButton;
+    private Button projectStatButton;
+    private Button assignProjButton;
+    private Button employeeAttendanceButton;
+    private Button employeeStatButton;
+    private Button messageButton;
+    private Button performanceReviewButton;
+    private Button profileButton;
+    private Button projButton;
+    private Button selfServiceButton;
+    private Button payButton;
+    private TextView checkInMsg;
+    private Chronometer timeClockMsg;
+
+    private SearchView searchView;
+    private Button searchButton;
+    private TextView resultTextView;
+
+    private List<String> sampleData;
+
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.employer);
 
-        // Initialize Views
-        checkInOutBox = findViewById(R.id.checkInOutBox);
-        checkInOutText = findViewById(R.id.checkInOutText);
+        borderChange = findViewById(R.id.frameChange);
+        checkButton = findViewById(R.id.checkButton);
+        checkInMsg = findViewById(R.id.checkText);
+        timeClockMsg = findViewById(R.id.timeText);
+        projectStatButton = findViewById(R.id.projStatusButton);
+        assignProjButton = findViewById(R.id.assignProjButton);
+        employeeAttendanceButton = findViewById(R.id.employeeAttendanceButton);
+        employeeStatButton = findViewById(R.id.employeeStatusbutton);
+        messageButton = findViewById(R.id.messageButton);
+        performanceReviewButton = findViewById(R.id.performanceButton);
+        profileButton = findViewById(R.id.profileButton);
+        projButton = findViewById(R.id.projButton);
+        selfServiceButton = findViewById(R.id.selfServiceButton);
+        payButton = findViewById(R.id.payButton);
+        searchView = findViewById(R.id.searchView);
+        searchButton = findViewById(R.id.searchButton);
+        resultTextView = findViewById(R.id.resultTextView);
 
-        // Initialize Navigation Buttons
-        initializeNavigationButtons();
+        initializeSampleData();
 
-        // Initialize Check-In/Check-Out functionality
-        checkInOutBox.setOnClickListener(new View.OnClickListener() {
+        // Search button listener
+        searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                toggleCheckInOut();
+            public void onClick(View v) {
+                performSearch();
             }
         });
 
-        // Initialize Next Shift Dropdown
-        nextShiftBox = findViewById(R.id.nextShiftBox);
-        nextShiftArrow = findViewById(R.id.nextShiftArrow);
-        nextShiftBox.setOnClickListener(new View.OnClickListener() {
+        //Clock In/Out functionality
+        checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                toggleNextShiftDropdown();
+            public void onClick(View v) {
+                LayerDrawable layerDrawable = (LayerDrawable) borderChange.getBackground();
+                Drawable borderDrawable = layerDrawable.getDrawable(0);
+
+                if (borderDrawable instanceof GradientDrawable) {
+                    GradientDrawable gradientDrawable = (GradientDrawable) borderDrawable;
+
+                    if (isClockedIn) {
+                        gradientDrawable.setStroke(15, Color.GRAY);
+                        checkInMsg.setText("Clock In");
+
+                        timeClockMsg.stop();
+                        timeClockMsg.setBase(SystemClock.elapsedRealtime());
+
+                        String clockOutTime = dateFormat.format(new Date());
+                        showClockOutPopup(clockInTime, System.currentTimeMillis() - clockInTime, clockOutTime);
+                    } else {
+                        gradientDrawable.setStroke(15, Color.GREEN);
+                        checkInMsg.setText("Clock Out");
+
+                        timeClockMsg.setBase(SystemClock.elapsedRealtime());
+                        timeClockMsg.start();
+
+                        clockInTime = System.currentTimeMillis();
+                    }
+
+                    isClockedIn = !isClockedIn;
+                }
             }
         });
 
-        // Initialize Payday Dropdown
-        paydayBox = findViewById(R.id.paydayBox);
-        paydayArrow = findViewById(R.id.paydayArrow);
-        paydayBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                togglePaydayDropdown();
-            }
-        });
-    }
-
-    private void initializeNavigationButtons() {
-        // Project Status
-        Button projectStatus = findViewById(R.id.projectStatus);
-        projectStatus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(employerActivity.this, loginActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        // Assign Project
-        Button assignProject = findViewById(R.id.assignProject);
-        assignProject.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(employerActivity.this, loginActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        // Employee Attendance
-        Button employeeAttendance = findViewById(R.id.employeeAttendance);
-        employeeAttendance.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(employerActivity.this, loginActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        // Employee Status
-        Button employeeStatus = findViewById(R.id.employeeStatus);
-        employeeStatus.setOnClickListener(new View.OnClickListener() {
+        //All Intents for buttons to new pages down below
+        projectStatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(employerActivity.this, loginActivity.class);
                 startActivity(intent);
             }
         });
-
-        // Time Off Menu
-        Button timeOffMenu = findViewById(R.id.timeOffMenu);
-        timeOffMenu.setOnClickListener(new View.OnClickListener() {
+        assignProjButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(employerActivity.this, loginActivity.class);
                 startActivity(intent);
             }
         });
-
-        // Contract
-        Button contract = findViewById(R.id.contract);
-        contract.setOnClickListener(new View.OnClickListener() {
+        employeeAttendanceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(employerActivity.this, loginActivity.class);
                 startActivity(intent);
             }
         });
-
-        // Profile
-        Button profile = findViewById(R.id.profile);
-        profile.setOnClickListener(new View.OnClickListener() {
+        employeeStatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(employerActivity.this, loginActivity.class);
                 startActivity(intent);
             }
         });
-
-        // Tasks
-        Button tasks = findViewById(R.id.tasks);
-        tasks.setOnClickListener(new View.OnClickListener() {
+        messageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(employerActivity.this, messageActivity.class);
+                startActivity(intent);
+            }
+        });
+        performanceReviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(employerActivity.this, loginActivity.class);
                 startActivity(intent);
             }
         });
-
-        // Time Tracking
-        Button timeTracking = findViewById(R.id.timeTracking);
-        timeTracking.setOnClickListener(new View.OnClickListener() {
+        profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(employerActivity.this, loginActivity.class);
                 startActivity(intent);
             }
         });
-
-        // Tax/Pay
-        Button taxPay = findViewById(R.id.taxPay);
-        taxPay.setOnClickListener(new View.OnClickListener() {
+        projButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(employerActivity.this, loginActivity.class);
+                startActivity(intent);
+            }
+        });
+        selfServiceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(employerActivity.this, loginActivity.class);
+                startActivity(intent);
+            }
+        });
+        payButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(employerActivity.this, loginActivity.class);
@@ -179,107 +198,60 @@ public class employerActivity extends AppCompatActivity {
         });
     }
 
-    private void toggleCheckInOut() {
-        if (!isCheckedIn) {
-            // Check In
-            isCheckedIn = true;
-            checkInOutText.setText("Check Out");
-            startTime = System.currentTimeMillis();
+    // Initialize sample data for searching
+    private void initializeSampleData() {
+        sampleData = new ArrayList<>();
+        sampleData.add("Project A");
+        sampleData.add("Project B");
+        sampleData.add("Employee 1");
+        sampleData.add("Employee 2");
+        sampleData.add("Attendance Report");
+        sampleData.add("Performance Review");
+    }
 
-            Toast.makeText(this, "Checked In", Toast.LENGTH_SHORT).show();
+    // Search functionality
+    private void performSearch() {
+        String query = searchView.getQuery().toString().toLowerCase();
+        if (!query.isEmpty()) {
+            StringBuilder results = new StringBuilder("Search Results:\n");
+            boolean found = false;
 
-            // Optionally, start a visual timer
-            // startTimer();
+            for (String item : sampleData) {
+                if (item.toLowerCase().contains(query)) {
+                    results.append(item).append("\n");
+                    found = true;
+                }
+            }
 
+            if (found) {
+                resultTextView.setText(results.toString());
+                resultTextView.setVisibility(View.VISIBLE); // Show results
+            } else {
+                resultTextView.setText("No results found for: " + query);
+                resultTextView.setVisibility(View.VISIBLE); // Show no results found
+            }
         } else {
-            // Check Out
-            isCheckedIn = false;
-            checkInOutText.setText("Check In");
-            long endTime = System.currentTimeMillis();
-            long workedMillis = endTime - startTime;
-
-            // Calculate hours, minutes, seconds
-            long hours = TimeUnit.MILLISECONDS.toHours(workedMillis);
-            long minutes = TimeUnit.MILLISECONDS.toMinutes(workedMillis) % 60;
-            long seconds = TimeUnit.MILLISECONDS.toSeconds(workedMillis) % 60;
-
-            String workedTime = String.format("%02d:%02d:%02d", hours, minutes, seconds);
-
-            // Show AlertDialog
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Work Summary")
-                    .setMessage("You worked from " + formatTime(startTime) + " to " + formatTime(endTime) +
-                            "\nTotal Hours: " + workedTime)
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) { }
-                    })
-                    .show();
-
-            Toast.makeText(this, "Checked Out", Toast.LENGTH_SHORT).show();
-
-            // Optionally, stop the visual timer
-            // stopTimer();
+            resultTextView.setText("Please enter a search term.");
+            resultTextView.setVisibility(View.VISIBLE); // Show prompt
         }
     }
 
-    private String formatTime(long millis) {
-        // Convert milliseconds to HH:mm format
-        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("HH:mm");
-        return sdf.format(new java.util.Date(millis));
-    }
 
-    // Optional: Timer display methods
-    /*
-    private void startTimer() {
-        timerTextView = findViewById(R.id.timerTextView);
-        timerRunnable = new Runnable() {
-            @Override
-            public void run() {
-                long elapsed = System.currentTimeMillis() - startTime;
-                long hours = TimeUnit.MILLISECONDS.toHours(elapsed);
-                long minutes = TimeUnit.MILLISECONDS.toMinutes(elapsed) % 60;
-                long seconds = TimeUnit.MILLISECONDS.toSeconds(elapsed) % 60;
-                timerTextView.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
-                handler.postDelayed(this, 1000);
-            }
-        };
-        handler.post(timerRunnable);
-    }
 
-    private void stopTimer() {
-        handler.removeCallbacks(timerRunnable);
-        timerTextView.setText("00:00:00");
-    }
-    */
+    //Pop up page to show hours worked after clocking out
+    private void showClockOutPopup(long clockInTime, long elapsedMillis, String clockOutTime) {
+        long elapsedHours = elapsedMillis / 3600000;
+        long elapsedMinutes = (elapsedMillis % 3600000) / 60000;
 
-    private void toggleNextShiftDropdown() {
-        if (isNextShiftExpanded) {
-            // Collapse
-            nextShiftBox.setOrientation(LinearLayout.VERTICAL);
-            nextShiftArrow.setImageResource(R.drawable.arrowdown);
-            isNextShiftExpanded = false;
-        } else {
-            // Expand
-            nextShiftBox.setOrientation(LinearLayout.VERTICAL);
-            nextShiftArrow.setImageResource(R.drawable.arrowdown);
-            // TODO: Add code to show more upcoming shifts
-            isNextShiftExpanded = true;
-        }
-    }
+        String clockInTimeFormatted = dateFormat.format(new Date(clockInTime));
+        String workedHours = String.format(Locale.getDefault(), "%02d:%02d", elapsedHours, elapsedMinutes);
 
-    private void togglePaydayDropdown() {
-        if (isPaydayExpanded) {
-            // Collapse
-            paydayBox.setOrientation(LinearLayout.VERTICAL);
-            paydayArrow.setImageResource(R.drawable.arrowdown);
-            isPaydayExpanded = false;
-        } else {
-            // Expand
-            paydayBox.setOrientation(LinearLayout.VERTICAL);
-            paydayArrow.setImageResource(R.drawable.arrowdown);
-            // TODO: Add code to show past paychecks
-            isPaydayExpanded = true;
-        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Clock Out Summary");
+        builder.setMessage("Clock In Time: " + clockInTimeFormatted +
+                "\nClock Out Time: " + clockOutTime +
+                "\nHours Worked: " + workedHours);
+        builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
+        builder.show();
     }
 }
