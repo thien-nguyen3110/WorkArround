@@ -33,16 +33,21 @@ public class Employer{
 
 
 
-    @NotNull(message = "Projects list cannot be null")
-    @ManyToMany
-    @JoinTable(
-            name = "employer_projects",
-            joinColumns = @JoinColumn(name = "employer_id"),
-            inverseJoinColumns = @JoinColumn(name = "project_id")
-    )
+    @ManyToMany(mappedBy = "employers")
+    @JsonBackReference
     private Set<Projects> projects = new HashSet<>();
 
 
 
     public Employer(){}
+
+    public void addProject(Projects project) {
+        this.projects.add(project);
+        project.getEmployers().add(this);
+    }
+
+    public void removeProject(Projects project) {
+        this.projects.remove(project);
+        project.getEmployers().remove(this);
+    }
 }

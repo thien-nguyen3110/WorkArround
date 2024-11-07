@@ -51,10 +51,10 @@ public class ProjectController {
         return projectService.createProject(projectDTO);
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<String> updateProject(@PathVariable Long id, @Valid @RequestBody ProjectDTO projectDTO) {
-        return projectService.updateProject(id, projectDTO);
-    }
+//    @PutMapping("/update/{id}")
+//    public ResponseEntity<String> updateProject(@PathVariable Long id, @Valid @RequestBody ProjectDTO projectDTO) {
+//        return projectService.updateProject(id, projectDTO);
+//    }
 
     @PostMapping("/notify/{id}")
     public ResponseEntity<String> notifyEmployees(@PathVariable Long id) {
