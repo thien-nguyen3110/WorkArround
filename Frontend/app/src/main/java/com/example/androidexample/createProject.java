@@ -86,7 +86,7 @@ public class createProject extends AppCompatActivity {
     }
 
     private void fetchEmployers() {
-        String url = "https://yourapi.com/api/employers"; // Replace with your API endpoint
+        String url = "hhttp://coms-3090-046.class.las.iastate.edu:8080/api/userprofile/usernames";
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
@@ -97,7 +97,7 @@ public class createProject extends AppCompatActivity {
 
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject employer = response.getJSONObject(i);
-                                String username = employer.getString("username");  // Assuming "username" field contains the name
+                                String username = employer.getString("username");
                                 employerNamesList.add(username);
                             }
 

@@ -21,6 +21,7 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.content.SharedPreferences;
 
 public class payCheckOverviewActivity extends AppCompatActivity {
 
@@ -29,11 +30,17 @@ public class payCheckOverviewActivity extends AppCompatActivity {
     private TextView userName;
     private TextView takeHomePay;
     private TextView grossPay;
+    private String loggedInUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.paycheckoverview); // Ensure the layout is named properly
+        setContentView(R.layout.paycheckoverview);
+
+        // Retrieve username from SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        loggedInUsername = sharedPreferences.getString("username", null);
+
 
         // Initialize the views
         payDetailsContainer = findViewById(R.id.payDetailsContainer);
@@ -50,13 +57,11 @@ public class payCheckOverviewActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("Pay Details");
         }
 
-        // Get the username from the Intent
-        String username = getIntent().getStringExtra("username");
-        if (username != null) {
-            userName.setText(username);
-        }
+        // Display the logged-in username
+        userName.setText(loggedInUsername);
 
-        fetchUserData(username);
+        // Fetch user data using the logged-in username
+        fetchUserData(loggedInUsername);
 
         // Set up the button click listener to toggle the paycheck details
         showHideButton.setOnClickListener(new View.OnClickListener() {
@@ -134,4 +139,5 @@ public class payCheckOverviewActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 }
+
 
