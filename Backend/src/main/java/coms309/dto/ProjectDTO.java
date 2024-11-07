@@ -30,12 +30,13 @@ public class ProjectDTO {
     @NotBlank(message = "Status is required")
     private String status;
 
+    @NotNull(message = "Due date is required")
     private Date dueDate;
 
-    @NotNull(message = "Start date is required")
+    
     private Date startDate;
 
-    @NotNull(message = "End date is required")
+    
     private Date endDate;
 
 
