@@ -11,7 +11,7 @@ import java.util.List;
 public interface ScheduleRepository extends JpaRepository<Schedules, Long> {
 
     // Find schedules by the assigned user's ID
-    List<Schedules> findByAssignedUserId(Long userId);
+    List<Schedules> findByUserId(Long userId);
 
     // Find schedules within a specific start time range
     List<Schedules> findByStartTimeBetween(LocalDateTime start, LocalDateTime end);
@@ -23,5 +23,5 @@ public interface ScheduleRepository extends JpaRepository<Schedules, Long> {
     List<Schedules> findByStartTimeLessThanEqualAndEndTimeGreaterThanEqual(LocalDateTime end, LocalDateTime start);
 
     // Find schedules by user and date range
-    List<Schedules> findByAssignedUserIdAndStartTimeBetween(Long userId, LocalDateTime start, LocalDateTime end);
+    List<Schedules> findByUserIdAndStartTimeBetween(Long userId, LocalDateTime start, LocalDateTime end);
 }

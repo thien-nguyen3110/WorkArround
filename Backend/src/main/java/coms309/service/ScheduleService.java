@@ -31,7 +31,7 @@ public class ScheduleService {
         schedule.setEventType(scheduleDTO.getEventType());
         schedule.setStartTime(scheduleDTO.getStartTime());
         schedule.setEndTime(scheduleDTO.getEndTime());
-        schedule.setAssignedUser(user);
+        schedule.setUser(user);
 
         return scheduleRepository.save(schedule);
     }
@@ -49,7 +49,7 @@ public class ScheduleService {
 
     // Retrieve schedules by user ID
     public List<Schedules> getSchedulesByUser(Long userId) {
-        return scheduleRepository.findByAssignedUserId(userId);
+        return scheduleRepository.findByUserId(userId);
     }
 
     // Retrieve schedules within a specific date range
@@ -69,7 +69,7 @@ public class ScheduleService {
         schedule.setEventType(scheduleDTO.getEventType());
         schedule.setStartTime(scheduleDTO.getStartTime());
         schedule.setEndTime(scheduleDTO.getEndTime());
-        schedule.setAssignedUser(user);
+        schedule.setUser(user);
 
         return scheduleRepository.save(schedule);
     }

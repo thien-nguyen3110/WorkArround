@@ -142,12 +142,12 @@ public class Tasks {
     // Utility methods to manage bidirectional relationship with User
     public void addEmployee(User employee) {
         assignedEmployees.add(employee);
-        employee.getTasks().add(this);
+        employee.getTasksSet().add(this);
     }
 
     public void removeEmployee(User employee) {
         assignedEmployees.remove(employee);
-        employee.getTasks().remove(this);
+        employee.getTasksSet().remove(this);
     }
 
     // Lifecycle hooks to update timestamps
