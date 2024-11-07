@@ -80,7 +80,7 @@ public class UserProfile implements Serializable {
     private Employer employer;
 
     @ManyToMany(mappedBy = "users")
-    private Set<GroupChat> groupChats;
+    private List<GroupChat> groupChats;
 
     public UserProfile(Long userId, String password, String username, String email ) {
         this.userId = Long.valueOf(userId);
