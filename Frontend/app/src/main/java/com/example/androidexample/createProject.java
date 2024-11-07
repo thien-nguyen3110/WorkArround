@@ -31,8 +31,8 @@ public class createProject extends AppCompatActivity {
     private EditText employerAssignedEditText;
     private Button saveButton;
 
-    // Replace with URL when they finish
-    private static final String API_URL = "";
+    // URL to get all Projects
+    private static final String API_URL = "http://coms-3090-046.class.las.iastate.edu:8080/api/project/create";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
