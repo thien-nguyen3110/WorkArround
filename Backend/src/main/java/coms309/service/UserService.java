@@ -24,6 +24,7 @@ public class UserService {
 
     /**
      * Retrieve all users from the database.
+     *
      * @return List of users
      */
     public List<UserProfile> getAllUsers() {
@@ -274,5 +275,9 @@ public class UserService {
         userRepository.save(newUser);
         logger.info("Signup successful for username: {}", signUpUserProfileDTO.getUsername());
         return ResponseEntity.ok("Sign up successful");
+    }
+
+    public List<UserProfile> getAllUsernames() {
+        return getAllUsers();
     }
 }
