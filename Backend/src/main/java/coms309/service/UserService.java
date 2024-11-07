@@ -32,6 +32,16 @@ public class UserService {
     }
 
     /**
+     * Retrive all usernames in databse
+     */
+    public List<String> getAllUsernames() {
+        List<UserProfile> users = userProfileRepository.findAll();
+        return users.stream()
+                    .map(UserProfile::getUsername)
+                    .collect(Collectors.toList());
+    }
+
+    /**
      * Get a user by ID.
      * @param id User ID
      * @return Optional containing the user if found, empty otherwise
