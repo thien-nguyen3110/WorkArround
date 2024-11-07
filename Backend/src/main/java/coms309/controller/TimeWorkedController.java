@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import coms309.service.UserService;
 import coms309.exception.ResourceNotFoundException;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/timeWorked")
@@ -20,6 +20,7 @@ public class TimeWorkedController {
     private static final Logger logger = LoggerFactory.getLogger(TimeWorkedController.class);
 
     @Autowired
+
     private UserService userService;
 
     // Get user by ID and return timeWorked along with other details

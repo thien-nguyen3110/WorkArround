@@ -1,6 +1,8 @@
-
 package coms309.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -8,15 +10,19 @@ import lombok.Setter;
 
 /**
  * Entity class representing an employee's salary.
- * 
+ *
  * Improvements:
  * - Added validation annotations to enforce data integrity.
  * - Enhanced documentation for field-level relationships.
+ * - Included a default constructor for JPA.
  */
 @Entity
 @Getter
 @Setter
 @Table(name = "salary")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "salaryId")
 public class Salary {
 
     @Id
@@ -25,10 +31,10 @@ public class Salary {
     private Long salaryId;
 
     @NotNull(message = "User profile cannot be null")
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_profile_id", referencedColumnName = "user_id", nullable = false)
+    @JsonIgnore
     private UserProfile userProfile;
-
 
     @NotNull(message = "Hours worked cannot be null")
     @Column(name = "hours_worked", nullable = false)
@@ -50,13 +56,11 @@ public class Salary {
     @Column(name = "take_home_pay")
     private Double takeHomePay;
 
-    @NotNull(message = "Employee cannot be null")
-    @OneToOne
-    @JoinColumn(name = "employee_id", referencedColumnName = "employee_id")
-    private Employee employee;
+    // Default constructor required by JPA
+    public Salary() {
+    }
 
-
-
+    // Constructor with parameters
     public Salary(UserProfile userProfile, Double hoursWorked, Double payRate, Double bonusPay, Double deductibles) {
         this.userProfile = userProfile;
         this.hoursWorked = hoursWorked;
@@ -76,6 +80,4 @@ public class Salary {
     public Double calculateTakeHomePay() {
         return this.grossPay - this.deductibles;
     }
-
-
 }
