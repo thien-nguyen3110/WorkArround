@@ -1,6 +1,9 @@
 package coms309.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -26,6 +29,9 @@ import java.util.*;
 @Getter
 @Setter
 @Table(name = "projects")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "projectId")
 public class Projects {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,6 +42,11 @@ public class Projects {
     @Size(max = 100, message = "Projects name must not exceed 100 characters")
     private String projectName;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "priority", nullable = false)
+    @NotNull(message = "Priority level is required")
+    private Priority priority;
+
     @Size(max = 500, message = "Description must not exceed 500 characters")
     private String description;
 
@@ -44,9 +55,11 @@ public class Projects {
     private Date dueDate;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Tasks> tasks = new ArrayList<>();
 
     @ManyToMany(mappedBy = "projects")
+    @JsonManagedReference
     private Set<Employer> employers = new HashSet<>();
 
 
@@ -58,11 +71,12 @@ public class Projects {
     private String status;
 
     // Constructors
-    public Projects(String description, Date dueDate, String projectName, String status) {
+    public Projects(String description, Date dueDate, String projectName, String status , Priority priority) {
         this.projectName = projectName;
         this.description = description;
         this.dueDate = dueDate;
         this.status = status;
+        this.priority=priority;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }

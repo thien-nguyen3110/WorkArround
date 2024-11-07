@@ -1,6 +1,7 @@
 package coms309.dto;
 
 
+import coms309.entity.Priority;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,5 +21,5 @@ public class ProjectDTO {
 
     private Date dueDate;
 
-
+    private Priority priority;
 }
