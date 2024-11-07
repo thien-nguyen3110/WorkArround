@@ -1,4 +1,4 @@
-package com.cs309.websocket3.chat;
+package coms309.websocket3.chat;
 
 import java.io.IOException;
 import java.util.List;
@@ -22,10 +22,10 @@ import org.springframework.stereotype.Controller;
 @ServerEndpoint(value = "/chat/{username}")  // WebSocket URL
 public class ChatSocket {
 
-	private static MessageRepository msgRepo;
+	private static coms309.websocket3.chat.MessageRepository msgRepo;
 
 	@Autowired
-	public void setMessageRepository(MessageRepository repo) {
+	public void setMessageRepository(coms309.websocket3.chat.MessageRepository repo) {
 		msgRepo = repo;  // Setting the static variable
 	}
 
@@ -67,7 +67,7 @@ public class ChatSocket {
 		}
 
 		// Save chat history to repository
-		msgRepo.save(new Message(username, message));
+		msgRepo.save(new coms309.websocket3.chat.Message(username, message));
 	}
 
 	@OnClose
@@ -109,7 +109,7 @@ public class ChatSocket {
 	}
 
 	private String getChatHistory() {
-		List<Message> messages = msgRepo.findAll();
+		List<coms309.websocket3.chat.Message> messages = msgRepo.findAll();
 		StringBuilder sb = new StringBuilder();
 		if (messages != null && !messages.isEmpty()) {
 			messages.forEach(message -> sb.append(message.getUserName())

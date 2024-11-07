@@ -1,4 +1,4 @@
-package com.cs309.websocket3.chat;
+package coms309.websocket3.chat;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

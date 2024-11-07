@@ -1,4 +1,4 @@
-package com.cs309.websocket3.chat;
+package coms309.websocket3.chat;
 
 import java.time.LocalDateTime;
 import jakarta.persistence.Column;
