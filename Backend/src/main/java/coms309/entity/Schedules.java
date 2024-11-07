@@ -9,7 +9,7 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
-public class Schedule {
+public class Schedules {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,12 +35,12 @@ public class Schedule {
     private LocalDateTime updatedAt;
 
     // Constructors
-    public Schedule() {
+    public Schedules() {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
 
-    public Schedule(String eventType, LocalDateTime startTime, LocalDateTime endTime, User assignedUser) {
+    public Schedules(String eventType, LocalDateTime startTime, LocalDateTime endTime, User assignedUser) {
         this.eventType = eventType;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -107,7 +107,7 @@ public class Schedule {
     }
 
     // Utility methods for scheduling validations
-    public boolean isConflict(Schedule other) {
+    public boolean isConflict(Schedules other) {
         return (this.startTime.isBefore(other.getEndTime()) && this.endTime.isAfter(other.getStartTime()));
     }
 

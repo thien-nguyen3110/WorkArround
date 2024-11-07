@@ -26,7 +26,7 @@ public class User {
     private String role; // e.g., "Admin", "Employer", "Employee"
 
     @OneToMany(mappedBy = "assignedUser", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Schedule> schedules = new ArrayList<>();
+    private List<Schedules> schedules = new ArrayList<>();
 
     @ManyToMany(mappedBy = "assignedEmployees")
     private Set<Tasks> tasks = new HashSet<>();
@@ -72,11 +72,11 @@ public class User {
         this.role = role;
     }
 
-    public List<Schedule> getSchedules() {
+    public List<Schedules> getSchedules() {
         return schedules;
     }
 
-    public void setSchedules(List<Schedule> schedules) {
+    public void setSchedules(List<Schedules> schedules) {
         this.schedules = schedules;
     }
 
@@ -104,13 +104,13 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
-    // Utility methods to manage bidirectional relationship with Schedule
-    public void addSchedule(Schedule schedule) {
+    // Utility methods to manage bidirectional relationship with Schedules
+    public void addSchedule(Schedules schedule) {
         schedules.add(schedule);
         schedule.setAssignedUser(this);
     }
 
-    public void removeSchedule(Schedule schedule) {
+    public void removeSchedule(Schedules schedule) {
         schedules.remove(schedule);
         schedule.setAssignedUser(null);
     }
