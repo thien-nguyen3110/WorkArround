@@ -260,11 +260,17 @@ public class UserProfileController {
     /**
      * Gets all usernames
      */
+<<<<<<< HEAD
     @GetMapping("/usernames")
     public ResponseEntity<List<UserProfile>> getAllUsernames() {
+=======
+    @GetMapping("/allusernames")
+    public ResponseEntity<List<String>> getAllUsernames() {
+>>>>>>> 737d9e76ddcaf60e6ec17f0da4d011555f1799e6
     logger.info("Controller: Fetching all usernames");
     List<UserProfile> usernames = userService.getAllUsernames();
     return ResponseEntity.ok(usernames);
 }
+
 
 }
