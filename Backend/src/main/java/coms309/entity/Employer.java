@@ -1,5 +1,6 @@
 package coms309.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -27,7 +28,10 @@ public class Employer{
 
     @OneToOne(optional = false, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "user_profile_id", referencedColumnName = "user_id", unique = true)
+    @JsonBackReference
     private UserProfile userProfile;
+
+
 
     @NotNull(message = "Projects list cannot be null")
     @ManyToMany
