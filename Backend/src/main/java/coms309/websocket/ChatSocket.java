@@ -21,7 +21,7 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 
 @Controller  // Required for Spring Boot endpoint
 @EnableWebSocketMessageBroker
-@ServerEndpoint(value = "/chat/{username}")  // WebSocket URL
+@ServerEndpoint(value = "/chat/{username}")  // ChatSocket URL
 public class ChatSocket {
 
 	private static ChatRepository msgRepo;
