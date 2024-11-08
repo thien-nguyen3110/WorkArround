@@ -13,8 +13,8 @@ import jakarta.persistence.TemporalType;
 import lombok.Data;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 
-@EnableWebSocketMessageBroker
 @Entity
+@EnableWebSocketMessageBroker
 @Table(name = "messages")
 @Data
 public class Chat {
