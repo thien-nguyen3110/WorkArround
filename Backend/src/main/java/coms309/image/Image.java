@@ -1,4 +1,4 @@
-package com.example.demo;
+package coms309.image;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 
 import java.io.File;
 
@@ -14,6 +15,7 @@ import java.io.File;
  **/
 
 @Entity
+@EnableWebSocketMessageBroker
 public class Image {
 
     @Id

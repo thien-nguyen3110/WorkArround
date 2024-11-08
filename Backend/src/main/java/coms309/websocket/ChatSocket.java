@@ -17,15 +17,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 
 @Controller  // Required for Spring Boot endpoint
+@EnableWebSocketMessageBroker
 @ServerEndpoint(value = "/chat/{username}")  // WebSocket URL
 public class ChatSocket {
 
-	private static MessageRepository msgRepo;
+	private static ChatRepository msgRepo;
 
 	@Autowired
-	public void setMessageRepository(MessageRepository repo) {
+	public void setChatRepository(ChatRepository repo) {
 		msgRepo = repo;  // Setting the static variable
 	}
 
@@ -51,23 +53,23 @@ public class ChatSocket {
 	}
 
 	@OnMessage
-	public void onMessage(Session session, String message) throws IOException {
+	public void onMessage(Session session, String chat) throws IOException {
 		String username = sessionUsernameMap.get(session);
-		logger.info("Message received from {}: {}", username, message);
+		logger.info("Message received from {}: {}", username, chat);
 
-		if (message.startsWith("@")) {
-			// Direct message handling
-			String destUsername = message.split(" ")[0].substring(1);
-			String directMessage = "[DM] " + username + ": " + message.substring(destUsername.length() + 2);
+		if (chat.startsWith("@")) {
+			// Direct chat handling
+			String destUsername = chat.split(" ")[0].substring(1);
+			String directMessage = "[DM] " + username + ": " + chat.substring(destUsername.length() + 2);
 			sendMessageToParticularUser(destUsername, directMessage);
 			sendMessageToParticularUser(username, directMessage);
 		} else {
-			// Broadcast message
-			broadcast(username + ": " + message);
+			// Broadcast chat
+			broadcast(username + ": " + chat);
 		}
 
 		// Save chat history to repository
-		msgRepo.save(new Message(username, message));
+		msgRepo.save(new Chat(username, chat));
 	}
 
 	@OnClose
@@ -87,21 +89,21 @@ public class ChatSocket {
 		throwable.printStackTrace();
 	}
 
-	private void sendMessageToParticularUser(String username, String message) {
+	private void sendMessageToParticularUser(String username, String chat) {
 		try {
 			Session session = usernameSessionMap.get(username);
 			if (session != null && session.isOpen()) {
-				session.getBasicRemote().sendText(message);
+				session.getBasicRemote().sendText(chat);
 			}
 		} catch (IOException e) {
 			logger.error("Failed to send message to {}: {}", username, e.getMessage());
 		}
 	}
 
-	private void broadcast(String message) {
+	private void broadcast(String chat) {
 		sessionUsernameMap.keySet().parallelStream().forEach(session -> {
 			try {
-				session.getBasicRemote().sendText(message);
+				session.getBasicRemote().sendText(chat);
 			} catch (IOException e) {
 				logger.error("Failed to broadcast message: {}", e.getMessage());
 			}
@@ -109,12 +111,12 @@ public class ChatSocket {
 	}
 
 	private String getChatHistory() {
-		List<Message> messages = msgRepo.findAll();
+		List<Chat> chats = msgRepo.findAll();
 		StringBuilder sb = new StringBuilder();
-		if (messages != null && !messages.isEmpty()) {
-			messages.forEach(message -> sb.append(message.getUserName())
+		if (chats != null && !chats.isEmpty()) {
+			chats.forEach(chat -> sb.append(chat.getUserName())
 					.append(": ")
-					.append(message.getContent())
+					.append(chat.getContent())
 					.append("\n"));
 		}
 		return sb.toString();

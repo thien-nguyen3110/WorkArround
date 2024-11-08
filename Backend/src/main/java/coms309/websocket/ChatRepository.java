@@ -2,12 +2,17 @@ package coms309.websocket;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.query.Param;
+import org.springframework.lang.NonNullApi;
+import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface MessageRepository extends JpaRepository<Message, Long> {
+@EnableJpaRepositories
+@EnableWebSocketMessageBroker
+public interface ChatRepository extends JpaRepository<Chat, Long> {
 
     /**
      * Find all messages sent by a specific user.
@@ -15,7 +20,7 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
      * @return a list of messages sent by the given user
      **/
 
-    List<Message> findByUserName(String userName);
+    List<Chat> findByUserName(String userName);
 
     /**
      * Find the most recent messages, limited by a given count.
@@ -23,8 +28,8 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
      * @return a list of recent messages, limited by the specified count
      **/
 
-    @Query(value = "SELECT m FROM Message m ORDER BY m.sent DESC")
-    List<Message> findRecentMessages(@Param("limit") int limit);
+    @Query(value = "SELECT m FROM Chat m ORDER BY m.sent DESC")
+    List<Chat> findRecentMessages(@Param("limit") int limit);
 
     /**
      * Find a message by ID.
@@ -32,5 +37,5 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
      * @return an optional containing the found message, or empty if not found
      **/
 
-    Optional<Message> findById(Long id);
+    Optional<Chat> findById(Long id);
 }

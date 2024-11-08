@@ -1,12 +1,14 @@
-package com.example.demo;
+package coms309.image;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,6 +16,7 @@ import java.nio.file.Files;
 import java.util.Optional;
 
 @RestController
+@EnableWebSocketMessageBroker
 @RequestMapping("/images")
 public class ImageController {
 

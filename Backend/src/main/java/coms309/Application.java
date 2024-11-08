@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 
 /**
  * Main class for running the Spring Boot application.
@@ -19,6 +20,7 @@ import org.slf4j.LoggerFactory;
  */
 
 @SpringBootApplication(scanBasePackages = {"coms309.websocket", "coms309.image"})
+@EnableWebSocketMessageBroker
 public class Application {
     // Create a logger for tracking the application lifecycle
     private static final Logger logger = LoggerFactory.getLogger(Application.class);

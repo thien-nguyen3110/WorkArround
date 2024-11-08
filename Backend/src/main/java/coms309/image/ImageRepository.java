@@ -1,12 +1,16 @@
-package com.example.demo;
+package coms309.image;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
+import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 
 import java.util.List;
 import java.util.Optional;
 
+@EnableJpaRepositories
+@EnableWebSocketMessageBroker
 public interface ImageRepository extends JpaRepository<Image, Long> {
     /**
      * Finds an image by its ID.
