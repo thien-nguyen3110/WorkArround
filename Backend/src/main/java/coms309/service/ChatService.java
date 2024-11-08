@@ -1,11 +1,8 @@
 package coms309.service;
 import coms309.entity.Message;
 import coms309.entity.UserProfile;
-import coms309.entity.GroupChat;
-import coms309.repository.GroupChatRepository;
 import coms309.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

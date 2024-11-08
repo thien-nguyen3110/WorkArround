@@ -47,14 +47,14 @@ public class ProjectService {
 
     @Transactional
     public ResponseEntity<String> createProject(ProjectDTO projectDTO) {
-        // Check if a project with the same name already exists
+
         Optional<Projects> existingProject = projectRepository.findByProjectName(projectDTO.getProjectName());
         if (existingProject.isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body("Project with the same name already exists");
         }
 
-        // Validate and fetch employers
+
         Set<Employer> employers;
         try {
             employers = validateAndFetchEmployers(projectDTO.getEmployerUsernames());
@@ -77,38 +77,11 @@ public class ProjectService {
         project.setEmployers(employers);
         employers.forEach(employer -> employer.getProjects().add(project));
 
-        // Save the project
+
         projectRepository.save(project);
 
         return ResponseEntity.status(HttpStatus.CREATED).body("Project created successfully");
     }
-//        Optional<Projects> existingProject = projectRepository.findByProjectName(projectDTO.getProjectName());
-//        if (existingProject.isPresent()) {
-//            return ResponseEntity.badRequest().body("Project with the same name already exists");
-//        }
-//
-//
-//        if (projectDTO.getPriority() == null) {
-//            return ResponseEntity.badRequest().body("Priority level is required");
-//        }
-//
-//
-//        Projects project = new Projects();
-//        project.setProjectName(projectDTO.getProjectName());
-//        project.setDescription(projectDTO.getDescription());
-//        project.setDueDate(projectDTO.getDueDate());
-//        project.setPriority(projectDTO.getPriority());
-//        project.setStatus(projectDTO.getStatus());
-//
-//
-//
-//
-//        Set<Employer> employers = validateAndFetchEmployers(projectDTO.getEmployerUsernames());
-//        project.setEmployers(employers);
-//        employers.forEach(employer -> employer.getProjects().add(project));
-//
-//        projectRepository.save(project);
-//        return ResponseEntity.ok("Project created successfully");
 
 
     @Transactional
