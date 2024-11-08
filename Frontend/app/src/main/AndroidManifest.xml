@@ -102,7 +102,19 @@
             android:name=".createProject"
             android:exported="true" />
         <activity
+            android:name=".scheduleActivity"
+            android:exported="true" />
+        <activity
             android:name=".createScheduleActivity"
+            android:exported="true" />
+        <activity
+            android:name=".projectEmployerActivity"
+            android:exported="true" />
+        <activity
+            android:name=".createTasksActivity"
+            android:exported="true" />
+        <activity
+            android:name=".taskEmployeeActivity"
             android:exported="true" />
     </application>
 

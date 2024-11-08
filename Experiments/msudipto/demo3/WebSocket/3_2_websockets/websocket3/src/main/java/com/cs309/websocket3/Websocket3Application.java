@@ -41,7 +41,7 @@ public class Websocket3Application extends SpringBootServletInitializer {
 
 	private static void printCustomBanner(PrintStream out) {
 		out.println("***********************************");
-		out.println("    Welcome to Websocket3 App!     ");
+		out.println("    Welcome to Websocket App!      ");
 		out.println("***********************************");
 	}
 }
