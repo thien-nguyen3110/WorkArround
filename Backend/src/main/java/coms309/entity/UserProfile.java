@@ -79,9 +79,6 @@ public class UserProfile implements Serializable {
     @JsonManagedReference
     private Employer employer;
 
-    @ManyToMany(mappedBy = "users")
-    private List<GroupChat> groupChats;
-
     public UserProfile(Long userId, String password, String username, String email ) {
         this.userId = Long.valueOf(userId);
         this.password = password;
