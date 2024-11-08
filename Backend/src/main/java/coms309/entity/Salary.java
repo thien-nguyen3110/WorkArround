@@ -1,4 +1,3 @@
-
 package coms309.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -11,10 +10,11 @@ import lombok.Setter;
 
 /**
  * Entity class representing an employee's salary.
- * 
+ *
  * Improvements:
  * - Added validation annotations to enforce data integrity.
  * - Enhanced documentation for field-level relationships.
+ * - Included a default constructor for JPA.
  */
 @Entity
 @Getter
@@ -31,7 +31,8 @@ public class Salary {
     private Long salaryId;
 
     @NotNull(message = "User profile cannot be null")
-    @OneToOne(mappedBy="salary" , cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_profile_id", referencedColumnName = "user_id", nullable = false)
     @JsonIgnore
     private UserProfile userProfile;
 
@@ -55,9 +56,11 @@ public class Salary {
     @Column(name = "take_home_pay")
     private Double takeHomePay;
 
+    // Default constructor required by JPA
+    public Salary() {
+    }
 
-
-
+    // Constructor with parameters
     public Salary(UserProfile userProfile, Double hoursWorked, Double payRate, Double bonusPay, Double deductibles) {
         this.userProfile = userProfile;
         this.hoursWorked = hoursWorked;
@@ -69,10 +72,6 @@ public class Salary {
         this.grossPay = calculateGrossPay();
         this.takeHomePay = calculateTakeHomePay();
     }
-
-
-
-    public Salary(){}
 
     public Double calculateGrossPay() {
         return (this.hoursWorked * this.payRate) + this.bonusPay;

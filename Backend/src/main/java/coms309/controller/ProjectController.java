@@ -6,14 +6,13 @@ import coms309.dto.ProjectDTO;
 import coms309.entity.Notification;
 import coms309.entity.Projects;
 
-import coms309.repository.ProjectRepository;
 import coms309.service.NotificationService;
 import coms309.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import coms309.service.ProjectsService;
+import coms309.service.ProjectService;
 import java.util.List;
 
 @RestController
@@ -27,36 +26,36 @@ public class ProjectController {
     private final UserService userService;
 
     @Autowired
-    private final ProjectsService projectsService;
+    private final ProjectService projectService;
 
 
-    public ProjectController( NotificationService notificationService , UserService userService, ProjectsService projectsService) {
+    public ProjectController( NotificationService notificationService , UserService userService, ProjectService projectService) {
 
         this.notificationService = notificationService;
         this.userService=userService;
-        this.projectsService=projectsService;
+        this.projectService = projectService;
 
     }
 
-    @GetMapping("/all")
+    @GetMapping("/allproject")
     public List<Projects> getAllProjects() {
-        return projectsService.getAllProjects();
+        return projectService.getAllProjects();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/projectId/{id}")
     public ResponseEntity<Projects> getProjectById(@PathVariable Long id) {
-        return projectsService.getProjectById(id);
+        return projectService.getProjectById(id);
     }
 
     @PostMapping("/create")
-    public ResponseEntity<String> createProject(@RequestBody ProjectDTO newProject) {
-        return projectsService.createProject(newProject);
+    public ResponseEntity<String> createProject(@Valid @RequestBody ProjectDTO projectDTO) {
+        return projectService.createProject(projectDTO);
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<String> updateProject(@PathVariable Long id, @RequestBody Projects updatedProject) {
-        return projectsService.updateProject(id, updatedProject);
-    }
+//    @PutMapping("/update/{id}")
+//    public ResponseEntity<String> updateProject(@PathVariable Long id, @Valid @RequestBody ProjectDTO projectDTO) {
+//        return projectService.updateProject(id, projectDTO);
+//    }
 
     @PostMapping("/notify/{id}")
     public ResponseEntity<String> notifyEmployees(@PathVariable Long id) {

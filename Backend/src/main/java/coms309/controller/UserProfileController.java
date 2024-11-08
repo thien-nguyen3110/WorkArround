@@ -1,5 +1,6 @@
 package coms309.controller;
 
+import coms309.dto.SignUpDTO;
 import coms309.dto.UserDTO;
 import coms309.dto.SignUpDTO;
 import coms309.entity.UserProfile;
@@ -13,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -256,4 +257,13 @@ public class UserProfileController {
         return userService.signup(signUpUserProfileDTO);
     }
 
+    /**
+     * Gets all usernames
+     */
+    @GetMapping("/usernames")
+    public ResponseEntity<List<UserProfile>> getAllUsernames() {
+        logger.info("Controller: Fetching all usernames");
+        List<UserProfile> usernames = userService.getAllUsernames();
+        return ResponseEntity.ok(usernames);
+    }
 }
